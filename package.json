@@ -1,0 +1,34 @@
+{
+  "name": "tw-syncer",
+  "version": "1.0.0",
+  "description": "Tw syncer",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest -c jest.config.unit.js",
+    "test:unit": "npm run clean && npm run build & jest -c jest.config.unit.js",
+    "test:integration": "npm run clean && npm run build & jest -c jest.config.integration.js",
+    "lint": "node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json 'src/**/*.{ts,tsx}' -o lint-result.json -t json",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "doc": "./node_modules/.bin/typedoc --out dist/docs --mode modules src/",
+    "version": "auto-changelog -p && git add CHANGELOG.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jianhan/tw-syncer.git"
+  },
+  "keywords": [
+    "tw",
+    "typescript"
+  ],
+  "author": "Jian Han <jianhan2018@gmail.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/jianhan/tw-syncer/issues"
+  },
+  "homepage": "https://github.com/jianhan/tw-syncer#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}
