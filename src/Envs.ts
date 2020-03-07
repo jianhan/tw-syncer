@@ -25,7 +25,6 @@ export class Envs {
      * @memberof Envs
      */
     @IsNotEmpty({ message: `SERVICE_NAME environment variable must not be empty` })
-    @IsString({ message: `SERVICE_NAME environment variable be string` })
     public SERVICE_NAME?: string;
 
     /**
@@ -35,7 +34,6 @@ export class Envs {
      * @memberof Envs
      */
     @IsNotEmpty({ message: `CONSUMER_API_KEY environment variable must not be empty` })
-    @IsString({ message: `CONSUMER_API_KEY environment variable be string` })
     public CONSUMER_API_KEY?: string;
 
     /**
@@ -45,7 +43,6 @@ export class Envs {
      * @memberof Envs
      */
     @IsNotEmpty({ message: `CONSUMER_API_SECRET_KEY environment variable must not be empty` })
-    @IsString({ message: `CONSUMER_API_SECRET_KEY environment variable be string` })
     public CONSUMER_API_SECRET_KEY?: string;
 
     /**
@@ -55,7 +52,6 @@ export class Envs {
      * @memberof Envs
      */
     @IsNotEmpty({ message: `ACCESS_TOKEN environment variable must not be empty` })
-    @IsString({ message: `ACCESS_TOKEN environment variable be string` })
     public ACCESS_TOKEN?: string;
 
     /**
@@ -65,7 +61,6 @@ export class Envs {
      * @memberof Envs
      */
     @IsNotEmpty({ message: `ACCESS_SECRET environment variable must not be empty` })
-    @IsString({ message: `ACCESS_SECRET environment variable be string` })
     public ACCESS_SECRET?: string;
 
     /**
@@ -75,7 +70,6 @@ export class Envs {
      * @memberof Envs
      */
     @IsNotEmpty({ message: `S3_ACCESS_KEY_ID environment variable must not be empty` })
-    @IsString({ message: `S3_ACCESS_KEY_ID environment variable be string` })
     public S3_ACCESS_KEY_ID?: string;
 
     /**
@@ -85,7 +79,6 @@ export class Envs {
      * @memberof Envs
      */
     @IsNotEmpty({ message: `S3_SECRET_ACCESS_KEY environment variable must not be empty` })
-    @IsString({ message: `S3_SECRET_ACCESS_KEY environment variable be string` })
     public S3_SECRET_ACCESS_KEY?: string;
 
     /**
@@ -95,7 +88,6 @@ export class Envs {
      * @memberof Envs
      */
     @IsNotEmpty({ message: `S3_BUCKET_NAME environment variable must not be empty` })
-    @IsString({ message: `S3_BUCKET_NAME environment variable be string` })
     public S3_BUCKET_NAME?: string;
 
 }
