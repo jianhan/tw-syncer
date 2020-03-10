@@ -4,6 +4,18 @@ import _ from "lodash";
 import Parameters from "./Parameters";
 import * as immutable from "immutable"
 import { listTrim, listRemoveEmpty, listUnique, bool2Str } from "jianhan-fp-lib/dist/operations";
+import Twitter, { ResponseData, RequestParams } from "twitter";
+import { Logger } from "winston";
+import { from, Observable } from 'rxjs';
+import { flatMap } from 'rxjs/operators'
+import { PutObjectRequest } from "aws-sdk/clients/s3";
+import { S3 } from 'aws-sdk';
+import fp from "lodash/fp";
+
+const parseJSON = (s: string) => {
+    const parameters: Parameters = JSON.parse(s);
+    return parameters;
+}
 
 /**
  *
@@ -29,7 +41,7 @@ const sensitizeAndUpdate = (key: string, map: immutable.Map<string, any>) => {
     return map;
 }
 
-const parametersToObj = (map: immutable.Map<string, any>): { [key: string]: string } => {
+const toFetchParameters = (map: immutable.Map<string, any>): { [key: string]: string } => {
     return {
         screen_name: _.join(map.get('screen_name').toArray(), ","),
         user_id: _.join(map.get('user_id').toArray(), ","),
@@ -41,16 +53,28 @@ const parametersToObj = (map: immutable.Map<string, any>): { [key: string]: stri
 /**
  *
  */
-const transform = S.pipe([S.curry2(sensitizeAndUpdate)('screen_name'), S.curry2(sensitizeAndUpdate)('user_id')]);
+// const transform = S.pipe([S.curry2(sensitizeAndUpdate)('screen_name'), S.curry2(sensitizeAndUpdate)('user_id')]);
+const transform = S.pipe([
+    S.map(S.curry2(sensitizeAndUpdate)('screen_name'))
+]);
+
+const fetch = (tw: Twitter, params: RequestParams): Observable<ResponseData> => from(tw.get("users/lookup", params));
+
+const upload = (putObjectRequest: PutObjectRequest, s3: S3, o: Observable<ResponseData>) => {
+    return o.pipe(
+        flatMap(p => from(s3.upload(Object.assign({}, putObjectRequest, { Body: JSON.stringify(p) })).promise())),
+    );
+};
 
 
-export const sync =
-    S.pipe([
-        S.encase(JSON.parse),
-        S.chain(validate),
+export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectRequest, s3: S3) => {
+    return S.pipe([
+        S.encase(parseJSON),
+        S.map(validate),
         S.map(transform),
-        S.map(parametersToObj),
-        S.map(S.encase(JSON.stringify))
-        // fetch
-        // upload
+        S.map(toFetchParameters),
+        S.map(S.curry3(fetch)(tw)),
+        S.map(S.curry4(upload)(putObjectRequest)(s3))
     ]);
+}
+

@@ -34,15 +34,20 @@
   "dependencies": {
     "@types/node": "^13.7.7",
     "aws-lambda": "^1.0.5",
+    "aws-sdk": "^2.636.0",
     "class-validator": "^0.11.0",
+    "dotenv": "^8.2.0",
     "immutable": "^4.0.0-rc.12",
     "jianhan-fp-lib": "^1.2.26",
     "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "sanctuary": "^3.0.0",
     "sanctuary-def": "^0.21.1",
     "sanctuary-identity": "^2.1.0",
     "sanctuary-maybe": "^2.1.0",
-    "twitter": "^1.7.1"
+    "sprintf": "^0.1.5",
+    "twitter": "^1.7.1",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.46",
