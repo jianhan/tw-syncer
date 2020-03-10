@@ -1,7 +1,4 @@
-import { sync } from "./sync";
-import { throwError, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { from } from 'rxjs';
+import S from "sanctuary"
 
 describe("test sync func", () => {
     const validJSON = (): string => `{
@@ -10,22 +7,22 @@ describe("test sync func", () => {
         "include_entities": true,
         "tweet_mode": false
     }`;
-    it("test", () => {
-        // RxJS v6+
+    it("test", async () => {
+        const isOne = (n: number) => {
+            if (n === 1) {
+                return S.Right(1);
+            }
 
-        //emit error
-        const source = throwError('This is an error!');
-        //gracefully handle error, returning observable with error message
-        const example = source.pipe(catchError(val => of(`I caught: ${val}`)));
-        //output: 'I caught: This is an error'
-        const subscribe = example.subscribe(val => console.log(val));
+            return S.Left(new Error("number is not 1"));
+        }
 
-        const observable = from([1, 2, 3]);
-        observable.subscribe({
-            next: x => console.log('got value ' + x),
-            error: err => console.error('something wrong occurred: ' + err),
-            complete: () => console.log('done'),
-        });
-        console.log(subscribe.closed)
+        const multi = (n: number) => {
+            console.log("--->", n)
+            return n * 2;
+        }
+
+        const cp = S.pipe([isOne, S.map(multi)]);
+
+        console.log(cp(1))
     })
 });

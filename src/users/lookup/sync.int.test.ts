@@ -1,3 +1,4 @@
+import S from "sanctuary"
 import { Environment, getEnvs, createLogger, LogLevel } from "jianhan-fp-lib";
 import { Logger } from "winston";
 import { Envs } from "../../Envs";
@@ -5,6 +6,7 @@ import * as immutable from 'immutable'
 import moment = require("moment");
 import { getS3Client, getTwitterClient } from "../../clients";
 import { sync } from "./sync";
+import { from, Observable } from 'rxjs';
 const sprintf = require("sprintf");
 
 let envs: immutable.Map<string, string | Environment | undefined>;
@@ -23,7 +25,7 @@ beforeEach(async () => {
 });
 
 describe("sync function", () => {
-    it("should sync user", () => {
+    it("should sync user", done => {
         const key = sprintf("%s_users.json", moment().format("YYYY-MM-DD-HH:mm:ss"))
         const s3 = getS3Client({
             accessKeyId: envs.get("S3_ACCESS_KEY_ID"),
@@ -37,7 +39,25 @@ describe("sync function", () => {
             access_token_secret: envs.get("ACCESS_SECRET") as string,
         });
 
-        const r = sync(logger, tw, { Bucket: envs.get("S3_BUCKET_NAME") as string, Key: key }, s3)
-        console.log(r(validJSON()));
+        const r = sync(logger, tw, { Bucket: envs.get("S3_BUCKET_NAME") as string, Key: key }, s3)((validJSON()));
+        console.log(S.isRight(r))
+        S.either(console.log)
+            ((o: Observable<any>) => {
+                o.subscribe(
+                    (r) => {
+                        expect(r).toHaveProperty("ETag");
+                        done();
+                    },
+                    err => {
+                        logger.error(err);
+                        done();
+                    },
+                    () => {
+                        logger.info("completed", validJSON());
+                        done();
+                    },
+                );
+            })
+            (r)
     });
 });

@@ -22,6 +22,7 @@ const parseJSON = (s: string) => {
  * @param parameters
  */
 const validate = (parameters: Parameters) => {
+    console.log("---->", parameters)
     const errors = validateSync(parameters);
     if (errors.length > 0) {
         return S.Left(errors);
@@ -53,10 +54,7 @@ const toFetchParameters = (map: immutable.Map<string, any>): { [key: string]: st
 /**
  *
  */
-// const transform = S.pipe([S.curry2(sensitizeAndUpdate)('screen_name'), S.curry2(sensitizeAndUpdate)('user_id')]);
-const transform = S.pipe([
-    S.map(S.curry2(sensitizeAndUpdate)('screen_name'))
-]);
+const transform = S.pipe([S.curry2(sensitizeAndUpdate)('screen_name'), S.curry2(sensitizeAndUpdate)('user_id')]);
 
 const fetch = (tw: Twitter, params: RequestParams): Observable<ResponseData> => from(tw.get("users/lookup", params));
 
@@ -66,15 +64,23 @@ const upload = (putObjectRequest: PutObjectRequest, s3: S3, o: Observable<Respon
     );
 };
 
+const processResult = (o: Observable<any>) => {
+    o.subscribe(
+        x => console.log(x),
+        err => console.log(err),
+        () => console.log("done")
+    )
+}
 
 export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectRequest, s3: S3) => {
     return S.pipe([
         S.encase(parseJSON),
-        S.map(validate),
+        S.chain(validate),
         S.map(transform),
         S.map(toFetchParameters),
-        S.map(S.curry3(fetch)(tw)),
-        S.map(S.curry4(upload)(putObjectRequest)(s3))
+        S.map(S.curry2(fetch)(tw)),
+        S.map(fp.tap(logger.info)),
+        S.map(S.curry3(upload)(putObjectRequest)(s3)),
     ]);
 }
 
