@@ -6,6 +6,7 @@ import moment = require("moment");
 import { getClientsFromEnvs } from "../../clients";
 import { sync } from "./sync";
 import { Observable } from 'rxjs';
+// tslint:disable-next-line: no-var-requires
 const sprintf = require("sprintf");
 
 let envs: immutable.Map<string, string | Environment | undefined>;
@@ -29,15 +30,14 @@ describe("sync function", () => {
         const { s3, tw } = getClientsFromEnvs(envs)
 
         const result = sync(logger, tw, { Bucket: envs.get("S3_BUCKET_NAME") as string, Key: key }, s3)(validJSON());
-
-        if (result instanceof Observable) {
-            try {
-                const p = await result.toPromise();
-            } catch (e) {
-                console.log(e)
-            }
-        } else {
-            console.log(result)
-        }
+        expect(result).toBeInstanceOf(Observable)
+        const p = await result.toPromise();
+        expect(p).toHaveProperty('ETag');
+        expect(p).toHaveProperty('ServerSideEncryption');
+        expect(p).toHaveProperty('VersionId');
+        expect(p).toHaveProperty('Location');
+        expect(p).toHaveProperty('key');
+        expect(p).toHaveProperty('Bucket');
+        expect(p.Bucket).toBe(envs.get('S3_BUCKET_NAME'));
     });
 });
