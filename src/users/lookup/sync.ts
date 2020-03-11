@@ -12,17 +12,13 @@ import { PutObjectRequest } from "aws-sdk/clients/s3";
 import { S3 } from 'aws-sdk';
 import fp from "lodash/fp";
 
-const parseJSON = (s: string) => {
-    const parameters: Parameters = JSON.parse(s);
-    return parameters;
-}
+const parseJSON = (s: string) => JSON.parse(s) as Parameters;
 
 /**
  *
  * @param parameters
  */
 const validate = (parameters: Parameters) => {
-    console.log("---->", parameters)
     const errors = validateSync(parameters);
     if (errors.length > 0) {
         return S.Left(errors);
@@ -64,13 +60,7 @@ const upload = (putObjectRequest: PutObjectRequest, s3: S3, o: Observable<Respon
     );
 };
 
-const processResult = (o: Observable<any>) => {
-    o.subscribe(
-        x => console.log(x),
-        err => console.log(err),
-        () => console.log("done")
-    )
-}
+const extractResult = S.either(fp.identity)(fp.identity);
 
 export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectRequest, s3: S3) => {
     return S.pipe([
@@ -81,6 +71,7 @@ export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectReq
         S.map(S.curry2(fetch)(tw)),
         S.map(fp.tap(logger.info)),
         S.map(S.curry3(upload)(putObjectRequest)(s3)),
+        extractResult
     ]);
 }
 

@@ -1,4 +1,6 @@
 import S from "sanctuary"
+import fp from "lodash/fp"
+import { from, Observable } from 'rxjs';
 
 describe("test sync func", () => {
     const validJSON = (): string => `{
@@ -7,6 +9,26 @@ describe("test sync func", () => {
         "include_entities": true,
         "tweet_mode": false
     }`;
+
+    const fetch = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(function () {
+                resolve("Success!")
+            }, 250)
+        }).then(x => x)
+    }
+
+    it("test2", async () => {
+        // const r = from(fetch()).subscribe(
+        //     x => x,
+        //     err => err,
+        //     () => console.log('complete')
+        // );
+
+        const r = await from(fetch()).toPromise();
+        console.log(r)
+    });
+
     it("test", async () => {
         const isOne = (n: number) => {
             if (n === 1) {
@@ -23,6 +45,9 @@ describe("test sync func", () => {
 
         const cp = S.pipe([isOne, S.map(multi)]);
 
-        console.log(cp(1))
+        const l = S.Left("left");
+
+        const r = S.Right("right");
+        console.log(S.fromEither(1)(l))
     })
 });

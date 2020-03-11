@@ -7,6 +7,7 @@ import moment = require("moment");
 import { getS3Client, getTwitterClient } from "../../clients";
 import { sync } from "./sync";
 import { from, Observable } from 'rxjs';
+import fp from "lodash/fp";
 const sprintf = require("sprintf");
 
 let envs: immutable.Map<string, string | Environment | undefined>;
@@ -25,7 +26,7 @@ beforeEach(async () => {
 });
 
 describe("sync function", () => {
-    it("should sync user", done => {
+    it("should sync user", async () => {
         const key = sprintf("%s_users.json", moment().format("YYYY-MM-DD-HH:mm:ss"))
         const s3 = getS3Client({
             accessKeyId: envs.get("S3_ACCESS_KEY_ID"),
@@ -39,25 +40,47 @@ describe("sync function", () => {
             access_token_secret: envs.get("ACCESS_SECRET") as string,
         });
 
-        const r = sync(logger, tw, { Bucket: envs.get("S3_BUCKET_NAME") as string, Key: key }, s3)((validJSON()));
-        console.log(S.isRight(r))
-        S.either(console.log)
-            ((o: Observable<any>) => {
-                o.subscribe(
-                    (r) => {
-                        expect(r).toHaveProperty("ETag");
-                        done();
-                    },
-                    err => {
-                        logger.error(err);
-                        done();
-                    },
-                    () => {
-                        logger.info("completed", validJSON());
-                        done();
-                    },
-                );
-            })
-            (r)
+        const result = sync(logger, tw, { Bucket: envs.get("S3_BUCKET_NAME") as string, Key: key }, s3)(validJSON());
+
+        // if (S.isLeft(result)) {
+
+        // }
+
+        // const r2 = S.either(fp.identity)(fp.identity)(result)
+
+        // // console.log(S.isRight(r))
+        // console.log(r2)
+
+        // const r: any = S.either(fp.identity)(fp.identity)(result)
+
+        // ((o: Observable<any>) => {
+        //     done();
+        //     return o;
+        //     return o.subscribe(
+        //         (r) => {
+        //             expect(r).toHaveProperty("ETag");
+        //             done();
+        //         },
+        //         err => {
+        //             logger.error(err);
+        //             done();
+        //         },
+        //         () => {
+        //             logger.info("completed", validJSON());
+        //             done();
+        //         },
+        //     );
+        // })
+
+        if (result instanceof Observable) {
+            try {
+                const p = await result.toPromise();
+                console.log("SUCCESS --->>", p)
+            } catch (e) {
+                console.log('ERR UPLOAD ---->', e)
+            }
+        } else {
+            console.log("ERROR ->>> ", result)
+        }
     });
 });
