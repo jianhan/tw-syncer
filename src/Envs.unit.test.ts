@@ -11,6 +11,7 @@ describe("test envs", () => {
 
     const validateIsNotEmpty = (key: string) => {
         const envs = generateValidEnvs();
+        // tslint:disable-next-line: no-ignored-return
         emptyValues.map(v => {
             _.set(envs, key, v)
             const errors = validateSync(envs)
@@ -20,7 +21,7 @@ describe("test envs", () => {
     }
 
     const generateValidEnvs = (): Envs => {
-        const envs = new Envs;
+        const envs = new Envs();
         envs.ACCESS_SECRET = faker.random.words(10)
         envs.ACCESS_TOKEN = faker.random.words(10)
         envs.CONSUMER_API_KEY = faker.random.words(10)
@@ -53,6 +54,7 @@ describe("test envs", () => {
     })
 
     it("should be invalid when any of required variable is not set", () => {
+        // tslint:disable-next-line: no-ignored-return
         [
             'NODE_ENV',
             'SERVICE_NAME',
