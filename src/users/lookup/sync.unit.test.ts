@@ -25,14 +25,10 @@ beforeEach(() => {
 });
 
 describe("sync function", () => {
-    it("should handle invalid json correctly", () => {
+    it("should handle invalid json parse error", () => {
         const result = sync(logger, tw, { Bucket: 'test', Key: 'test' }, s3)("invalid json");
-        console.log(result)
-        // jsc.assert(
-        //     jsc.forall("string", (s: string) => {
-        //         console.log(s)
-        //     })
-        // );
+        expect(result).toBeInstanceOf(Error);
+        expect(result.name).toBe('SyntaxError');
     });
 
 });
