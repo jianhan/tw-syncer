@@ -12,7 +12,9 @@ import { PutObjectRequest } from "aws-sdk/clients/s3";
 import { S3 } from 'aws-sdk';
 import fp from "lodash/fp";
 
-const parseJSON = (s: string) => JSON.parse(s) as Parameters;
+const parseJSON = (s: string): Parameters => JSON.parse(s);
+
+const convert = S.curry2(Object.assign)(new Parameters());
 
 /**
  *
@@ -67,11 +69,9 @@ export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectReq
     return S.pipe([
         fp.tap(logger.info),
         S.encase(parseJSON),
-        fp.tap(logger.info),
+        S.map(convert),
         S.chain(validate),
-        fp.tap(logger.info),
         S.map(transform),
-        fp.tap(logger.info),
         S.map(toFetchParameters),
         S.map(S.curry2(fetch)(tw)),
         S.map(fp.tap(logger.info)),
