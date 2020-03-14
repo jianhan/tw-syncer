@@ -25,8 +25,7 @@ const validate = (parameters: Parameters) => {
     if (errors.length > 0) {
         return S.Left(errors);
     }
-
-    return S.Right(immutable.fromJS(parameters))
+    return S.Right(immutable.fromJS(Object.assign({}, parameters)))
 }
 
 
