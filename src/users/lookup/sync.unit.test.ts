@@ -123,11 +123,27 @@ describe("sync function", () => {
         jest.spyOn(tw, "get").mockImplementation(() => Promise.reject(new Error(errMsg)));
         const r = runWithJSON(genJSON({ screen_name: ['test'], user_id: [1, 0, 2, 3, 5] }));
         try {
-            const p = await r.toPromise();
+            await r.toPromise();
         } catch (e) {
             expect(e.message).toBe(errMsg)
         }
+    })
 
+    it("should handle s3 upload error", async () => {
+        const errMsg = 'upload error';
+        const manageUploadErr: ManagedUpload = {
+            abort: jest.fn(),
+            promise: () => Promise.reject(new Error(errMsg)),
+            send: jest.fn(),
+            on: jest.fn()
+        };
+        jest.spyOn(s3, "upload").mockImplementation(() => manageUploadErr);
+        const r = runWithJSON(genJSON({ screen_name: ['test'], user_id: [1, 0, 2, 3, 5] }));
+        try {
+            await r.toPromise();
+        } catch (e) {
+            expect(e.message).toBe(errMsg)
+        }
     })
 
 });
