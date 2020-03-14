@@ -1,28 +1,41 @@
 import { sync } from './sync';
 import { Logger } from 'winston';
-import Twitter = require('twitter');
+import Twitter from "twitter";
 import winston = require('winston');
-import { getTwitterClient, getS3Client } from '../../clients';
 import { S3 } from 'aws-sdk';
 import { ValidationError } from 'class-validator';
 import { Observable } from "rxjs"
+import { ManagedUpload } from 'aws-sdk/lib/s3/managed_upload';
 
 // tslint:disable-next-line: max-line-length
 const genJSON = (obj: { [key: string]: any } = { screen_name: ['test'], user_id: [1], include_entities: true, tweet_mode: false }): string => JSON.stringify(obj);
 
-let logger: Logger;
-let tw: Twitter;
-let s3: S3;
-let runWithJSON: any;
+const logger: Logger = winston.createLogger({
+    transports: [new winston.transports.Console()]
+});
+const tw: jest.Mocked<Twitter> = new Twitter({
+    access_token_key: 'test',
+    access_token_secret: 'test',
+    consumer_key: 'test',
+    consumer_secret: 'test'
+}) as any
+const s3: jest.Mocked<S3> = new S3({}) as any;
+const runWithJSON = (json: string) => sync(logger, tw, { Bucket: 'test', Key: 'test' }, s3)(json);
 
 beforeEach(() => {
-    logger = winston.createLogger({
-        transports: [new winston.transports.Console()]
-    });
-    tw = getTwitterClient({ access_token_key: 'test', access_token_secret: 'test', consumer_key: 'test', consumer_secret: 'test' });
-    s3 = getS3Client({});
-    runWithJSON = (json: string) => sync(logger, tw, { Bucket: 'test', Key: 'test' }, s3)(json)
+    const s: ManagedUpload = {
+        abort: jest.fn(),
+        promise: () => Promise.resolve({ Location: 'test location', ETag: "test ETag", Bucket: "test Bucket", Key: "test Key" }),
+        send: jest.fn(),
+        on: jest.fn()
+    };
+    jest.spyOn(tw, "get").mockImplementation(() => Promise.resolve({ test: 'test' }));
+    jest.spyOn(s3, "upload").mockImplementation(() => s);
 });
+
+afterEach(() => {
+    jest.clearAllMocks();
+})
 
 const validateProperty = (json: string, key: string) => {
     const result = runWithJSON(json);

@@ -73,7 +73,6 @@ export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectReq
         S.map(transform),
         S.map(toFetchParameters),
         S.map(S.curry2(fetch)(tw)),
-        S.map(fp.tap(logger.info)),
         S.map(S.curry3(upload)(putObjectRequest)(s3)),
         extractResult
     ]);
