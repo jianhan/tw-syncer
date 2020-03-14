@@ -1,4 +1,4 @@
-import { sync, sensitizeList, sensitizeUserId } from './sync';
+import { sync } from './sync';
 import { Logger } from 'winston';
 import Twitter from "twitter";
 import winston = require('winston');
@@ -7,7 +7,6 @@ import { ValidationError } from 'class-validator';
 import { Observable } from "rxjs"
 import { ManagedUpload } from 'aws-sdk/lib/s3/managed_upload';
 import _ from "lodash"
-import * as immutable from 'immutable';
 
 const genJSON = (obj: { [key: string]: any } = {
     screen_name: ['test'],
@@ -100,8 +99,8 @@ describe("sync function", () => {
     })
 
     it("should sensitize screen_name parameter", () => {
-        runWithJSON(genJSON({ screen_name: ['test', 'test ', ' need_trim '] }));
-        expect(tw.get).toHaveBeenCalledWith("users/lookup", { "include_entities": "false", "screen_name": "test,need_trim", "tweet_mode": "false", "user_id": "" });
+        runWithJSON(genJSON({ screen_name: ['test', 'test ', ' need_trim '], user_id: [1] }));
+        expect(tw.get).toHaveBeenCalledWith("users/lookup", { "include_entities": "false", "screen_name": "test,need_trim", "tweet_mode": "false", "user_id": "1" });
     })
 
     it("should sensitize user_id parameter", () => {
