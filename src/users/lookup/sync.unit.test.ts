@@ -118,4 +118,16 @@ describe("sync function", () => {
         expect(s3.upload).toHaveBeenCalledWith(Object.assign({}, s3UploadRequest, { Body: JSON.stringify(twGetResponse) }));
     })
 
+    it("should handle tw fetch reject", async () => {
+        const errMsg = 'fetching error';
+        jest.spyOn(tw, "get").mockImplementation(() => Promise.reject(new Error(errMsg)));
+        const r = runWithJSON(genJSON({ screen_name: ['test'], user_id: [1, 0, 2, 3, 5] }));
+        try {
+            const p = await r.toPromise();
+        } catch (e) {
+            expect(e.message).toBe(errMsg)
+        }
+
+    })
+
 });
