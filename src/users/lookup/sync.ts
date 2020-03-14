@@ -12,11 +12,21 @@ import { PutObjectRequest } from "aws-sdk/clients/s3";
 import { S3 } from 'aws-sdk';
 import fp from "lodash/fp";
 
+/**
+ * parseJSON parses json string.
+ *
+ * @param s
+ */
 const parseJSON = (s: string): Parameters => JSON.parse(s);
 
+/**
+ * convert converts POJO to parameter.
+ */
 const convert = S.curry2(Object.assign)(new Parameters());
 
 /**
+ * validate validates parameters, if it is invalid then return left monad contains errors,
+ * otherwise return right with immutable map.
  *
  * @param parameters
  */
@@ -28,13 +38,29 @@ const validate = (parameters: Parameters) => {
     return S.Right(immutable.fromJS(Object.assign({}, parameters)))
 }
 
-
+/**
+ * sensitizeScreenName sensitize screen_name parameter by trimming, removing empty and removing duplicates
+ * from the list.
+ */
 const sensitizeScreenName = S.pipe([listTrim, listRemoveEmpty, listUnique]);
 
+/**
+ * filterNumber removes any number that is less or equals to 0.
+ *
+ * @param list
+ */
 const filterNumber = (list: immutable.List<number>): immutable.List<number> => list.filterNot(x => x <= 0)
 
+/**
+ * sensitizeUserId sensitizes user_id parameter by removing duplicates and remove any number is
+ * less or equals to 0.
+ */
 const sensitizeUserId = S.pipe([listUnique, filterNumber]);
 
+/**
+ * sensitizeAndUpdate sensitizes elements in immutable map by key, and then update
+ * the immutable map by returning a new one.
+ */
 const sensitizeAndUpdate = (key: string, sensitizer: any, map: immutable.Map<string, any>) => {
     if (map.has(key)) {
         return map.set(key, sensitizer(map.get(key)));
@@ -43,6 +69,11 @@ const sensitizeAndUpdate = (key: string, sensitizer: any, map: immutable.Map<str
     return map;
 }
 
+/**
+ * toFetchParameters converts parameters to POJO as fetching parameter via twitter api.
+ *
+ * @param map
+ */
 const toFetchParameters = (map: immutable.Map<string, any>): { [key: string]: string } => {
     return {
         screen_name: _.join(map.get('screen_name').toArray(), ","),
@@ -53,24 +84,49 @@ const toFetchParameters = (map: immutable.Map<string, any>): { [key: string]: st
 }
 
 /**
- *
+ * transform performs transformation of immutable map, so that screen_name parameters can be converted
+ * from array to comma separated string, likewise to user_id.
  */
 const transform = S.pipe([
     S.curry3(sensitizeAndUpdate)('screen_name')(sensitizeScreenName),
     S.curry3(sensitizeAndUpdate)('user_id')(sensitizeUserId),
 ]);
 
+/**
+ * fetch performs API call to lookup users and returns an observable.
+ *
+ * @param tw
+ * @param params
+ */
 const fetch = (tw: Twitter, params: RequestParams): Observable<ResponseData> => from(tw.get("users/lookup", params));
 
+/**
+ * upload performs upload API call via AWS s3 sdk to upload fetched data to s3.
+ *
+ * @param putObjectRequest
+ * @param s3
+ * @param o
+ */
 const upload = (putObjectRequest: PutObjectRequest, s3: S3, o: Observable<ResponseData>) => {
     return o.pipe(
         flatMap(p => from(s3.upload(Object.assign({}, putObjectRequest, { Body: JSON.stringify(p) })).promise())),
     );
 };
 
+/**
+ * extractResult extract results from container(Either) so results can be used by
+ * caller.
+ */
 const extractResult = S.either(fp.identity)(fp.identity);
 
-
+/**
+ * sync is entry point for synchronizes users, it compose all the process in a functional way.
+ *
+ * @param logger
+ * @param tw
+ * @param putObjectRequest
+ * @param s3
+ */
 export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectRequest, s3: S3) => {
     return S.pipe([
         S.encase(parseJSON),

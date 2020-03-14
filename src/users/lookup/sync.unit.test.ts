@@ -7,6 +7,7 @@ import { ValidationError } from 'class-validator';
 import { Observable } from "rxjs"
 import { ManagedUpload } from 'aws-sdk/lib/s3/managed_upload';
 import _ from "lodash"
+import S from "sanctuary"
 
 const genJSON = (obj: { [key: string]: any } = {
     screen_name: ['test'],
@@ -144,6 +145,11 @@ describe("sync function", () => {
         } catch (e) {
             expect(e.message).toBe(errMsg)
         }
+    })
+
+    it("test", () => {
+        const arr = [];
+        console.log(S.ifElse((x: any[]) => _.size(x) > 0)(console.log)(console.log))
     })
 
 });
