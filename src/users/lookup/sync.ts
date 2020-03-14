@@ -29,11 +29,15 @@ const validate = (parameters: Parameters) => {
 }
 
 
-const sensitizeList = S.pipe([listTrim, listRemoveEmpty, listUnique]);
+const sensitizeScreenName = S.pipe([listTrim, listRemoveEmpty, listUnique]);
 
-const sensitizeAndUpdate = (key: string, map: immutable.Map<string, any>) => {
+const filterNumber = (list: immutable.List<number>): immutable.List<number> => list.filterNot(x => x <= 0)
+
+const sensitizeUserId = S.pipe([listUnique, filterNumber]);
+
+const sensitizeAndUpdate = (key: string, sensitizer: any, map: immutable.Map<string, any>) => {
     if (map.has(key)) {
-        return map.set(key, sensitizeList(map.get(key)));
+        return map.set(key, sensitizer(map.get(key)));
     }
 
     return map;
@@ -51,7 +55,10 @@ const toFetchParameters = (map: immutable.Map<string, any>): { [key: string]: st
 /**
  *
  */
-const transform = S.pipe([S.curry2(sensitizeAndUpdate)('screen_name'), S.curry2(sensitizeAndUpdate)('user_id')]);
+const transform = S.pipe([
+    S.curry3(sensitizeAndUpdate)('screen_name')(sensitizeScreenName),
+    S.curry3(sensitizeAndUpdate)('user_id')(sensitizeUserId),
+]);
 
 const fetch = (tw: Twitter, params: RequestParams): Observable<ResponseData> => from(tw.get("users/lookup", params));
 

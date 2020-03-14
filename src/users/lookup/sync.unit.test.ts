@@ -1,4 +1,4 @@
-import { sync } from './sync';
+import { sync, sensitizeList, sensitizeUserId } from './sync';
 import { Logger } from 'winston';
 import Twitter from "twitter";
 import winston = require('winston');
@@ -6,13 +6,19 @@ import { S3 } from 'aws-sdk';
 import { ValidationError } from 'class-validator';
 import { Observable } from "rxjs"
 import { ManagedUpload } from 'aws-sdk/lib/s3/managed_upload';
+import _ from "lodash"
+import * as immutable from 'immutable';
 
-// tslint:disable-next-line: max-line-length
-const genJSON = (obj: { [key: string]: any } = { screen_name: ['test'], user_id: [1], include_entities: true, tweet_mode: false }): string => JSON.stringify(obj);
+const genJSON = (obj: { [key: string]: any } = {
+    screen_name: ['test'],
+    user_id: [1],
+    include_entities: true, tweet_mode: false
+}): string => JSON.stringify(obj);
 
 const logger: Logger = winston.createLogger({
     transports: [new winston.transports.Console()]
 });
+
 const tw: jest.Mocked<Twitter> = new Twitter({
     access_token_key: 'test',
     access_token_secret: 'test',
@@ -91,6 +97,16 @@ describe("sync function", () => {
     it("should be valid when include_entities and tweet_mode are not set", () => {
         const result = runWithJSON(genJSON({ screen_name: ['test'], user_id: [1] }));
         expect(result).toBeInstanceOf(Observable);
+    })
+
+    it("should sensitize screen_name parameter", () => {
+        runWithJSON(genJSON({ screen_name: ['test', 'test ', ' need_trim '] }));
+        expect(tw.get).toHaveBeenCalledWith("users/lookup", { "include_entities": "false", "screen_name": "test,need_trim", "tweet_mode": "false", "user_id": "" });
+    })
+
+    it("should sensitize user_id parameter", () => {
+        runWithJSON(genJSON({ screen_name: ['test'], user_id: [1, 0, 2, 3, 5] }));
+        expect(tw.get).toHaveBeenCalledWith("users/lookup", { "include_entities": "false", "screen_name": "test", "tweet_mode": "false", "user_id": "1,2,3,5" });
     })
 
 });
