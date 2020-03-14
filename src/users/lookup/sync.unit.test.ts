@@ -11,7 +11,8 @@ import _ from "lodash"
 const genJSON = (obj: { [key: string]: any } = {
     screen_name: ['test'],
     user_id: [1],
-    include_entities: true, tweet_mode: false
+    include_entities: true,
+    tweet_mode: true
 }): string => JSON.stringify(obj);
 
 const logger: Logger = winston.createLogger({
@@ -25,7 +26,9 @@ const tw: jest.Mocked<Twitter> = new Twitter({
     consumer_secret: 'test'
 }) as any
 const s3: jest.Mocked<S3> = new S3({}) as any;
-const runWithJSON = (json: string) => sync(logger, tw, { Bucket: 'test', Key: 'test' }, s3)(json);
+let runWithJSON: any;
+const twGetResponse: any = { test: 'test' }
+const s3UploadRequest: any = { Bucket: 'test', Key: 'test' }
 
 beforeEach(() => {
     const s: ManagedUpload = {
@@ -34,8 +37,9 @@ beforeEach(() => {
         send: jest.fn(),
         on: jest.fn()
     };
-    jest.spyOn(tw, "get").mockImplementation(() => Promise.resolve({ test: 'test' }));
+    jest.spyOn(tw, "get").mockImplementation(() => Promise.resolve(twGetResponse));
     jest.spyOn(s3, "upload").mockImplementation(() => s);
+    runWithJSON = (json: string) => sync(logger, tw, s3UploadRequest, s3)(json);
 });
 
 afterEach(() => {
@@ -99,13 +103,19 @@ describe("sync function", () => {
     })
 
     it("should sensitize screen_name parameter", () => {
-        runWithJSON(genJSON({ screen_name: ['test', 'test ', ' need_trim '], user_id: [1] }));
-        expect(tw.get).toHaveBeenCalledWith("users/lookup", { "include_entities": "false", "screen_name": "test,need_trim", "tweet_mode": "false", "user_id": "1" });
+        runWithJSON(genJSON({ screen_name: ['test', 'test ', ' need_trim '], user_id: [1], tweet_mode: true, include_entities: true }));
+        expect(tw.get).toHaveBeenCalledWith("users/lookup", { "include_entities": "true", "screen_name": "test,need_trim", "tweet_mode": "true", "user_id": "1" });
     })
 
     it("should sensitize user_id parameter", () => {
-        runWithJSON(genJSON({ screen_name: ['test'], user_id: [1, 0, 2, 3, 5] }));
-        expect(tw.get).toHaveBeenCalledWith("users/lookup", { "include_entities": "false", "screen_name": "test", "tweet_mode": "false", "user_id": "1,2,3,5" });
+        runWithJSON(genJSON({ screen_name: ['test'], user_id: [1, 0, 2, 3, 5], tweet_mode: true, include_entities: true }));
+        expect(tw.get).toHaveBeenCalledWith("users/lookup", { "include_entities": "true", "screen_name": "test", "tweet_mode": "true", "user_id": "1,2,3,5" });
+    })
+
+    it("should have correct parameter passed to upload function", async () => {
+        const r = runWithJSON(genJSON({ screen_name: ['test'], user_id: [1, 0, 2, 3, 5] }));
+        await r.toPromise();
+        expect(s3.upload).toHaveBeenCalledWith(Object.assign({}, s3UploadRequest, { Body: JSON.stringify(twGetResponse) }));
     })
 
 });
