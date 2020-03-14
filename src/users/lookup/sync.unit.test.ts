@@ -24,6 +24,14 @@ beforeEach(() => {
     runWithJSON = (json: string) => sync(logger, tw, { Bucket: 'test', Key: 'test' }, s3)(json)
 });
 
+const validateProperty = (json: string, key: string) => {
+    const result = runWithJSON(json);
+    expect(result).toBeInstanceOf(Array);
+    expect(result).toHaveLength(1);
+    result.forEach((e: any) => expect(e).toBeInstanceOf(ValidationError))
+    expect(result[0].property).toBe(key);
+}
+
 describe("sync function", () => {
     it("should handle invalid json parse error", () => {
         const result = runWithJSON("invalid json");
@@ -32,45 +40,44 @@ describe("sync function", () => {
     });
 
     it("should validate screen_name parameter to be invalid when it is not presented", () => {
-        const result = runWithJSON(genJSON({}));
-        expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveLength(1);
-        result.forEach((e: any) => expect(e).toBeInstanceOf(ValidationError))
-        expect(result[0].property).toBe('screen_name');
+        validateProperty(genJSON({}), 'screen_name')
     });
-
+    it("should validate screen_name parameter to be invalid when it is not array", () => {
+        validateProperty(genJSON({ screen_name: false }), 'screen_name')
+    });
     it("should validate screen_name parameter to be invalid when it is empty array", () => {
-        const result = runWithJSON(genJSON({ screen_name: [] }));
-        expect(result).toBeInstanceOf(Array);
-        expect(result).toHaveLength(1);
-        result.forEach((e: any) => expect(e).toBeInstanceOf(ValidationError))
-        expect(result[0].property).toBe('screen_name');
+        validateProperty(genJSON({ screen_name: [] }), 'screen_name')
     });
 
     it("should validate screen_name parameter to be invalid when it exceed max size", () => {
-        const wordsExceeded = Array.from(new Array(101), (val, index) => "some string " + index + val);
-        const resultExceeded = runWithJSON(genJSON({ screen_name: wordsExceeded }));
-        expect(resultExceeded).toBeInstanceOf(Array);
-        expect(resultExceeded).toHaveLength(1);
-        resultExceeded.forEach((e: any) => expect(e).toBeInstanceOf(ValidationError))
-        expect(resultExceeded[0].property).toBe('screen_name');
+        const wordsExceeded = Array.from(new Array(101), (val, index) => "some string invalid" + index + val);
+        validateProperty(genJSON({ screen_name: wordsExceeded }), 'screen_name')
 
-        const wordsMaxValid = Array.from(new Array(100), (val, index) => "some string " + index + val);
+        const wordsMaxValid = Array.from(new Array(100), (val, index) => "some string valid" + index + val);
         const resultMaxValid = runWithJSON(genJSON({ screen_name: wordsMaxValid }));
         expect(resultMaxValid).toBeInstanceOf(Observable);
     });
 
     it("should validate screen_name parameter to be invalid when it contains none string value", () => {
-        const wordsExceeded = Array.from(new Array(101), (val, index) => "some string " + index + val);
-        const resultExceeded = runWithJSON(genJSON({ screen_name: wordsExceeded }));
-        expect(resultExceeded).toBeInstanceOf(Array);
-        expect(resultExceeded).toHaveLength(1);
-        resultExceeded.forEach((e: any) => expect(e).toBeInstanceOf(ValidationError))
-        expect(resultExceeded[0].property).toBe('screen_name');
+        validateProperty(genJSON({ screen_name: [{ test: 'test' }, true] }), 'screen_name')
+    });
 
-        const wordsMaxValid = Array.from(new Array(100), (val, index) => "some string " + index + val);
-        const resultMaxValid = runWithJSON(genJSON({ screen_name: wordsMaxValid }));
+    it("should validate user_id parameter to be invalid when it exceed max size", () => {
+        const idExceeded = Array.from(new Array(101), (_val, index) => index);
+        validateProperty(genJSON({ screen_name: ['test'], user_id: idExceeded }), 'user_id')
+
+        const idMaxValid = Array.from(new Array(100), (_val, index) => index);
+        const resultMaxValid = runWithJSON(genJSON({ screen_name: ['test'], user_id: idMaxValid }));
         expect(resultMaxValid).toBeInstanceOf(Observable);
     });
+
+    it("should validate user_id parameter to be invalid when it contains none boolean value", () => {
+        validateProperty(genJSON({ screen_name: ['test'], user_id: ['test'] }), 'user_id')
+    });
+
+    it("should be valid when include_entities and tweet_mode are not set", () => {
+        const result = runWithJSON(genJSON({ screen_name: ['test'], user_id: [1] }));
+        expect(result).toBeInstanceOf(Observable);
+    })
 
 });
