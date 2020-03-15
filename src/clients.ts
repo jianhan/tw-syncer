@@ -21,6 +21,8 @@ export const getS3Client = (configs: ClientConfiguration) => new S3(configs);
 
 /**
  * getClientsFromEnvs is a simple method returns 2 clients by environment.
+ * Notice: this function assume to be composed right after valid envs, thus it
+ * did not do any validations, etc..
  *
  * @param envs
  */
