@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-03-06 21:44:50
- * @LastEditTime: 2020-03-10 20:30:03
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: /tw-syncer/src/Envs.ts
- */
 import { IsIn, IsNotEmpty } from "class-validator";
 
 // @ts-ignore
@@ -17,7 +9,7 @@ import { enumValues, Environment } from "jianhan-fp-lib";
 export class Envs {
 
     /**
-     * NODE_ENV is node js development env variable. 
+     * NODE_ENV is node js development env variable.
      *
      * @type {string}
      * @memberof Envs
