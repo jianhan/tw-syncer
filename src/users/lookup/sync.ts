@@ -129,10 +129,12 @@ const extractResult = S.either(fp.identity)(fp.identity);
  */
 export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectRequest, s3: S3) => {
     return S.pipe([
+        fp.tap(logger.info),
         S.encase(parseJSON),
         S.map(convert),
         S.chain(validate),
         S.map(transform),
+        fp.tap(logger.info),
         S.map(toFetchParameters),
         S.map(S.curry2(fetch)(tw)),
         fp.tap(logger.info),
