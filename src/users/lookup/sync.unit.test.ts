@@ -55,6 +55,7 @@ const validateProperty = (json: string, key: string) => {
 }
 
 describe("sync function", () => {
+
     it("should handle invalid json parse error", () => {
         const result = runWithJSON("invalid json");
         expect(result).toBeInstanceOf(Error);
