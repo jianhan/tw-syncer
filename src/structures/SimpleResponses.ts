@@ -19,4 +19,4 @@ export interface SimpleResponse {
     details(): any;
 }
 
-export type response = {statusCode: number, message: string, details?: any};
+export type simpleResponse = {statusCode: number, message: string, details?: any};

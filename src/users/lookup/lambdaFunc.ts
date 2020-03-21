@@ -8,10 +8,17 @@ import {sync} from "./sync";
 const sprintf = require("sprintf");
 import * as httpStatus from "http-status-codes";
 import * as immutable from "immutable";
-import {response} from "../../structures/SimpleResponses";
+import {simpleResponse} from "../../structures/SimpleResponses";
 
+/**
+ * lambdaFunc is entry point for handler to invoke.
+ *
+ * @param envs
+ * @param logger
+ * @param event
+ */
 // tslint:disable-next-line:max-line-length
-export const lambdaFunc = async (envs: immutable.Map<string, string | Environment | undefined>, logger: Logger, event: APIGatewayEvent): Promise<response> => {
+export const lambdaFunc = async (envs: immutable.Map<string, string | Environment | undefined>, logger: Logger, event: APIGatewayEvent): Promise<simpleResponse> => {
     try {
         const key = sprintf("%s_users.json", moment().format("YYYY-MM-DD-HH:mm:ss"));
         const {s3, tw} = getClientsFromEnvs(envs);

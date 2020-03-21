@@ -12,6 +12,8 @@ const lambdaFuncMap: { [key: string]: lambdaFuncAsync | lambdaFuncSync } = {
 
 export const handler = async (event: APIGatewayEvent): Promise<any> => {
     try {
+        event.path
+        event.body
         const func = findLambdaFunc(lambdaFuncMap, lambdaFuncNotFound, event.path);
         const envs = await getEnvs(process.env, Envs);
         const logger = createLogger(envs.get("NODE_ENV") as Environment, envs.get("SERVICE_NAME") as string, LogLevel.DEBUG);

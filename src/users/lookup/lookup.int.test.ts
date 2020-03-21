@@ -6,6 +6,9 @@ import moment = require("moment");
 import {getClientsFromEnvs} from "../../clients";
 import {sync} from "./sync";
 import {Observable} from 'rxjs';
+import {lambdaFunc} from "./lambdaFunc";
+import * as httpStatus from "http-status-codes";
+
 // tslint:disable-next-line: no-var-requires
 const sprintf = require("sprintf");
 
@@ -40,5 +43,31 @@ describe("sync function", () => {
         expect(p).toHaveProperty('key');
         expect(p).toHaveProperty('Bucket');
         expect(p.Bucket).toBe(envs.get('S3_BUCKET_NAME'));
+    });
+});
+
+describe("lambda function", () => {
+    it("should sync user via lambda function", async () => {
+        const event = {
+            body: validJSON()
+        };
+        // @ts-ignore
+        const result = await lambdaFunc(envs, logger, event);
+        expect(result).toHaveProperty('statusCode');
+        expect(result.statusCode).toEqual(httpStatus.OK);
+        expect(result).toHaveProperty('message');
+        expect(result.message).toEqual("Sync successful");
+    });
+
+    it("should sync user via lambda function", async () => {
+        const event = {
+            body: validJSON()
+        };
+        // @ts-ignore
+        const result = await lambdaFunc(envs, logger, event);
+        expect(result).toHaveProperty('statusCode');
+        expect(result.statusCode).toEqual(httpStatus.OK);
+        expect(result).toHaveProperty('message');
+        expect(result.message).toEqual("Sync successful");
     });
 });
