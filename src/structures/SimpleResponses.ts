@@ -18,3 +18,5 @@ export interface SimpleResponse {
      */
     details(): any;
 }
+
+export type response = {statusCode: number, message: string, details?: any};

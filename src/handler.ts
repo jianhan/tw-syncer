@@ -6,7 +6,12 @@ import { Envs } from "./Envs";
 import moment = require("moment");
 import { getClientsFromEnvs } from "./clients";
 import { sync } from "./users/lookup/sync";
+// tslint:disable-next-line:no-var-requires
 const sprintf = require("sprintf");
+
+const loadLambdaFunc = (event: APIGatewayEvent) => {
+
+}
 
 export const handler = async (event: APIGatewayEvent): Promise<any> => {
     try {

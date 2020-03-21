@@ -14,18 +14,21 @@ import fp from "lodash/fp";
 import * as httpStatus from "http-status-codes";
 import {ErrResponse} from "../../structures/ErrResponse";
 import {ValidationErrsResponse} from "../../structures/ValidationErrsResponse";
+import {Either} from "../../structures/Either";
+import {SimpleResponse} from "../../structures/SimpleResponses";
 
 /**
  * parseJSON parses json string.
  *
  * @param s
  */
-const parseJSON = (s: string) => {
+const parseJSON = (s: string): Either<Parameters, SimpleResponse> => {
     try {
         const parameters = JSON.parse(s);
         return S.Right(parameters);
     } catch (e) {
-        return S.Left(new ErrResponse('unable to parse JSON', httpStatus.BAD_REQUEST, s));
+        const response: SimpleResponse = new ErrResponse('unable to parse JSON', httpStatus.BAD_REQUEST, s);
+        return S.Left(response);
     }
 };
 
@@ -40,7 +43,7 @@ const convertToParameters = S.curry2(Object.assign)(new Parameters());
  *
  * @param parameters
  */
-const validateParameters = (parameters: Parameters) => {
+const validateParameters = (parameters: Parameters): Either<ValidationErrsResponse, immutable.Map<string, any>> => {
     const errors = validateSync(parameters);
     if (errors.length > 0) {
         return S.Left(new ValidationErrsResponse('Invalid parameter(s)', errors));
