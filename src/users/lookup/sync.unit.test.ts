@@ -5,8 +5,9 @@ import winston = require('winston');
 import {S3} from 'aws-sdk';
 import {ValidationError} from 'class-validator';
 import {Observable} from "rxjs"
-import {ErrResponse, ValidationErrsResponse} from "../../structures/Responses";
 import {ManagedUpload} from "aws-sdk/lib/s3/managed_upload";
+import {ValidationErrsResponse} from "../../structures/ValidationErrsResponse";
+import {ErrResponse} from "../../structures/ErrResponse";
 
 const genJSON = (obj: { [key: string]: any } = {
     screen_name: ['test'],

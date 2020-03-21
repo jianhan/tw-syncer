@@ -11,8 +11,9 @@ import {flatMap} from 'rxjs/operators'
 import {PutObjectRequest} from "aws-sdk/clients/s3";
 import {S3} from 'aws-sdk';
 import fp from "lodash/fp";
-import {ErrResponse, ValidationErrsResponse} from "../../structures/Responses";
 import * as httpStatus from "http-status-codes";
+import {ErrResponse} from "../../structures/ErrResponse";
+import {ValidationErrsResponse} from "../../structures/ValidationErrsResponse";
 
 /**
  * parseJSON parses json string.
