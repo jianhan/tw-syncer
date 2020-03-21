@@ -1,11 +1,11 @@
-import { Environment, getEnvs, createLogger, LogLevel } from "jianhan-fp-lib";
-import { Logger } from "winston";
-import { Envs } from "../../Envs";
+import {Environment, getEnvs, createLogger, LogLevel} from "jianhan-fp-lib";
+import {Logger} from "winston";
+import {Envs} from "../../Envs";
 import * as immutable from 'immutable'
 import moment = require("moment");
-import { getClientsFromEnvs } from "../../clients";
-import { sync } from "./sync";
-import { Observable } from 'rxjs';
+import {getClientsFromEnvs} from "../../clients";
+import {sync} from "./sync";
+import {Observable} from 'rxjs';
 // tslint:disable-next-line: no-var-requires
 const sprintf = require("sprintf");
 
@@ -27,11 +27,11 @@ beforeEach(async () => {
 
 describe("sync function", () => {
     it("should sync user", async () => {
-        const key = sprintf("%s_users.json", moment().format("YYYY-MM-DD-HH:mm:ss"))
-        const { s3, tw } = getClientsFromEnvs(envs)
+        const key = sprintf("%s_users.json", moment().format("YYYY-MM-DD-HH:mm:ss"));
+        const {s3, tw} = getClientsFromEnvs(envs);
 
-        const result = sync(logger, tw, { Bucket: envs.get("S3_BUCKET_NAME") as string, Key: key }, s3)(validJSON());
-        expect(result).toBeInstanceOf(Observable)
+        const result = sync(logger, tw, {Bucket: envs.get("S3_BUCKET_NAME") as string, Key: key}, s3)(validJSON());
+        expect(result).toBeInstanceOf(Observable);
         const p = await result.toPromise();
         expect(p).toHaveProperty('ETag');
         expect(p).toHaveProperty('ServerSideEncryption');

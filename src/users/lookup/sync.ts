@@ -1,42 +1,51 @@
 import S from "sanctuary"
-import { validateSync } from "class-validator";
+import {validateSync} from "class-validator";
 import _ from "lodash";
 import Parameters from "./Parameters";
 import * as immutable from "immutable"
-import { listTrim, listRemoveEmpty, listUnique, bool2Str } from "jianhan-fp-lib/dist/operations";
-import Twitter, { ResponseData, RequestParams } from "twitter";
-import { Logger } from "winston";
-import { from, Observable } from 'rxjs';
-import { flatMap } from 'rxjs/operators'
-import { PutObjectRequest } from "aws-sdk/clients/s3";
-import { S3 } from 'aws-sdk';
+import {listTrim, listRemoveEmpty, listUnique, bool2Str} from "jianhan-fp-lib/dist/operations";
+import Twitter, {ResponseData, RequestParams} from "twitter";
+import {Logger} from "winston";
+import {from, Observable} from 'rxjs';
+import {flatMap} from 'rxjs/operators'
+import {PutObjectRequest} from "aws-sdk/clients/s3";
+import {S3} from 'aws-sdk';
 import fp from "lodash/fp";
+import {ErrResponse, ValidationErrsResponse} from "../../structures/Responses";
+import * as httpStatus from "http-status-codes";
 
 /**
  * parseJSON parses json string.
  *
  * @param s
  */
-const parseJSON = (s: string): Parameters => JSON.parse(s);
+const parseJSON = (s: string) => {
+    try {
+        const parameters = JSON.parse(s);
+        return S.Right(parameters);
+    } catch (e) {
+        return S.Left(new ErrResponse('unable to parse JSON', httpStatus.BAD_REQUEST, s));
+    }
+};
 
 /**
- * convert converts POJO to parameter.
+ * convertToParameters converts POJO to parameter.
  */
-const convert = S.curry2(Object.assign)(new Parameters());
+const convertToParameters = S.curry2(Object.assign)(new Parameters());
 
 /**
- * validate validates parameters, if it is invalid then return left monad contains errors,
+ * validateParameters validates parameters, if it is invalid then return left monad contains errors,
  * otherwise return right with immutable map.
  *
  * @param parameters
  */
-const validate = (parameters: Parameters) => {
+const validateParameters = (parameters: Parameters) => {
     const errors = validateSync(parameters);
     if (errors.length > 0) {
-        return S.Left(errors);
+        return S.Left(new ValidationErrsResponse('Invalid parameter(s)', errors));
     }
     return S.Right(immutable.fromJS(Object.assign({}, parameters)))
-}
+};
 
 /**
  * sensitizeScreenName sensitize screen_name parameter by trimming, removing empty and removing duplicates
@@ -49,7 +58,7 @@ const sensitizeScreenName = S.pipe([listTrim, listRemoveEmpty, listUnique]);
  *
  * @param list
  */
-const filterNumber = (list: immutable.List<number>): immutable.List<number> => list.filterNot(x => x <= 0)
+const filterNumber = (list: immutable.List<number>): immutable.List<number> => list.filterNot(x => x <= 0);
 
 /**
  * sensitizeUserId sensitizes user_id parameter by removing duplicates and remove any number is
@@ -67,7 +76,7 @@ const sensitizeAndUpdate = (key: string, sensitizer: any, map: immutable.Map<str
     }
 
     return map;
-}
+};
 
 /**
  * toFetchParameters converts parameters to POJO as fetching parameter via twitter api.
@@ -81,13 +90,13 @@ const toFetchParameters = (map: immutable.Map<string, any>): { [key: string]: st
         include_entities: bool2Str(map.get('include_entities')),
         tweet_mode: bool2Str(map.get('tweet_mode')),
     };
-}
+};
 
 /**
- * transform performs transformation of immutable map, so that screen_name parameters can be converted
+ * transformProperties performs transformation of immutable map, so that screen_name parameters can be converted
  * from array to comma separated string, likewise to user_id.
  */
-const transform = S.pipe([
+const transformProperties = S.pipe([
     S.curry3(sensitizeAndUpdate)('screen_name')(sensitizeScreenName),
     S.curry3(sensitizeAndUpdate)('user_id')(sensitizeUserId),
 ]);
@@ -109,7 +118,7 @@ const fetch = (tw: Twitter, params: RequestParams): Observable<ResponseData> => 
  */
 const upload = (putObjectRequest: PutObjectRequest, s3: S3, o: Observable<ResponseData>) => {
     return o.pipe(
-        flatMap(p => from(s3.upload(Object.assign({}, putObjectRequest, { Body: JSON.stringify(p) })).promise())),
+        flatMap(p => from(s3.upload(Object.assign({}, putObjectRequest, {Body: JSON.stringify(p)})).promise())),
     );
 };
 
@@ -130,10 +139,10 @@ const extractResult = S.either(fp.identity)(fp.identity);
 export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectRequest, s3: S3) => {
     return S.pipe([
         fp.tap(logger.info),
-        S.encase(parseJSON),
-        S.map(convert),
-        S.chain(validate),
-        S.map(transform),
+        parseJSON,
+        S.map(convertToParameters),
+        S.chain(validateParameters),
+        S.map(transformProperties),
         fp.tap(logger.info),
         S.map(toFetchParameters),
         S.map(S.curry2(fetch)(tw)),
@@ -141,4 +150,4 @@ export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectReq
         S.map(S.curry3(upload)(putObjectRequest)(s3)),
         extractResult
     ]);
-}
+};
