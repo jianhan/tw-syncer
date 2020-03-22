@@ -42,7 +42,7 @@ const convertToParameters = S.curry2(Object.assign)(new Parameters());
  *
  * @param parameters
  */
-const validateParameters = (parameters: Parameters): Either<immutable.Map<string, any>, AbstractErrResponse> => {
+const validateParameters = (parameters: Parameters): Either<AbstractErrResponse, immutable.Map<string, any>> => {
     const errors = validateSync(parameters);
     if (errors.length > 0) {
         return S.Left(new ValidationErrsResponse('Invalid parameter(s)', errors));

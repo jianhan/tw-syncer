@@ -24,6 +24,7 @@ export class ValidationErrsResponse extends AbstractErrResponse implements IResp
     constructor(message: string, validationErrors: ValidationError[]) {
         super(message, httpStatus.BAD_REQUEST);
         this.validationErrors = validationErrors;
+        Object.setPrototypeOf(this, ValidationErrsResponse.prototype);
     }
 
     /**

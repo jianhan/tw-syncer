@@ -1,3 +1,4 @@
+import S from "sanctuary"
 import {sync} from './sync';
 import {Logger} from 'winston';
 import Twitter from "twitter";
@@ -8,6 +9,7 @@ import {Observable} from "rxjs"
 import {ManagedUpload} from "aws-sdk/lib/s3/managed_upload";
 import {ValidationErrsResponse} from "../../structures/ValidationErrsResponse";
 import {ErrResponse} from "../../structures/ErrResponse";
+import fp from "lodash/fp";
 
 const genJSON = (obj: { [key: string]: any } = {
     screen_name: ['test'],
@@ -27,7 +29,7 @@ const tw: jest.Mocked<Twitter> = new Twitter({
     consumer_secret: 'test'
 }) as any;
 const s3: jest.Mocked<S3> = new S3({}) as any;
-let runWithJSON: any;
+let syncWithJSON: any;
 const twGetResponse: any = {test: 'test'};
 const s3UploadRequest: any = {Bucket: 'test', Key: 'test'};
 
@@ -40,7 +42,10 @@ beforeEach(() => {
     };
     jest.spyOn(tw, "get").mockImplementation(() => Promise.resolve(twGetResponse));
     jest.spyOn(s3, "upload").mockImplementation(() => s);
-    runWithJSON = (json: string) => sync(logger, tw, s3UploadRequest, s3)(json);
+    syncWithJSON = (json: string) => {
+        const syncResult = sync(logger, tw, s3UploadRequest, s3)(json);
+        return S.either(fp.identity)(fp.identity)(syncResult)
+    }
 });
 
 afterEach(() => {
@@ -48,22 +53,22 @@ afterEach(() => {
 });
 
 const validateProperty = (json: string, key: string) => {
-    const result = runWithJSON(json);
+    const result = syncWithJSON(json);
     expect(result).toBeInstanceOf(ValidationErrsResponse);
-    expect(result.details()).toHaveLength(1);
+    expect(result.getDetails()).toHaveLength(1);
     // @ts-ignore
-    result.details().forEach((e: any) => expect(e).toBeInstanceOf(ValidationError));
-    expect(result.details()[0].property).toBe(key);
+    result.getDetails().forEach((e: any) => expect(e).toBeInstanceOf(ValidationError));
+    expect(result.getDetails()[0].property).toBe(key);
 };
 
 describe("sync function", () => {
 
     it("should handle invalid json parse error", () => {
         const invalidJSON = "invalid json";
-        const result = runWithJSON(invalidJSON);
+        const result = syncWithJSON(invalidJSON);
         expect(result).toBeInstanceOf(ErrResponse);
         expect(result.message).toBe('unable to parse JSON');
-        expect(result.details().inputVal).toBe(invalidJSON);
+        expect(result.getDetails().inputVal).toBe(invalidJSON);
     });
 
     it("should validate screen_name parameter to be invalid when it is not presented", () => {
@@ -81,7 +86,7 @@ describe("sync function", () => {
         validateProperty(genJSON({screen_name: wordsExceeded}), 'screen_name');
 
         const wordsMaxValid = Array.from(new Array(100), (val, index) => "some string valid" + index + val);
-        const resultMaxValid = runWithJSON(genJSON({screen_name: wordsMaxValid}));
+        const resultMaxValid = syncWithJSON(genJSON({screen_name: wordsMaxValid}));
         expect(resultMaxValid).toBeInstanceOf(Observable);
     });
 
@@ -94,7 +99,7 @@ describe("sync function", () => {
         validateProperty(genJSON({screen_name: ['test'], user_id: idExceeded}), 'user_id');
 
         const idMaxValid = Array.from(new Array(100), (_val, index) => index);
-        const resultMaxValid = runWithJSON(genJSON({screen_name: ['test'], user_id: idMaxValid}));
+        const resultMaxValid = syncWithJSON(genJSON({screen_name: ['test'], user_id: idMaxValid}));
         expect(resultMaxValid).toBeInstanceOf(Observable);
     });
 
@@ -103,12 +108,12 @@ describe("sync function", () => {
     });
 
     it("should be valid when include_entities and tweet_mode are not set", () => {
-        const result = runWithJSON(genJSON({screen_name: ['test'], user_id: [1]}));
+        const result = syncWithJSON(genJSON({screen_name: ['test'], user_id: [1]}));
         expect(result).toBeInstanceOf(Observable);
     });
 
     it("should sensitize screen_name parameter", () => {
-        runWithJSON(genJSON({screen_name: ['test', 'test ', ' need_trim '], user_id: [1], tweet_mode: true, include_entities: true}));
+        syncWithJSON(genJSON({screen_name: ['test', 'test ', ' need_trim '], user_id: [1], tweet_mode: true, include_entities: true}));
         expect(tw.get).toHaveBeenCalledWith("users/lookup", {
             "include_entities": "true",
             "screen_name": "test,need_trim",
@@ -118,7 +123,7 @@ describe("sync function", () => {
     });
 
     it("should sensitize user_id parameter", () => {
-        runWithJSON(genJSON({screen_name: ['test'], user_id: [1, 0, 2, 3, 5], tweet_mode: true, include_entities: true}));
+        syncWithJSON(genJSON({screen_name: ['test'], user_id: [1, 0, 2, 3, 5], tweet_mode: true, include_entities: true}));
         expect(tw.get).toHaveBeenCalledWith("users/lookup", {
             "include_entities": "true",
             "screen_name": "test",
@@ -128,7 +133,7 @@ describe("sync function", () => {
     });
 
     it("should have correct parameter passed to upload function", async () => {
-        const r = runWithJSON(genJSON({screen_name: ['test'], user_id: [1, 0, 2, 3, 5]}));
+        const r = syncWithJSON(genJSON({screen_name: ['test'], user_id: [1, 0, 2, 3, 5]}));
         await r.toPromise();
         expect(s3.upload).toHaveBeenCalledWith(Object.assign({}, s3UploadRequest, {Body: JSON.stringify(twGetResponse)}));
     });
@@ -136,7 +141,7 @@ describe("sync function", () => {
     it("should handle tw fetch reject", async () => {
         const errMsg = 'fetching error';
         jest.spyOn(tw, "get").mockImplementation(() => Promise.reject(new Error(errMsg)));
-        const r = runWithJSON(genJSON({screen_name: ['test'], user_id: [1, 0, 2, 3, 5]}));
+        const r = syncWithJSON(genJSON({screen_name: ['test'], user_id: [1, 0, 2, 3, 5]}));
         try {
             await r.toPromise();
         } catch (e) {
@@ -153,7 +158,7 @@ describe("sync function", () => {
             on: jest.fn()
         };
         jest.spyOn(s3, "upload").mockImplementation(() => manageUploadErr);
-        const r = runWithJSON(genJSON({screen_name: ['test'], user_id: [1, 0, 2, 3, 5]}));
+        const r = syncWithJSON(genJSON({screen_name: ['test'], user_id: [1, 0, 2, 3, 5]}));
         try {
             await r.toPromise();
         } catch (e) {
