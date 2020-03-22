@@ -43,7 +43,7 @@ const convertToParameters = S.curry2(Object.assign)(new Parameters());
  *
  * @param parameters
  */
-const validateParameters = (parameters: Parameters): Either<ValidationErrsResponse, immutable.Map<string, any>> => {
+const validateParameters = (parameters: Parameters): Either<SimpleResponse, immutable.Map<string, any>> => {
     const errors = validateSync(parameters);
     if (errors.length > 0) {
         return S.Left(new ValidationErrsResponse('Invalid parameter(s)', errors));
@@ -127,12 +127,6 @@ const upload = (putObjectRequest: PutObjectRequest, s3: S3, o: Observable<Respon
 };
 
 /**
- * extractResult extract results from container(Either) so results can be used by
- * caller.
- */
-const extractResult = S.either(fp.identity)(fp.identity);
-
-/**
  * sync is entry point for synchronizes users, it compose all the process in a functional way.
  *
  * @param logger
@@ -152,6 +146,5 @@ export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectReq
         S.map(S.curry2(fetch)(tw)),
         fp.tap(logger.info),
         S.map(S.curry3(upload)(putObjectRequest)(s3)),
-        extractResult
     ]);
 };

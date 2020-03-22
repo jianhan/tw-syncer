@@ -1,13 +1,14 @@
 import {ValidationError} from "class-validator";
 import * as httpStatus from "http-status-codes";
-import {SimpleResponse} from "./SimpleResponses";
+import {AbstractErrResponse} from "./AbstractErrResponse";
+import {IResponse} from "./IResponse";
 
 /**
  * ValidationErrsResponse is a thin wrapper for validation errors from class-validator package.
  * The reason is when doing composition, if any validation errors occur then it can be used
  * as return value directly, do not have to convert validation errors array into a response anymore.
  */
-export class ValidationErrsResponse extends Error implements SimpleResponse {
+export class ValidationErrsResponse extends AbstractErrResponse implements IResponse {
 
     /**
      * validationErrors contains array of validation errors.
@@ -21,15 +22,14 @@ export class ValidationErrsResponse extends Error implements SimpleResponse {
      * @param validationErrors
      */
     constructor(message: string, validationErrors: ValidationError[]) {
-        super(message);
+        super(message, httpStatus.BAD_REQUEST);
         this.validationErrors = validationErrors;
-        Object.setPrototypeOf(this, ValidationErrsResponse.prototype);
     }
 
     /**
      * details contains array of validation errors.
      */
-    details(): any {
+    getDetails(): any {
         return this.validationErrors;
     }
 
@@ -43,10 +43,4 @@ export class ValidationErrsResponse extends Error implements SimpleResponse {
         }, []).join(" , ")
     }
 
-    /**
-     * getStatus is status code of response error.
-     */
-    getStatus(): number {
-        return httpStatus.BAD_REQUEST;
-    }
 }
