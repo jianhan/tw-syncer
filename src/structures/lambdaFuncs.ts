@@ -7,7 +7,7 @@ import {ErrResponse} from "./ErrResponse";
 import {AbstractResponse} from "./AbstractResponse";
 import {AbstractErrResponse} from "./AbstractErrResponse";
 
-type response = AbstractResponse | AbstractErrResponse;
+export type response = AbstractResponse | AbstractErrResponse;
 
 // tslint:disable-next-line:max-line-length
 export type lambdaFuncAsync = (envs: immutable.Map<string, string | Environment | undefined>, logger: Logger, event: APIGatewayEvent) => Promise<response>;

@@ -56,25 +56,7 @@ const validateProperty = (json: string, key: string) => {
     expect(result.details()[0].property).toBe(key);
 };
 
-interface IPerson {
-    sayHello(): string
-}
-
-abstract class APerson implements IPerson {
-    abstract sayHello(): string;
-}
-
-class Person extends APerson {
-    sayHello(): string {
-        return "123";
-    }
-}
-
 describe("sync function", () => {
-    it("test", () => {
-        const p = new Person();
-        console.log(p instanceof IPerson);
-    });
 
     it("should handle invalid json parse error", () => {
         const invalidJSON = "invalid json";

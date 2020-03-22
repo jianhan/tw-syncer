@@ -15,20 +15,19 @@ import * as httpStatus from "http-status-codes";
 import {ErrResponse} from "../../structures/ErrResponse";
 import {ValidationErrsResponse} from "../../structures/ValidationErrsResponse";
 import {Either} from "../../structures/Either";
-import {SimpleResponse} from "../../structures/SimpleResponses";
+import {AbstractErrResponse} from "../../structures/AbstractErrResponse";
 
 /**
  * parseJSON parses json string.
  *
  * @param s
  */
-const parseJSON = (s: string): Either<Parameters, SimpleResponse> => {
+const parseJSON = (s: string): Either<AbstractErrResponse, Parameters> => {
     try {
         const parameters = JSON.parse(s);
         return S.Right(parameters);
     } catch (e) {
-        const response: SimpleResponse = new ErrResponse('unable to parse JSON', httpStatus.BAD_REQUEST, s);
-        return S.Left(response);
+        return S.Left(new ErrResponse('unable to parse JSON', httpStatus.BAD_REQUEST, s));
     }
 };
 
@@ -43,7 +42,7 @@ const convertToParameters = S.curry2(Object.assign)(new Parameters());
  *
  * @param parameters
  */
-const validateParameters = (parameters: Parameters): Either<SimpleResponse, immutable.Map<string, any>> => {
+const validateParameters = (parameters: Parameters): Either<immutable.Map<string, any>, AbstractErrResponse> => {
     const errors = validateSync(parameters);
     if (errors.length > 0) {
         return S.Left(new ValidationErrsResponse('Invalid parameter(s)', errors));
