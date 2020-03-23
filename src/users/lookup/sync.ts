@@ -12,22 +12,20 @@ import {PutObjectRequest} from "aws-sdk/clients/s3";
 import {S3} from 'aws-sdk';
 import fp from "lodash/fp";
 import * as httpStatus from "http-status-codes";
-import {ErrResponse} from "../../structures/ErrResponse";
-import {ValidationErrsResponse} from "../../structures/ValidationErrsResponse";
 import {Either} from "../../structures/Either";
-import {AbstractErrResponse} from "../../structures/AbstractErrResponse";
+import {LambdaResponse} from "../../structures/LambdaResponse";
 
 /**
  * parseJSON parses json string.
  *
  * @param s
  */
-const parseJSON = (s: string): Either<AbstractErrResponse, Parameters> => {
+const parseJSON = (s: string): Either<LambdaResponse, Parameters> => {
     try {
         const parameters = JSON.parse(s);
         return S.Right(parameters);
     } catch (e) {
-        return S.Left(new ErrResponse('unable to parse JSON', httpStatus.BAD_REQUEST, s));
+        return S.Left(new LambdaResponse(httpStatus.BAD_REQUEST, 'unable to parse JSON', s));
     }
 };
 
@@ -42,10 +40,10 @@ const convertToParameters = S.curry2(Object.assign)(new Parameters());
  *
  * @param parameters
  */
-const validateParameters = (parameters: Parameters): Either<AbstractErrResponse, immutable.Map<string, any>> => {
+const validateParameters = (parameters: Parameters): Either<LambdaResponse, immutable.Map<string, any>> => {
     const errors = validateSync(parameters);
     if (errors.length > 0) {
-        return S.Left(new ValidationErrsResponse('Invalid parameter(s)', errors));
+        return S.Left(new LambdaResponse(httpStatus.BAD_REQUEST, 'Invalid parameter(s)', errors));
     }
     return S.Right(immutable.fromJS(Object.assign({}, parameters)))
 };

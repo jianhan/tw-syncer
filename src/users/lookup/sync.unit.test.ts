@@ -7,9 +7,8 @@ import {S3} from 'aws-sdk';
 import {ValidationError} from 'class-validator';
 import {Observable} from "rxjs"
 import {ManagedUpload} from "aws-sdk/lib/s3/managed_upload";
-import {ValidationErrsResponse} from "../../structures/ValidationErrsResponse";
-import {ErrResponse} from "../../structures/ErrResponse";
 import fp from "lodash/fp";
+import {LambdaResponse} from "../../structures/LambdaResponse";
 
 const genJSON = (obj: { [key: string]: any } = {
     screen_name: ['test'],
@@ -54,7 +53,7 @@ afterEach(() => {
 
 const validateProperty = (json: string, key: string) => {
     const result = syncWithJSON(json);
-    expect(result).toBeInstanceOf(ValidationErrsResponse);
+    expect(result).toBeInstanceOf(LambdaResponse);
     expect(result.getDetails()).toHaveLength(1);
     // @ts-ignore
     result.getDetails().forEach((e: any) => expect(e).toBeInstanceOf(ValidationError));
@@ -66,7 +65,7 @@ describe("sync function", () => {
     it("should handle invalid json parse error", () => {
         const invalidJSON = "invalid json";
         const result = syncWithJSON(invalidJSON);
-        expect(result).toBeInstanceOf(ErrResponse);
+        expect(result).toBeInstanceOf(LambdaResponse);
         expect(result.message).toBe('unable to parse JSON');
         expect(result.getDetails().inputVal).toBe(invalidJSON);
     });

@@ -1,8 +1,8 @@
 import Twitter = require("twitter");
-import { AccessTokenOptions } from "twitter";
+import {AccessTokenOptions} from "twitter";
 import S3 = require("aws-sdk/clients/s3");
-import { ClientConfiguration } from "aws-sdk/clients/s3";
-import { Environment } from "jianhan-fp-lib";
+import {ClientConfiguration} from "aws-sdk/clients/s3";
+import {Environment} from "jianhan-fp-lib";
 import * as immutable from "immutable";
 
 /**
@@ -39,5 +39,5 @@ export const getClientsFromEnvs = (envs: immutable.Map<string, string | Environm
         access_token_secret: envs.get("ACCESS_SECRET") as string,
     });
 
-    return { s3, tw };
-}
+    return {s3, tw};
+};
