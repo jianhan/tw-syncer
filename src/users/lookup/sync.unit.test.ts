@@ -67,7 +67,7 @@ describe("sync function", () => {
         const result = syncWithJSON(invalidJSON);
         expect(result).toBeInstanceOf(LambdaResponse);
         expect(result.message).toBe('unable to parse JSON');
-        expect(result.getDetails().inputVal).toBe(invalidJSON);
+        expect(result.getDetails()).toBe(invalidJSON);
     });
 
     it("should validate screen_name parameter to be invalid when it is not presented", () => {

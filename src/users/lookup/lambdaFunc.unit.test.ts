@@ -1,15 +1,15 @@
 import S from "sanctuary";
 import {sync} from "./sync";
-import {mocked} from "ts-jest";
+import {mocked} from "ts-jest/utils";
 import {Logger} from "winston";
 import Twitter from "twitter";
 import {S3} from "aws-sdk";
 import * as winston from "winston";
-import {ErrResponse} from "../../structures/ErrResponse";
 import * as httpStatus from "http-status-codes";
 import {lambdaFunc} from "./lambdaFunc";
 import {getClientsFromEnvs} from "../../clients";
 import * as immutable from "immutable";
+import {LambdaResponse} from "../../structures/LambdaResponse";
 
 // jest.mock('APIGatewayEvent');
 jest.mock('./sync');
@@ -37,13 +37,13 @@ afterEach(() => {
 describe("lambdaFunc test", () => {
 
     it('should return AbstractErrResponse when sync func return ErrResponse', async () => {
-        const errResp = new ErrResponse('unable to parse JSON', httpStatus.BAD_REQUEST, 'test');
+        const errResp = new LambdaResponse(httpStatus.BAD_REQUEST, 'unable to parse JSON', 'test');
         mocked(getClientsFromEnvs).mockImplementation(() => ({s3: s3Client, tw: twitterClient}));
         mocked(sync).mockImplementation(() => () => S.Left(errResp));
         const func = lambdaFunc(immutable.Map({}), logger, 'test');
         const result = await func();
 
-        expect(result.getMessage()).toEqual(errResp.message)
+        expect(result.getMessage()).toEqual(errResp.getMessage())
     });
 
     it('should return AbstractErrResponse when validations fail', () => {

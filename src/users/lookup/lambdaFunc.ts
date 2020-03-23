@@ -7,6 +7,7 @@ import * as immutable from "immutable";
 import S from "sanctuary"
 import moment = require("moment");
 import {LambdaResponse} from "../../structures/LambdaResponse";
+import fp from "lodash/fp";
 // tslint:disable-next-line:no-var-requires
 const sprintf = require("sprintf");
 
@@ -18,17 +19,20 @@ export const lambdaFunc = (envs: immutable.Map<string, string | Environment | un
             const syncFunc = sync(logger, tw, {Bucket: envs.get("S3_BUCKET_NAME") as string, Key: key}, s3);
             const syncResult = syncFunc(body);
 
+            // extract value from Left or Right monad
+            const extractedResult: any = S.either(fp.identity)(fp.identity)(syncResult);
+
             // error occur
             if (S.isLeft(syncResult)) {
-                if (syncResult instanceof LambdaResponse) {
-                    return syncResult;
+                if (extractedResult instanceof LambdaResponse) {
+                    return extractedResult;
                 }
 
                 return new LambdaResponse(httpStatus.INTERNAL_SERVER_ERROR, 'Unable to process error from sync function', syncResult);
             }
 
             // all good, composition can reach the last step, which means monad return Right
-            return await syncResult.toPromise();
+            return await extractedResult.toPromise();
         } catch (err) {
             return new LambdaResponse(httpStatus.INTERNAL_SERVER_ERROR, 'Error occur', body);
         }
