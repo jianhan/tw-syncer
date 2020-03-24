@@ -10,6 +10,7 @@ import {lambdaFunc} from "./lambdaFunc";
 import {getClientsFromEnvs} from "../../clients";
 import * as immutable from "immutable";
 import {LambdaResponse} from "../../structures/LambdaResponse";
+import {from} from 'rxjs';
 
 // jest.mock('APIGatewayEvent');
 jest.mock('./sync');
@@ -28,15 +29,13 @@ const twitterClient: jest.Mocked<Twitter> = new Twitter({
 
 const s3Client: jest.Mocked<S3> = new S3({}) as any;
 
-const s3UploadRequest: any = {Bucket: 'test', Key: 'test'};
-
 afterEach(() => {
     jest.clearAllMocks();
 });
 
 describe("lambdaFunc test", () => {
 
-    it('should return AbstractErrResponse when sync func return ErrResponse', async () => {
+    it('should return Response contains err message when sync func returns Left monad', async () => {
         const errResp = new LambdaResponse(httpStatus.BAD_REQUEST, 'unable to parse JSON', 'test');
         mocked(getClientsFromEnvs).mockImplementation(() => ({s3: s3Client, tw: twitterClient}));
         mocked(sync).mockImplementation(() => () => S.Left(errResp));
@@ -46,11 +45,15 @@ describe("lambdaFunc test", () => {
         expect(result.getMessage()).toEqual(errResp.getMessage())
     });
 
-    it('should return AbstractErrResponse when validations fail', () => {
+    it('should return Response contains successful message when sync func returns Right monad', async () => {
+        const val = {test: 'test'};
+        const ob = from(Promise.resolve(val));
+        mocked(getClientsFromEnvs).mockImplementation(() => ({s3: s3Client, tw: twitterClient}));
+        mocked(sync).mockImplementation(() => () => S.Right(ob));
+        const func = lambdaFunc(immutable.Map({}), logger, 'test');
+        const result = await func();
 
+        expect(result).toEqual(val)
     });
 
-    it('should return AbstractErrResponse when s3 fetch reject', () => {
-
-    });
 });
