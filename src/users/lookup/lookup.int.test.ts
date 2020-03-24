@@ -58,16 +58,4 @@ describe("lambda function", () => {
         expect(result).toHaveProperty('message');
         expect(result.message).toEqual("Sync successful");
     });
-
-    it("should sync user via lambda function", async () => {
-        const event = {
-            body: validJSON()
-        };
-        // @ts-ignore
-        const result = await lambdaFunc(envs, logger, event);
-        expect(result).toHaveProperty('statusCode');
-        expect(result.statusCode).toEqual(httpStatus.OK);
-        expect(result).toHaveProperty('message');
-        expect(result.message).toEqual("Sync successful");
-    });
 });

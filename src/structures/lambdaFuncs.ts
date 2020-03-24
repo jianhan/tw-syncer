@@ -9,6 +9,13 @@ export type lambdaFuncAsync = () => Promise<LambdaResponse>;
 // tslint:disable-next-line:max-line-length
 export type lambdaFuncSync = () => LambdaResponse;
 
+/**
+ * lambdaNotFoundFunc a default function to generate response when lambda function
+ * was not found.
+ *
+ * @param logger
+ * @param event
+ */
 export const lambdaNotFoundFunc = (logger: Logger, event: APIGatewayEvent) => {
     return () => {
         logger.warn('unable to find lambda function', event);

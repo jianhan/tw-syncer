@@ -1,3 +1,6 @@
+/**
+ * LambdaResponse defines a structure for lambda response.
+ */
 export class LambdaResponse {
 
     protected readonly status: number;
