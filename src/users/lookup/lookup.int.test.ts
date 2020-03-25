@@ -24,7 +24,6 @@ const validJSON = (): string => `{
 
 beforeEach(async () => {
     envs = await getEnvs(process.env, Envs);
-
     logger = createLogger(envs.get("NODE_ENV") as Environment, envs.get("SERVICE_NAME") as string, LogLevel.DEBUG);
 });
 

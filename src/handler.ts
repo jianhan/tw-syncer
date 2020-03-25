@@ -6,8 +6,6 @@ import {lambdaFunc as userLookupLambdaFunc} from "./users/lookup/lambdaFunc";
 import {lambdaFuncAsync, lambdaFuncSync, lambdaNotFoundFunc} from "./structures/lambdaFuncs";
 import {findLambdaFunc} from "./operations";
 
-
-
 export const handler = async (event: APIGatewayEvent): Promise<any> => {
     // resolve dependencies such as envs, logger, etc..
     const envs = await getEnvs(process.env, Envs);
