@@ -23,7 +23,6 @@ export class ValidationErrsResponse extends LambdaResponse {
     constructor(message: string, details: ValidationError[]) {
         super(httpStatus.BAD_REQUEST,message, details);
         this.details = details;
-        Object.setPrototypeOf(this, LambdaResponse.prototype);
     }
 
     /**

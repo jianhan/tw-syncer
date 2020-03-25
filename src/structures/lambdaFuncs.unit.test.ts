@@ -11,8 +11,10 @@ describe("lambdaNotFoundFunc function", () => {
 
     it("should return response with status BAD REQUEST and log the event", () => {
         const event = {test: 'test'};
+        jest.spyOn(logger, "warn");
         // @ts-ignore
         const response = lambdaNotFoundFunc(logger, event)();
+        expect(logger.warn).toBeCalledTimes(1);
         expect(response).toBeInstanceOf(LambdaResponse);
         expect(response.getMessage()).toEqual("Can not find matching function to execute");
         expect(response.getStatus()).toEqual(httpStatus.BAD_REQUEST);
