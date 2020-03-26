@@ -32,7 +32,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@types/node": "^13.7.7",
+    "@types/node": "^13.9.4",
     "aws-lambda": "^1.0.5",
     "aws-sdk": "^2.636.0",
     "class-validator": "^0.11.0",
