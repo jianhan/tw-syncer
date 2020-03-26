@@ -11,6 +11,13 @@ import fp from "lodash/fp";
 // tslint:disable-next-line:no-var-requires
 const sprintf = require("sprintf");
 
+/**
+ * lambdaFunc is the entry point function for user lookup functionality.
+ *
+ * @param envs
+ * @param logger
+ * @param body
+ */
 export const lambdaFunc = (envs: immutable.Map<string, string | Environment | undefined>, logger: Logger, body: string) => {
     return async (): Promise<LambdaResponse> => {
         try {
