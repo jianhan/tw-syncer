@@ -33,8 +33,7 @@ describe("test handler func", () => {
         expect(result).toEqual(new LambdaResponse(httpStatus.BAD_REQUEST, "Can not find matching function to execute", event));
     });
 
-    // it("should return response with internal server error when lambda func reject", () => {
-    //
+    // it("should return response with internal server error when lambda func reject", done => {
     // })
 
 });

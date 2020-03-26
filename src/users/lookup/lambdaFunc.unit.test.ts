@@ -46,14 +46,14 @@ describe("lambdaFunc test", () => {
     });
 
     it('should return Response contains successful message when sync func returns Right monad', async () => {
-        const val = {test: 'test'};
-        const ob = from(Promise.resolve(val));
+        const uploadSuccessfulResponse = {test: 'test'};
+        const ob = from(Promise.resolve(uploadSuccessfulResponse));
         mocked(getClientsFromEnvs).mockImplementation(() => ({s3: s3Client, tw: twitterClient}));
         mocked(sync).mockImplementation(() => () => S.Right(ob));
         const func = lambdaFunc(immutable.Map({}), logger, 'test');
         const result = await func();
 
-        expect(result).toEqual(val)
+        expect(result).toEqual(new LambdaResponse(httpStatus.OK, 'upload successful', uploadSuccessfulResponse));
     });
 
 });
