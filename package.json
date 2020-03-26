@@ -63,7 +63,7 @@
     "jest": "^25.1.0",
     "jsverify": "^0.8.4",
     "ts-jest": "^25.2.1",
-    "tslint": "^6.0.0",
+    "tslint": "^6.1.0",
     "tslint-clean-code": "^0.2.10",
     "tslint-sonarts": "^1.9.0",
     "typedoc": "^0.17.0",
