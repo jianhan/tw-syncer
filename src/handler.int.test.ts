@@ -2,7 +2,6 @@ import {handler} from "./handler";
 import {APIGatewayEvent} from "aws-lambda";
 import {LambdaResponse} from "./structures/LambdaResponse";
 import * as httpStatus from "http-status-codes";
-import exp = require("constants");
 
 const validJSON = (): string => `{
         "screen_name": ["chenqiushi404"],

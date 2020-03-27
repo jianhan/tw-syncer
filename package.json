@@ -10,6 +10,7 @@
     "test:integration": "npm run clean && npm run build & jest -c jest.config.integration.js",
     "lint": "node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json 'src/**/*.{ts,tsx}' -o lint-result.json -t json",
     "build": "tsc",
+    "build:lambda": "npm run clean && npm run build && cd dist && cp ../package.json . && npm i --production && rm *.json && zip -r lambda.zip .",
     "clean": "rm -rf dist",
     "doc": "./node_modules/.bin/typedoc --out dist/docs --mode modules src/",
     "version": "auto-changelog -p && git add CHANGELOG.md"
