@@ -2,7 +2,7 @@ import * as httpStatus from "http-status-codes";
 import {Environment, LogLevel, getEnvs, createLogger} from "jianhan-fp-lib";
 import {Envs} from "./Envs";
 import {lambdaFunc as userLookupLambdaFunc} from "./users/lookup/lambdaFunc";
-import {lambdaFuncAsync, lambdaFuncSync, lambdaNotFoundFunc} from "./structures/lambdaFuncs";
+import {lambdaFunc, lambdaNotFoundFunc} from "./structures/lambdaFuncs";
 import {findLambdaFunc} from "./operations";
 import {APIGatewayEvent} from "aws-lambda";
 import {LambdaResponse} from "./structures/LambdaResponse";
@@ -15,7 +15,7 @@ export const handler = async (event: APIGatewayEvent): Promise<any> => {
         const logger = createLogger(envs.get("NODE_ENV") as Environment, envs.get("SERVICE_NAME") as string, LogLevel.DEBUG);
 
         // lambda function lookup map, key is path to lambda, value is the actual lambda function
-        const lambdaFuncMap: { [key: string]: lambdaFuncAsync | lambdaFuncSync } = {
+        const lambdaFuncMap: { [key: string]: lambdaFunc } = {
             'users/lookup': userLookupLambdaFunc(envs, logger, event.body as string)
         };
 

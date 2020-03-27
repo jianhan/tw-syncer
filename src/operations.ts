@@ -1,10 +1,10 @@
-import {lambdaFuncAsync, lambdaFuncSync} from "./structures/lambdaFuncs";
+import {lambdaFunc} from "./structures/lambdaFuncs";
 import {LambdaResponse} from "./structures/LambdaResponse";
 
 export const findLambdaFunc = (
-    cases: { [p: string]: lambdaFuncAsync | lambdaFuncSync },
-    defaultCase: lambdaFuncAsync | lambdaFuncSync,
-    key: string) => {
+    cases: { [p: string]: lambdaFunc },
+    defaultCase: lambdaFunc,
+    key: string): lambdaFunc => {
     if (cases.hasOwnProperty(key)) {
         return cases[key]
     } else {

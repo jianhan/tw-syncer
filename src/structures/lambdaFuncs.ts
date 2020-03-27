@@ -9,6 +9,8 @@ export type lambdaFuncAsync = () => Promise<LambdaResponse>;
 // tslint:disable-next-line:max-line-length
 export type lambdaFuncSync = () => LambdaResponse;
 
+export type lambdaFunc = lambdaFuncSync | lambdaFuncAsync;
+
 /**
  * lambdaNotFoundFunc a default function to generate response when lambda function
  * was not found.
