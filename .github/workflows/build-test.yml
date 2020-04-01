@@ -38,8 +38,23 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      # Build
+      # cache node modules
+      - name: Cache dist folder
+        uses: actions/cache@v1
+        id: dist-cache
+        env:
+          cache-name: dist-cache
+        with:
+          path: dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      # Build lambda
       - name: Build Lambda
+        if: steps.dist-cache.outputs.cache-hit != 'true'
         run: npm run build:lambda
 
       # Archive build dist artifacts
@@ -125,5 +140,5 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-southeast-2'
-          SOURCE_DIR: 'lambda'
+          SOURCE_DIR: './lambda'
           DEST_DIR: "tw-syncer"
