@@ -38,7 +38,7 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      # cache node modules
+      # cache dist folder
       - name: Cache dist folder
         uses: actions/cache@v1
         id: dist-cache
@@ -46,16 +46,16 @@ jobs:
           cache-name: dist-cache
         with:
           path: dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./dist') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      # Build lambda
-      - name: Build Lambda
+      # Build
+      - name: Build
         if: steps.dist-cache.outputs.cache-hit != 'true'
-        run: npm run build:lambda
+        run: npm run build
 
       # Archive build dist artifacts
       - name: Archive build artifacts
@@ -64,12 +64,44 @@ jobs:
           name: dist
           path: ./dist
 
-      # Archive lambda artifacts
-      - name: Archive build artifacts
+      # cache lambda folder
+      - name: Cache lambda folder
+        uses: actions/cache@v1
+        id: lambda-cache
+        env:
+          cache-name: lambda-cache
+        with:
+          path: lambda
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./lambda') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      # Build lambda
+      - name: Build lambda
+        if: steps.lambda-cache.outputs.cache-hit != 'true'
+        run: npm run build:lambda
+
+      # Archive build lambda artifacts
+      - name: Archive lambda artifacts
         uses: actions/upload-artifact@v1
         with:
           name: lambda
           path: ./lambda
+
+      # sync to s3
+      - name: Sync lambda to s3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'ap-southeast-2'
+          SOURCE_DIR: 'lambda'
+          DEST_DIR: "tw-syncer"
 
       # Unit test
       - name: Unit test
@@ -129,16 +161,3 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: dist
-
-      # sync to s3
-      - name: Sync dist to s3
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks --delete
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'ap-southeast-2'
-          SOURCE_DIR: './lambda'
-          DEST_DIR: "tw-syncer"
