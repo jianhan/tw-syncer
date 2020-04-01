@@ -39,7 +39,7 @@
   "dependencies": {
     "@types/node": "^13.9.4",
     "aws-lambda": "^1.0.5",
-    "aws-sdk": "^2.647.0",
+    "aws-sdk": "^2.650.0",
     "class-validator": "^0.11.1",
     "dotenv": "^8.2.0",
     "http-status-codes": "^1.4.0",
