@@ -49,6 +49,13 @@ jobs:
           name: dist
           path: ./dist
 
+      # Archive lambda artifacts
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: lambda
+          path: ./lambda
+
       # Unit test
       - name: Unit test
         run: npm run test:unit
@@ -92,6 +99,13 @@ jobs:
         # generate api doc
       - name: Generate API HTML doc
         run: npm run doc
+
+      # Archive doc artifacts
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: doc
+          path: ./doc
 
       # Build github pages.
       - name: Github pages

@@ -13,3 +13,5 @@ terraform.tfvars
 lint-result.*
 /logs
 lint-result.json
+lambda.zip
+doc
