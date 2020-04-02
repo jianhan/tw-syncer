@@ -15,7 +15,7 @@ const genJSON = (obj: { [key: string]: any } = {
     user_id: [1],
     include_entities: true,
     tweet_mode: true
-}): string => JSON.stringify(obj);
+}): { [key: string]: any } => obj;
 
 const logger: Logger = winston.createLogger({
     transports: [new winston.transports.Console()]
@@ -41,7 +41,7 @@ beforeEach(() => {
     };
     jest.spyOn(tw, "get").mockImplementation(() => Promise.resolve(twGetResponse));
     jest.spyOn(s3, "upload").mockImplementation(() => s);
-    syncWithJSON = (json: string) => {
+    syncWithJSON = (json: {[key: string]: any}) => {
         const syncResult = sync(logger, tw, s3UploadRequest, s3)(json);
         return S.either(fp.identity)(fp.identity)(syncResult)
     }
@@ -51,7 +51,7 @@ afterEach(() => {
     jest.clearAllMocks();
 });
 
-const validateProperty = (json: string, key: string) => {
+const validateProperty = (json: {[key: string]: any}, key: string) => {
     const result = syncWithJSON(json);
     expect(result).toBeInstanceOf(LambdaResponse);
     expect(result.getDetails()).toHaveLength(1);
@@ -66,8 +66,7 @@ describe("sync function", () => {
         const invalidJSON = "invalid json";
         const result = syncWithJSON(invalidJSON);
         expect(result).toBeInstanceOf(LambdaResponse);
-        expect(result.message).toBe('unable to parse JSON');
-        expect(result.getDetails()).toBe(invalidJSON);
+        expect(result.message).toBe('Invalid parameter(s)');
     });
 
     it("should validate screen_name parameter to be invalid when it is not presented", () => {

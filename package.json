@@ -10,7 +10,7 @@
     "test:integration": "npm run clean:build && npm run build & jest -c jest.config.integration.js",
     "lint": "node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json 'src/**/*.{ts,tsx}' -o lint-result.json -t json",
     "build": "npm run clean:build && tsc",
-    "build:lambda": "npm run clean:lambda && npm run build && mkdir lambda && cp -r dist/* lambda && cd lambda && cp ../package.json . && npm i --production && rm *.json && zip -r lambda.zip . && rm -rf node_modules",
+    "build:lambda": "npm run clean:lambda && mkdir lambda && cp -r dist/* lambda && cd lambda && cp ../package.json . && npm i --production && rm *.json && zip -r lambda.zip . && rm -rf node_modules",
     "clean:build": "rm -rf dist",
     "clean:lambda": "rm -rf lambda",
     "clean:doc": "rm -rf doc",

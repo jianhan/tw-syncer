@@ -20,10 +20,10 @@ import {LambdaResponse} from "../../structures/LambdaResponse";
  *
  * @param s
  */
-const parseJSON = (s: string): Either<LambdaResponse, Parameters> => {
+const parseJSON = (s: {[key: string]: any}): Either<LambdaResponse, Parameters> => {
     try {
-        const parameters = JSON.parse(s);
-        return S.Right(parameters);
+        // const parameters = JSON.parse(s);
+        return S.Right(s);
     } catch (e) {
         return S.Left(new LambdaResponse(httpStatus.BAD_REQUEST, 'unable to parse JSON', s));
     }
