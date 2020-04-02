@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest -c jest.config.unit.js",
-    "test:unit": "npm run clean && npm run build & jest -c jest.config.unit.js",
-    "test:integration": "npm run clean && npm run build & jest -c jest.config.integration.js",
+    "test:unit": "npm run clean:build && npm run build & jest -c jest.config.unit.js",
+    "test:integration": "npm run clean:build && npm run build & jest -c jest.config.integration.js",
     "lint": "node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json 'src/**/*.{ts,tsx}' -o lint-result.json -t json",
     "build": "npm run clean:build && tsc",
     "build:lambda": "npm run clean:lambda && mkdir lambda && cd lambda && cp ../package.json . && npm i --production && rm *.json && zip -r lambda.zip . && rm -rf node_modules",
