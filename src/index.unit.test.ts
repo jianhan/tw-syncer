@@ -1,6 +1,6 @@
 import {createLogger, getEnvs} from "jianhan-fp-lib";
 import {mocked} from "ts-jest/utils";
-import {handler} from "./handler";
+import {index} from "./index";
 import {findLambdaFunc} from "./operations";
 import * as httpStatus from "http-status-codes";
 import {LambdaResponse} from "./structures/LambdaResponse";
@@ -20,7 +20,7 @@ describe("test handler func", () => {
         const errMsg = "invalid envs";
         mocked(getEnvs).mockImplementation(() => Promise.reject(errMsg));
         // @ts-ignore
-        const result = await handler({});
+        const result = await index({});
         expect(result).toEqual(new LambdaResponse(httpStatus.INTERNAL_SERVER_ERROR, "error occur while invoking lambda", errMsg));
     });
 
@@ -32,7 +32,7 @@ describe("test handler func", () => {
         mocked(findLambdaFunc).mockImplementation(() => () => Promise.reject(errMsg));
         const event = {body: 'test'};
         // @ts-ignore
-        const result = await handler(event);
+        const result = await index(event);
         expect(result.status).toBe(httpStatus.INTERNAL_SERVER_ERROR);
         expect(result.message).toBe("error occur while invoking lambda");
         expect(result.details).toBe(errMsg);

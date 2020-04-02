@@ -7,7 +7,7 @@ import {findLambdaFunc} from "./operations";
 import {APIGatewayEvent} from "aws-lambda";
 import {LambdaResponse} from "./structures/LambdaResponse";
 
-export const handler = async (event: APIGatewayEvent): Promise<any> => {
+export const index = async (event: APIGatewayEvent): Promise<any> => {
     // run lambda function
     try {
         // resolve dependencies such as envs, logger, etc..
