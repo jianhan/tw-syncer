@@ -38,19 +38,6 @@ jobs:
       - name: Lint
         run: npm run lint
 
-#      # cache dist folder
-#      - name: Cache dist folder
-#        uses: actions/cache@v1
-#        id: dist-cache
-#        env:
-#          cache-name: dist-cache
-#        with:
-#          path: dist
-#          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./src') }}
-#          restore-keys: |
-#            ${{ runner.os }}-build-${{ env.cache-name }}-
-#            ${{ runner.os }}-build-
-#            ${{ runner.os }}-
 
       # Build
       - name: Build
@@ -64,19 +51,6 @@ jobs:
           name: dist
           path: ./dist
 
-#      # cache lambda folder
-#      - name: Cache lambda folder
-#        uses: actions/cache@v1
-#        id: lambda-cache
-#        env:
-#          cache-name: lambda-cache
-#        with:
-#          path: lambda
-#          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./src') }}
-#          restore-keys: |
-#            ${{ runner.os }}-build-${{ env.cache-name }}-
-#            ${{ runner.os }}-build-
-#            ${{ runner.os }}-
 
       # Build lambda
       - name: Build lambda
