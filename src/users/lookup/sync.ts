@@ -16,20 +16,6 @@ import {Either} from "../../structures/Either";
 import {LambdaResponse} from "../../structures/LambdaResponse";
 
 /**
- * parseJSON parses json string.
- *
- * @param s
- */
-const parseJSON = (s: {[key: string]: any}): Either<LambdaResponse, Parameters> => {
-    try {
-        // const parameters = JSON.parse(s);
-        return S.Right(s);
-    } catch (e) {
-        return S.Left(new LambdaResponse(httpStatus.BAD_REQUEST, 'unable to parse JSON', s));
-    }
-};
-
-/**
  * convertToParameters converts POJO to parameter.
  */
 const convertToParameters = S.curry2(Object.assign)(new Parameters());
@@ -134,9 +120,8 @@ const upload = (putObjectRequest: PutObjectRequest, s3: S3, o: Observable<Respon
 export const sync = (logger: Logger, tw: Twitter, putObjectRequest: PutObjectRequest, s3: S3) => {
     return S.pipe([
         fp.tap(logger.info),
-        parseJSON,
-        S.map(convertToParameters),
-        S.chain(validateParameters),
+        convertToParameters,
+        validateParameters,
         S.map(transformProperties),
         fp.tap(logger.info),
         S.map(toFetchParameters),
