@@ -10,7 +10,7 @@ Ex. I'm always frustrated when ...
 **Is it a new feature or improvement upon existing one.**
 
 A clear and concise description of if current feature request is an improvement
-on existing feature or a ne feature
+on existing feature or a new feature.
 
 **Describe the solution you'd like**
 
