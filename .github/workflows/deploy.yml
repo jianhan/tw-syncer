@@ -51,6 +51,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
 
+      # Generate change logs
+      - name: Generate chagne logs
+        run: |
+          npm run version
+
         # Archive change logs
       - name: Archive build artifacts
         uses: actions/upload-artifact@v1
@@ -87,11 +92,6 @@ jobs:
       # build
       - name: Build
         run: npm run build && npm run build:lambda
-
-      # Generate change logs
-      - name: Generate chagne logs
-        run: |
-          npm run version
 
       # generate api doc
       - name: Generate API HTML doc
