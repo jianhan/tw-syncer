@@ -72,13 +72,12 @@ jobs:
         with:
           tag_name: ${{ steps.bump-version.outputs.new_tag }}
           release_name: Release ${{ steps.bump-version.outputs.new_tag }}
-          body: cat CHANGELOG.md
           draft: false
           prerelease: false
 
-      # Upload release assets
-      - name: Upload Release Asset
-        id: upload-release-asset
+      # Upload release assets zip file
+      - name: Upload Release Asset Zip File
+        id: upload-release-asset-zip-file
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -87,6 +86,17 @@ jobs:
           asset_path: ./lambda/lambda.zip
           asset_name: lambda.zip
           asset_content_type: application/zip
+
+      # Upload release assets changelog
+      - name: Upload Release Asset CHANGELOG.md
+        id: upload-release-asset-changelog-md
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./CHANGELOG.md
+          asset_name: CHANGELOG.md
 
       # generate api doc
       - name: Generate API HTML doc
