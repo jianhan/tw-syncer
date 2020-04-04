@@ -21,42 +21,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
 
-      # install dependencies
-      - name: Install dependencies
-        if: steps.node-modules-cache.outputs.cache-hit != 'true'
-        run: npm install
-
-      # build
-      - name: Build
-        run: npm run build
-
-      # Build github pages.
-      - name: Github pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-
-      # Create release
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # generate api doc
-      - name: Generate API HTML doc
-        run: npm run doc
-
-      # Archive doc artifacts
-      - name: Archive build artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: doc
-          path: ./doc
-
-     # github pages
-
       # Build lambda
       - name: Build lambda
         run: npm run build:lambda
@@ -81,10 +45,44 @@ jobs:
           SOURCE_DIR: 'lambda'
           DEST_DIR: "tw-syncer"
 
+  release:
+    needs: deploy
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # build
+      - name: Build
+        run: npm run build
+
+      # install dependencies
+      - name: Install dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm install
+
       # Generate change logs
       - name: Generate chagne logs
         run: |
           npm run version
+
+      # generate api doc
+      - name: Generate API HTML doc
+        run: npm run doc
+
+      # Archive doc artifacts
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: doc
+          path: ./doc
+
+      # Build github pages
+      - name: Github pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./doc
 
         # Archive change logs
       - name: Archive build artifacts
@@ -96,9 +94,11 @@ jobs:
       # Added release
       - name: Release
         uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           body_path: CHANGELOG.md
           files: |
             LICENSE
+            lambda/lambda.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
