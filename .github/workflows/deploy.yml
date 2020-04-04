@@ -45,10 +45,33 @@ jobs:
 
       # Bump version when deploy successful
       - name: Bump version and push tag
+        id: bump-version
         uses: anothrNick/github-tag-action@1.17.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
+
+        # Archive change logs
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: CHANGELOG.md
+          path: CHANGELOG.md
+
+      # Create release
+      - name: Create Release
+          uses: actions/create-release@latest
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          with:
+            tag_name: ${{ steps.bump-version.outputs.new_tag }}
+            release_name: Release ${{ steps.bump-version.outputs.new_tag }}
+            body: |
+              Changes in this Release
+              - First Change
+              - Second Change
+            draft: false
+            prerelease: false
 
   release:
     needs: deploy
@@ -87,22 +110,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./doc
-
-        # Archive change logs
-      - name: Archive build artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: CHANGELOG.md
-          path: CHANGELOG.md
-
-      # Added release
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          body_path: CHANGELOG.md
-          files: |
-            LICENSE
-            lambda/lambda.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
