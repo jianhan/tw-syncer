@@ -1,13 +1,13 @@
 # work flow action will run for deployment
-name: Master Pushed
+name: Deploy
 
 on:
   push:
     branches:
       - master
 jobs:
-  build-test:
-    name: Build and test
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
