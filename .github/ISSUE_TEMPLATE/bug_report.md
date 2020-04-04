@@ -1,3 +1,12 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: bug
+assignees: ''
+
+---
+
 **Context**
 - Version: [e.g. v1.0.0]
 - Severity level: [e.g Blocker, Critical, Major, Minor, Low]
