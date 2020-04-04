@@ -23,7 +23,7 @@ jobs:
 
       # Build lambda
       - name: Build lambda
-        run: npm run build:lambda
+        run: npm run build & npm run build:lambda
 
       # Archive build lambda artifacts
       - name: Archive lambda artifacts
