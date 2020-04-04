@@ -45,12 +45,29 @@ jobs:
           path: ./doc
 
       # Build github pages.
-      - name: Github pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+      - name: Build pages
+        run: |
+          mkdir public
+          cat > public/index.html <<EOL
+          <!doctype html>
+          <html>
+            <head>
+              <title>GitHub Pages deployed!</title>
+            </head>
+            <body>
+              <p>GitHub Pages with <strong>${{ github.sha }}</strong> commit ID has been deployed through <a href="https://github.com/marketplace/actions/github-pages">GitHub Pages action</a> successfully.</p>
+            </body>
+          </html>
+          EOL
+
+      - name: Deploy pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v1
         with:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
+          target_branch: gh-pages
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Build lambda
       - name: Build lambda
