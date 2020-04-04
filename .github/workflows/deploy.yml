@@ -15,11 +15,9 @@ jobs:
           # set the fetch-depth for actions/checkout@master to be sure you retrieve all commits to look for the semver commit message.
           fetch-depth: '0'
 
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.17.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
+      # install dependencies
+      - name: Install dependencies
+        run: npm install
 
       # Build lambda
       - name: Build lambda
@@ -45,6 +43,13 @@ jobs:
           SOURCE_DIR: 'lambda'
           DEST_DIR: "tw-syncer"
 
+      # Bump version when deploy successful
+      - name: Bump version and push tag
+          uses: anothrNick/github-tag-action@1.17.2
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            WITH_V: true
+
   release:
     needs: deploy
     name: Release
@@ -52,14 +57,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # build
-      - name: Build
-        run: npm run build
-
       # install dependencies
       - name: Install dependencies
-        if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: npm install
+
+      # build
+      - name: Build
+        run: npm run build && npm run build:lambda
 
       # Generate change logs
       - name: Generate chagne logs
