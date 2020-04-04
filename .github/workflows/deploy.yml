@@ -30,6 +30,17 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Test
+        run: ls -la
+
+      # Build github pages.
+      - name: Github pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist
+
       # Create release
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -48,13 +59,7 @@ jobs:
           name: doc
           path: ./doc
 
-      # Build github pages.
-      - name: Github pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
+     # github pages
 
       # Build lambda
       - name: Build lambda
