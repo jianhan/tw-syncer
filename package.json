@@ -96,7 +96,10 @@
       [
         "@semantic-release/git",
         {
-          "assets":[["dist"]]
+          "assets":[
+            "dist",
+            "package.json"
+          ]
         }
       ],
       [
