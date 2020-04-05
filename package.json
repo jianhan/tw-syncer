@@ -93,13 +93,18 @@
           "npmPublish": false
         }
       ],
-      "@semantic-release/changelog",
+      ["@semantic-release/changelog", {
+        "changelogFile": "CHANGELOG.md"
+      }],
       [
         "@semantic-release/github",
         {
           "assets": ["dist/**/*.{js,css}", "!**/*.min.*", "lambda/*.zip"]
         }
-      ]
+      ],
+      ["@semantic-release/exec", {
+        "build-lambda": "./build-lambda.sh ${nextRelease.version}"
+      }]
     ],
     "branches": [
       "master"
