@@ -77,7 +77,7 @@ jobs:
         with:
           tag_name: ${{ steps.bump-version.outputs.new_tag }}
           release_name: Release ${{ steps.bump-version.outputs.new_tag }}
-          body: ${{ steps.get-changelog-content.outputs.content }}
+          body: "<b>Test Release</b>"
           draft: false
           prerelease: false
 
