@@ -15,110 +15,115 @@ jobs:
           # set the fetch-depth for actions/checkout@master to be sure you retrieve all commits to look for the semver commit message.
           fetch-depth: '0'
 
-      # Bump version when deploy successful
-      - name: Bump version and push tag
-        id: bump-version
-        uses: anothrNick/github-tag-action@1.17.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
+      - name: Sem Release
+        id: sem-release
+        run: npx semantic-release
 
-      # install dependencies
-      - name: Install dependencies
-        run: npm install
 
-      # Build lambda
-      - name: Build lambda
-        run: ./build-lambda.sh ${{ steps.bump-version.outputs.new_tag }}
-
-      # Archive build lambda artifacts
-      - name: Archive lambda artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: lambda
-          path: ./lambda
-
-      # sync to s3 for deployment of the zip file
-      - name: Sync lambda to s3
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks --delete
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'ap-southeast-2'
-          SOURCE_DIR: 'lambda'
-          DEST_DIR: 'tw-syncer/${{ steps.bump-version.outputs.new_tag }}'
-
-      # Generate change logs
-      - name: Generate chagne logs
-        run: |
-          npm run version
-
-        # Archive change logs
-      - name: Archive build artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: CHANGELOG.md
-          path: CHANGELOG.md
-
-      # Get content of CHANGELOG.md and set it to a variable, since release action only accept string.
-      - name: Get changelog content
-        id: get-changelog-content
-        run: echo ::set-output name=content::$(cat CHANGELOG.md)
-
-      # Create release
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ steps.bump-version.outputs.new_tag }}
-          release_name: Release ${{ steps.bump-version.outputs.new_tag }}
-          body: "<b>Test Release</b>"
-          draft: false
-          prerelease: false
-
-      # Upload release assets zip file
-      - name: Upload Release Asset Zip File
-        id: upload-release-asset-zip-file
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./lambda/lambda-${{ steps.bump-version.outputs.new_tag }}.zip
-          asset_name: lambda-${{ steps.bump-version.outputs.new_tag }}.zip
-          asset_content_type: application/zip
-
-      # Upload release assets changelog
-      - name: Upload Release Asset CHANGELOG.md
-        id: upload-release-asset-changelog-md
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./CHANGELOG.md
-          asset_name: CHANGELOG.md
-          asset_content_type: text/plain
-
-      # generate api doc
-      - name: Generate API HTML doc
-        run: npm run doc
-
-      # Archive doc artifacts
-      - name: Archive build artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: doc
-          path: ./doc
-
-      # Build github pages
-      - name: Github pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./doc
+#      # Bump version when deploy successful
+#      - name: Bump version and push tag
+#        id: bump-version
+#        uses: anothrNick/github-tag-action@1.17.2
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          WITH_V: true
+#
+#      # install dependencies
+#      - name: Install dependencies
+#        run: npm install
+#
+#      # Build lambda
+#      - name: Build lambda
+#        run: ./build-lambda.sh ${{ steps.bump-version.outputs.new_tag }}
+#
+#      # Archive build lambda artifacts
+#      - name: Archive lambda artifacts
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: lambda
+#          path: ./lambda
+#
+#      # sync to s3 for deployment of the zip file
+#      - name: Sync lambda to s3
+#        uses: jakejarvis/s3-sync-action@master
+#        with:
+#          args: --acl public-read --follow-symlinks --delete
+#        env:
+#          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          AWS_REGION: 'ap-southeast-2'
+#          SOURCE_DIR: 'lambda'
+#          DEST_DIR: 'tw-syncer/${{ steps.bump-version.outputs.new_tag }}'
+#
+#      # Generate change logs
+#      - name: Generate chagne logs
+#        run: |
+#          npm run version
+#
+#        # Archive change logs
+#      - name: Archive build artifacts
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: CHANGELOG.md
+#          path: CHANGELOG.md
+#
+#      # Get content of CHANGELOG.md and set it to a variable, since release action only accept string.
+#      - name: Get changelog content
+#        id: get-changelog-content
+#        run: echo ::set-output name=content::$(cat CHANGELOG.md)
+#
+#      # Create release
+#      - name: Create Release
+#        id: create_release
+#        uses: actions/create-release@latest
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#        with:
+#          tag_name: ${{ steps.bump-version.outputs.new_tag }}
+#          release_name: Release ${{ steps.bump-version.outputs.new_tag }}
+#          body: "<b>Test Release</b>"
+#          draft: false
+#          prerelease: false
+#
+#      # Upload release assets zip file
+#      - name: Upload Release Asset Zip File
+#        id: upload-release-asset-zip-file
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+#          asset_path: ./lambda/lambda-${{ steps.bump-version.outputs.new_tag }}.zip
+#          asset_name: lambda-${{ steps.bump-version.outputs.new_tag }}.zip
+#          asset_content_type: application/zip
+#
+#      # Upload release assets changelog
+#      - name: Upload Release Asset CHANGELOG.md
+#        id: upload-release-asset-changelog-md
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+#          asset_path: ./CHANGELOG.md
+#          asset_name: CHANGELOG.md
+#          asset_content_type: text/plain
+#
+#      # generate api doc
+#      - name: Generate API HTML doc
+#        run: npm run doc
+#
+#      # Archive doc artifacts
+#      - name: Archive build artifacts
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: doc
+#          path: ./doc
+#
+#      # Build github pages
+#      - name: Github pages
+#        uses: peaceiris/actions-gh-pages@v3
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_dir: ./doc
