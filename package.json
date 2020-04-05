@@ -1,6 +1,6 @@
 {
   "name": "tw-syncer",
-  "version": "1.25.5",
+  "version": "1.25.6",
   "description": "Tw syncer",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -103,6 +103,8 @@
         }
       ]
     ],
-    "branches": ["master"]
+    "branches": [
+      "master"
+    ]
   }
 }
