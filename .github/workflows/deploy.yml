@@ -19,7 +19,7 @@ jobs:
         id: sem-release
         run: npm install && npx semantic-release
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 #      # Bump version when deploy successful
