@@ -63,6 +63,11 @@ jobs:
           name: CHANGELOG.md
           path: CHANGELOG.md
 
+      # Get content of CHANGELOG.md and set it to a variable, since release action only accept string.
+      - name: Get changelog content
+        id: get-changelog-content
+        run: echo ::set-output name=content::$(cat CHANGELOG.md)
+
       # Create release
       - name: Create Release
         id: create_release
@@ -72,6 +77,7 @@ jobs:
         with:
           tag_name: ${{ steps.bump-version.outputs.new_tag }}
           release_name: Release ${{ steps.bump-version.outputs.new_tag }}
+          body: ${{ steps.get-changelog-content.outputs.content }}
           draft: false
           prerelease: false
 
