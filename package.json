@@ -1,6 +1,6 @@
 {
   "name": "tw-syncer",
-  "version": "1.0.0",
+  "version": "1.24.1",
   "description": "Tw syncer",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -85,11 +85,15 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      ["@semantic-release/npm",{"npmPublish":false}],
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
       "@semantic-release/changelog",
       "@semantic-release/git"
     ],
     "branch": "master"
   }
 }
-
