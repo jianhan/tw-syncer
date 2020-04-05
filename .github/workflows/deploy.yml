@@ -16,6 +16,10 @@ jobs:
           fetch-depth: '0'
           token: ${{ secrets.GH_TOKEN }}
 
+      # install dependencies
+      - name: Install dependencies
+        run: npm install
+
 #      - name: Sem Release
 #        id: sem-release
 #        run: npm install && npm run build && npx semantic-release
