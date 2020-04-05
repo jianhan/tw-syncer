@@ -18,7 +18,7 @@ jobs:
 
       - name: Sem Release
         id: sem-release
-        run: npm install && npm run bulid && npx semantic-release
+        run: npm install && npm run build && npx semantic-release
 
 #      # Bump version when deploy successful
 #      - name: Bump version and push tag
