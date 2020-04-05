@@ -16,10 +16,13 @@ jobs:
           fetch-depth: '0'
           token: ${{ secrets.GH_TOKEN }}
 
-      - name: Sem Release
-        id: sem-release
-        run: npm install && npm run build && npx semantic-release
-
+#      - name: Sem Release
+#        id: sem-release
+#        run: npm install && npm run build && npx semantic-release
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #      # Bump version when deploy successful
 #      - name: Bump version and push tag
