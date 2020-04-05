@@ -92,7 +92,12 @@
         }
       ],
       "@semantic-release/changelog",
-      "@semantic-release/git"
+      ["@semantic-release/git", {
+        "assets": ["dist", "lambda"]
+      }],
+      ["@semantic-release/exec", {
+        "prepareCmd": "./build-lambda.sh ${nextRelease.version}",
+      }]
     ],
     "branch": "master"
   }
