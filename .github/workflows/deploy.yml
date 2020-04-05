@@ -17,7 +17,7 @@ jobs:
 
       - name: Sem Release
         id: sem-release
-        run: npx semantic-release
+        run: npm install && npx semantic-release
 
 
 #      # Bump version when deploy successful
