@@ -24,6 +24,8 @@ jobs:
       - name: Generate chagne logs
         run: |
           npm run version
+      - name: test
+        run: ls -la && ls -la lambda
 
       # create semantic release
       - name: Semantic Release
