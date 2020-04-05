@@ -101,12 +101,6 @@
             "package.json"
           ]
         }
-      ],
-      [
-        "@semantic-release/exec",
-        {
-          "prepareCmd": "./build-lambda.sh v${nextRelease.version}"
-        }
       ]
     ],
     "branch": "master"
