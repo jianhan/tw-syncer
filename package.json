@@ -99,10 +99,11 @@
       [
         "@semantic-release/github",
         {
-          "assets": ["dist/**/*.{js,css}", "!**/*.min.*", "lambda/*.zip"]
+          "assets": ["dist.zip", "lambda/*.zip", "CHANGELOG.md"]
         }
       ],
       ["@semantic-release/exec", {
+        "zip-dist": "zip -r dist.zip dist",
         "build-lambda": "./build-lambda.sh ${nextRelease.version}"
       }]
     ],
