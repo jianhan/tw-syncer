@@ -96,10 +96,7 @@
       [
         "@semantic-release/git",
         {
-          "assets": [
-            {"path": "dist", "label": "Distribution"},
-            {"path": "lambda", "label": "Lambda distribution"}
-          ]
+          "assets":[["dist"]]
         }
       ],
       [
