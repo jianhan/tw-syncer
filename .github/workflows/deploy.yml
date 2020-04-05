@@ -14,13 +14,11 @@ jobs:
         with:
           # set the fetch-depth for actions/checkout@master to be sure you retrieve all commits to look for the semver commit message.
           fetch-depth: '0'
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Sem Release
         id: sem-release
         run: npm install && npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
 #      # Bump version when deploy successful
 #      - name: Bump version and push tag
