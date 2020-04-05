@@ -24,8 +24,6 @@ jobs:
       - name: Generate chagne logs
         run: |
           npm run version
-      - name: test
-        run: ls -la && ls -la lambda
 
       # create semantic release
       - name: Semantic Release
@@ -34,10 +32,10 @@ jobs:
         with:
           extra_plugins: |
             @semantic-release/commit-analyzer
+            @semantic-release/exec
             @semantic-release/release-notes-generator
             @semantic-release/changelog
             @semantic-release/github
-            @semantic-release/exec
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
