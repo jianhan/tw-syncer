@@ -21,6 +21,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
+
 #      # Bump version when deploy successful
 #      - name: Bump version and push tag
 #        id: bump-version
