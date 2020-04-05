@@ -96,7 +96,7 @@
         "assets": ["dist", "lambda"]
       }],
       ["@semantic-release/exec", {
-        "prepareCmd": "./build-lambda.sh ${nextRelease.version}",
+        "prepareCmd": "./build-lambda.sh ${nextRelease.version}"
       }]
     ],
     "branch": "master"
