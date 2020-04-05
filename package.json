@@ -89,7 +89,7 @@
       "@semantic-release/release-notes-generator",
       ["@semantic-release/exec", {
         "zip-dist": "zip -r dist.zip dist",
-        "build-lambda": "./build-lambda.sh ${nextRelease.version}"
+        "build-lambda": "./build-lambda.sh v${nextRelease.version}"
       }],
       ["@semantic-release/changelog", {
         "changelogFile": "CHANGELOG.md"
