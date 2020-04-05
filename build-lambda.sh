@@ -26,9 +26,3 @@ rm -rf node_modules
 mv *.zip ../
 rm -rf *
 mv ../*.zip .
-
-# create an extra folder just for the purpose of syncing folder to s3
-cd ..
-mkdir "$1"
-cd "$1" || exit 1
-cp ../lambda/"lambda-$1.zip" .
