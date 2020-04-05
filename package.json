@@ -103,6 +103,6 @@
         }
       ]
     ],
-    "branch": "master"
+    "branches": ["master"]
   }
 }
