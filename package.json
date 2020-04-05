@@ -97,10 +97,7 @@
       [
         "@semantic-release/github",
         {
-          "assets": [
-            "dist",
-            "package.json"
-          ]
+          "assets": ["dist/**/*.{js,css}", "!**/*.min.*", "lambda/*.zip"]
         }
       ]
     ],
