@@ -19,7 +19,7 @@ cd lambda || exit 1
 cp ../package.json .
 npm i --production
 rm *.json
-zip -r "lambda$1.zip" .
+zip -r "lambda-$1.zip" .
 rm -rf node_modules
 
 # delete all file but the zip within current folder
@@ -31,4 +31,4 @@ mv ../*.zip .
 cd ..
 mkdir "$1"
 cd "$1" || exit 1
-cp ../lambda/"lambda$1.zip" .
+cp ../lambda/"lambda-$1.zip" .
