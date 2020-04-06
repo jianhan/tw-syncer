@@ -16,7 +16,8 @@
     "clean:test": "rm -rf coverage",
     "clean:all": "npm run clean:build && npm run clean:doc && npm run clean:test && npm run clean:lambda",
     "doc": "./node_modules/.bin/typedoc --out doc --mode modules src/",
-    "version": "auto-changelog -p",
+    "version": "auto-changelog -p && git add CHANGELOG.md",
+    "history": "auto-changelog --output HISTORY.md --template keepachangelog && git add HISTORY.md",
     "release": "npx semantic-release"
   },
   "repository": {
@@ -87,16 +88,27 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      ["@semantic-release/exec", {
-        "prepareCmd": "zip -r dist.zip dist && ./build-lambda.sh v${nextRelease.version}"
-      }],
-      ["@semantic-release/changelog", {
-        "changelogFile": "CHANGELOG.md"
-      }],
+      [
+        "@semantic-release/exec",
+        {
+          "prepareCmd": "zip -r doc.zip doc && zip -r dist.zip dist && ./build-lambda.sh v${nextRelease.version}"
+        }
+      ],
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
       [
         "@semantic-release/github",
         {
-          "assets": ["dist.zip", "lambda/*.zip", "CHANGELOG.md"]
+          "assets": [
+            "doc.zip",
+            "dist.zip",
+            "lambda/*.zip",
+            "CHANGELOG.md"
+          ]
         }
       ]
     ],
