@@ -49,7 +49,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-southeast-2'
           SOURCE_DIR: 'lambda'
-          DEST_DIR: 'tw-syncer/${{ steps.semantic-release.outputs.new_release_version }}'
+          DEST_DIR: 'tw-syncer/v${{ steps.semantic-release.outputs.new_release_version }}'
 
       # Archive doc artifacts
       - name: Archive build artifacts
