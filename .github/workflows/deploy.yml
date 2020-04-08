@@ -38,6 +38,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: test
+        run: ls -la lambda
       # sync to s3 for deployment of the zip file
       - name: Sync lambda to s3
         uses: jakejarvis/s3-sync-action@master
