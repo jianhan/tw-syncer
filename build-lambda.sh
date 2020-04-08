@@ -11,8 +11,6 @@ die () {
 
 echo $1 | grep -E -q '^v((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$' || die "Invalid semantic format $1 provided"
 
-npm run clean:build
-npm run build
 npm run clean:lambda
 mkdir lambda
 cp -r dist/* lambda

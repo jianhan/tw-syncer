@@ -91,7 +91,7 @@
       [
         "@semantic-release/exec",
         {
-          "prepareCmd": "zip -r doc.zip doc && zip -r dist.zip dist && ./build-lambda.sh ${nextRelease.version}"
+          "prepareCmd": "zip -r doc.zip doc && zip -r dist.zip dist && ./build-lambda.sh v${nextRelease.version}"
         }
       ],
       [
