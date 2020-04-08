@@ -46,7 +46,7 @@
     "dotenv": "^8.2.0",
     "http-status-codes": "^1.4.0",
     "immutable": "^4.0.0-rc.12",
-    "jianhan-fp-lib": "^1.2.26",
+    "jianhan-fp-lib": "^1.2.27",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "sanctuary": "^3.0.0",
