@@ -10,8 +10,15 @@ jobs:
   build-test:
     name: Build and test
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # commit lint
+      - uses: wagoid/commitlint-github-action@v1
 
       # cache node modules
       - name: Cache node modules
