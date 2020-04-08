@@ -58,6 +58,8 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/exec": "^5.0.0",
@@ -74,6 +76,7 @@
     "@types/sanctuary": "^0.14.2",
     "@types/twitter": "^1.7.0",
     "faker": "^4.1.0",
+    "husky": "^4.2.3",
     "jest": "^25.2.7",
     "jsverify": "^0.8.4",
     "semantic-release": "^17.0.4",
@@ -115,5 +118,10 @@
     "branches": [
       "master"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
