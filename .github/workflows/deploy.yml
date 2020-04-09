@@ -60,6 +60,7 @@ jobs:
 
       # Archive doc artifacts
       - name: Archive build artifacts
+        if: steps.semantic-release.outputs.new_release_published == 'true'
         uses: actions/upload-artifact@v1
         with:
           name: doc
