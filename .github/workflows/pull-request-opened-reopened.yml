@@ -56,3 +56,10 @@ jobs:
           clover_file: "coverage/clover.xml"
           threshold_alert: 75
           threshold_warning: 85
+
+      # Sonar cloud scan
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
