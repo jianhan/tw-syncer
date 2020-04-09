@@ -46,6 +46,7 @@ jobs:
 
       # sync to s3 for deployment of the zip file
       - name: Sync lambda to s3
+        if: steps.semantic-release.outputs.new_release_published == 'true'
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --follow-symlinks --delete
@@ -59,6 +60,7 @@ jobs:
 
       # Archive doc artifacts
       - name: Archive build artifacts
+        if: steps.semantic-release.outputs.new_release_published == 'true'
         uses: actions/upload-artifact@v1
         with:
           name: doc
@@ -66,6 +68,7 @@ jobs:
 
       # Build github pages
       - name: Github pages
+        if: steps.semantic-release.outputs.new_release_published == 'true'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
