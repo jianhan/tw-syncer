@@ -38,6 +38,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # build lambda
+      - name: Build lambda
+        if: steps.semantic-release.outputs.new_release_published == 'true'
+        run: |
+          ./build-lambda.sh v${{ steps.semantic.outputs.new_release_version }}
+
       # sync to s3 for deployment of the zip file
       - name: Sync lambda to s3
         uses: jakejarvis/s3-sync-action@master
