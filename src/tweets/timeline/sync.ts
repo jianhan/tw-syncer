@@ -1,9 +1,9 @@
-import { of } from "rxjs";
+import {of} from "rxjs";
 import _ from "lodash";
 import {Parameters, validateParameters} from "./Parameters"
 import {catchError, flatMap, map} from "rxjs/operators";
 import {envsMap} from "../../structures/envs";
-import {generateTimelineWithSinceId, fetch, fetchRequest, uploadRequest, upload} from "./s3";
+import {fetch, fetchRequest, generateTimelineWithSinceId, upload, uploadRequest} from "./s3";
 import {getLatestTimeline} from "./twitter";
 import Twitter = require("twitter");
 

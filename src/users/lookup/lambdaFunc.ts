@@ -8,7 +8,7 @@ import S from "sanctuary"
 import moment = require("moment");
 import {LambdaResponse} from "../../structures/LambdaResponse";
 import fp from "lodash/fp";
-import {newResponseFunc} from "../../operations";
+import {lambdaRes} from "../../operations";
 import {Observable} from "rxjs";
 import {ResponseData} from "twitter";
 // tslint:disable-next-line:no-var-requires
@@ -24,7 +24,7 @@ const isLambdaResponse = (obj: any) => obj instanceof LambdaResponse;
 /**
  * processLeft contains logic to process Left monad of sync result.
  */
-const processLeft = S.ifElse(isLambdaResponse)(fp.identity)(S.curry3(newResponseFunc)(httpStatus.INTERNAL_SERVER_ERROR)('Unable to process error from sync function'));
+const processLeft = S.ifElse(isLambdaResponse)(fp.identity)(S.curry3(lambdaRes)(httpStatus.INTERNAL_SERVER_ERROR)('Unable to process error from sync function'));
 
 /**
  * processRight contains right to process Left monad of sync result.

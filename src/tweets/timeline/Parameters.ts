@@ -1,7 +1,6 @@
-import {IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min, validateSync, ValidationError} from "class-validator";
-import {LambdaResponse} from "../../structures/LambdaResponse";
-import * as httpStatus from "http-status-codes";
-import S from "sanctuary";
+import {IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min, validate, ValidationError} from "class-validator";
+import {from, Observable} from "rxjs";
+import {validationErrorsToStr} from "../../operations";
 
 /**
  * Parameters represents twitter api parameters when fetching user timeline, it will be used
@@ -74,7 +73,7 @@ export class Parameters {
      */
     @IsBoolean()
     // tslint:disable-next-line: variable-name
-    public include_rts: boolean = false;
+    public include_rts: boolean = true;
 }
 
 /**
@@ -82,14 +81,18 @@ export class Parameters {
  *
  * @param parameters
  */
-export const validateParameters = (parameters: Parameters) => {
-    const errs: ValidationError[] = validateSync(parameters);
-    if (errs.length > 0) {
-        return S.Left(new LambdaResponse(httpStatus.BAD_REQUEST, 'Invalid parameter(s)', errs));
+export const validateParameters = (parameters: Parameters): Observable<any> => from(validate(parameters).then((errors: ValidationError[]) => {
+    if (errors.length > 0) {
+        throw new Error(validationErrorsToStr(errors))
     }
 
-    return S.Right(parameters);
-};
+    return parameters;
+}));
 
+/**
+ * take an key value pair and construct parameter out of it.
+ *
+ * @param body
+ */
 export const toParameters = (body: { [key: string]: any }): Parameters => Object.assign(new Parameters(), body);
 

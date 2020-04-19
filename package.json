@@ -44,6 +44,8 @@
     "aws-sdk": "^2.656.0",
     "class-validator": "^0.11.1",
     "dotenv": "^8.2.0",
+    "fluture": "^12.2.0",
+    "fluture-sanctuary-types": "^5.0.0",
     "http-status-codes": "^1.4.0",
     "immutable": "^4.0.0-rc.12",
     "jianhan-fp-lib": "^1.2.30",
