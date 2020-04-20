@@ -24,7 +24,7 @@ beforeEach(async () => {
 
 describe("sync function", () => {
     it("should sync", async () => {
-        const params = toParameters({screen_name: "realDonaldTrump"});
+        const params = toParameters({screen_name: "chenqiushi404"});
         const result = await sync(envs, params, s3Client, twitterClient).toPromise();
         expect(result).toHaveProperty('ETag');
         expect(result).toHaveProperty('Location');

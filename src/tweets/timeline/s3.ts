@@ -23,7 +23,7 @@ export const fetchRequest = (envs: envsMap, params: Parameters): S3.Types.GetObj
     Key: fileKey(envs, params)
 });
 
-export const fetch = (s3: AWS.S3, params: S3.Types.GetObjectRequest) => from(s3.getObject(params).promise());
+export const fetch = (s3: AWS.S3, params: S3.Types.GetObjectRequest) => from(s3.getObject(params).promise().catch(e => ({Body: ""})));
 
 export const generateTimelineWithSinceId = (objectOutput: S3.Types.GetObjectOutput) => {
     return of(objectOutput).pipe(

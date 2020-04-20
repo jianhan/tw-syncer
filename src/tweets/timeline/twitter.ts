@@ -1,4 +1,4 @@
-import {fromTweets, Timeline} from "./Timeline";
+import {Timeline} from "./Timeline";
 import {Parameters} from "./Parameters";
 import {from} from "rxjs";
 import _ from "lodash";
@@ -16,8 +16,7 @@ export const getLatestTimeline = (client: Twitter, params: Parameters, timeline:
 
 export const mergeTimeline = (response: Twitter.ResponseData) => fp.pipe([
     fp.curry(mergeTweets)(response),
-    fp.curryRight(_.uniqBy)((t: any) => t.id),
-    fromTweets
+    fp.curryRight(_.uniqBy)((t: any) => t.id)
 ]);
 
 export const mergeTweets = (first: Twitter.ResponseData, second: Twitter.ResponseData) => _.concat(first, second);
