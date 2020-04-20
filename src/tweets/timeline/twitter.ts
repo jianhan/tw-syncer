@@ -14,9 +14,17 @@ export const getLatestTimeline = (client: Twitter, params: Parameters, timeline:
     }))
 };
 
+const parseIdString = (response: Twitter.ResponseData): Twitter.ResponseData => _.map(response, (r => {
+    r.id = parseInt(r.id, 10);
+    return r;
+}));
+
 export const mergeTimeline = (response: Twitter.ResponseData) => fp.pipe([
     fp.curry(mergeTweets)(response),
-    fp.curryRight(_.uniqBy)((t: any) => t.id)
+    fp.filter(fp.has('id')),
+    fp.uniqBy('id'),
+    parseIdString,
+    fp.orderBy(['id'])(['desc']),
 ]);
 
 export const mergeTweets = (first: Twitter.ResponseData, second: Twitter.ResponseData) => _.concat(first, second);

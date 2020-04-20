@@ -6,10 +6,14 @@ import {getTwitterClient} from "../../clients";
 import {envsMap} from "../../structures/envs";
 import {toParameters} from "./Parameters";
 import Twitter = require("twitter");
+import {Logger, default as winston} from "winston";
 
 let s3Client: AWS.S3;
 let envs: envsMap;
 let twitterClient: Twitter;
+const logger: Logger = winston.createLogger({
+    transports: [new winston.transports.Console()]
+});
 
 beforeEach(async () => {
     envs = await getEnvs(process.env, Envs);
@@ -24,8 +28,8 @@ beforeEach(async () => {
 
 describe("sync function", () => {
     it("should sync", async () => {
-        const params = toParameters({screen_name: "chenqiushi404"});
-        const result = await sync(envs, params, s3Client, twitterClient).toPromise();
+        const params = toParameters({screen_name: "realDonaldTrump"});
+        const result = await sync(envs, params, s3Client, twitterClient, logger).toPromise();
         expect(result).toHaveProperty('ETag');
         expect(result).toHaveProperty('Location');
         expect(result).toHaveProperty('Key');

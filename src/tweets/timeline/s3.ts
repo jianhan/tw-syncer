@@ -7,6 +7,7 @@ import {envsMap} from "../../structures/envs";
 import {flatMap} from "rxjs/operators";
 import {fromTweets, Timeline} from "./Timeline";
 import Twitter = require("twitter");
+import {Logger} from "winston";
 // tslint:disable-next-line: no-var-requires
 const sprintf = require("sprintf");
 
@@ -23,7 +24,10 @@ export const fetchRequest = (envs: envsMap, params: Parameters): S3.Types.GetObj
     Key: fileKey(envs, params)
 });
 
-export const fetch = (s3: AWS.S3, params: S3.Types.GetObjectRequest) => from(s3.getObject(params).promise().catch(e => ({Body: ""})));
+export const fetch = (s3: AWS.S3, logger: Logger, params: S3.Types.GetObjectRequest) => from(s3.getObject(params).promise().catch(e => {
+    logger.warn("error occur when fetching files from s3", {params, e});
+    return {Body: ""}
+} ));
 
 export const generateTimelineWithSinceId = (objectOutput: S3.Types.GetObjectOutput) => {
     return of(objectOutput).pipe(
