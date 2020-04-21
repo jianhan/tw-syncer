@@ -8,7 +8,7 @@ import Twitter = require("twitter");
 export const getLatestTimeline = (client: Twitter, params: Parameters, timeline: Timeline) => {
     return from(client.get("statuses/user_timeline", Object.assign(params, {since_id: timeline.sinceId})).then(response => {
         if (!_.isArray(response) || _.size(response) === 0) {
-            return timeline.tweets;
+            return _.orderBy(timeline.tweets, ['id'], ['desc']);
         }
 
         return mergeTimeline(response)(timeline.tweets);
