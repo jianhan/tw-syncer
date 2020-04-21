@@ -10,11 +10,16 @@ export const getLatestTimeline = (client: Twitter, params: Parameters, timeline:
         if (!_.isArray(response) || _.size(response) === 0) {
             return timeline.tweets;
         }
+
         return mergeTimeline(response)(timeline.tweets);
     }))
 };
 
 const parseIdString = (response: Twitter.ResponseData): Twitter.ResponseData => _.map(response, (r => {
+    if (_.get(r, 'id', false)) {
+        return r;
+    }
+
     r.id = parseInt(r.id, 10);
     return r;
 }));

@@ -1,6 +1,16 @@
-import {mergeTimeline} from "./twitter";
+import {getLatestTimeline, mergeTimeline} from "./twitter";
 import jsc from "jsverify";
 import _ from "lodash";
+import Twitter from "twitter";
+import {Parameters} from "./Parameters";
+import {fromTweets} from "./Timeline";
+
+const twitterClient: jest.Mocked<Twitter> = new Twitter({
+    access_token_key: 'test',
+    access_token_secret: 'test',
+    consumer_key: 'test',
+    consumer_secret: 'test'
+}) as any;
 
 describe("mergeTimeline function", () => {
 
@@ -22,6 +32,19 @@ describe("mergeTimeline function", () => {
         const arr1 = [{id: 11, name: "test11"}, {id: 12, name: "test12"}, {id: 1, name: "test1"}];
         const arr2 = [{name: "test", age: 12}, {id: 1, name: "test1"}];
         expect(mergeTimeline(arr1)(arr2)).toEqual([{id: 12, name: "test12"}, {id: 11, name: "test11"}, {id: 1, name: "test1"}])
+    })
+
+});
+
+describe("getLatestTimeline function", () => {
+
+    it("should return merged and sorted tweets", async () => {
+        const generateTweets = (count: number): Twitter.ResponseData => [...Array(count).keys()].map(n => ({id: n + 1, name: "test" + (n + 1)}));
+        const twitterResponseData: Twitter.ResponseData = generateTweets(10);
+        const existingTwitterTimeline = fromTweets(generateTweets(20) as []);
+        jest.spyOn(twitterClient, "get").mockImplementation(() => Promise.resolve(twitterResponseData));
+        const result = await getLatestTimeline(twitterClient, new Parameters(), existingTwitterTimeline).toPromise();
+        expect(result).toEqual(_.sortBy(existingTwitterTimeline.tweets, ['id'], ['desc']))
     })
 
 });
