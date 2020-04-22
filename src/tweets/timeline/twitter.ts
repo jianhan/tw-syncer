@@ -11,7 +11,7 @@ export const filterTweets = fp.filter(fp.has('id'));
 
 export const uniqueTweets = fp.uniqBy('id');
 
-export const getLatestTimeline = (client: Twitter, params: Parameters, timeline: Timeline) => {
+export const getLatestTimeline = (client: Twitter) => (params: Parameters) => (timeline: Timeline) => {
     return from(client.get("statuses/user_timeline", Object.assign(params, {since_id: timeline.sinceId})).then(response => {
         if (!_.isArray(response) || _.size(response) === 0) {
             return _.orderBy(timeline.tweets, ['id'], ['desc']);

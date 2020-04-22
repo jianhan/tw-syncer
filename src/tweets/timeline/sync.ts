@@ -1,5 +1,4 @@
 import {of} from "rxjs";
-import fp from "lodash/fp";
 import {Parameters, validateParameters} from "./Parameters"
 import {catchError, flatMap, map} from "rxjs/operators";
 import {envsMap} from "../../structures/envs";
@@ -10,11 +9,11 @@ import {Logger} from "winston";
 
 export const sync = (envs: envsMap, parameters: Parameters, s3: AWS.S3, twitter: Twitter, logger: Logger) => of(parameters).pipe(
     flatMap(validateParameters),
-    map(fp.curry(fetchRequest)(envs)),
-    flatMap(fp.curry(fetch)(s3)(logger)),
+    map(fetchRequest(envs)),
+    flatMap(fetch(s3)(logger)),
     flatMap(generateTimelineWithSinceId),
-    flatMap(fp.curry(getLatestTimeline)(twitter)(parameters)),
-    map(fp.curry(uploadRequest)(envs)(parameters)),
-    flatMap(fp.curry(upload)(s3)),
+    flatMap(getLatestTimeline(twitter)(parameters)),
+    map(uploadRequest(envs)(parameters)),
+    flatMap(upload(s3)),
     catchError(err => of(err))
 );
