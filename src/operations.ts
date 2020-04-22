@@ -2,6 +2,10 @@ import {lambdaFunc} from "./structures/lambdaFuncs";
 import {LambdaResponse} from "./structures/LambdaResponse";
 import {ValidationError} from "class-validator";
 import _ from "lodash";
+import {envsMap} from "./structures/envs";
+import path from "path";
+// tslint:disable-next-line: no-var-requires
+const sprintf = require("sprintf");
 
 export const findLambdaFunc = (
     cases: { [p: string]: lambdaFunc },
@@ -24,3 +28,9 @@ export const validationErrorsToStr = (validationErrors: ValidationError[]) => _.
         accumulated.push(current.toString());
         return accumulated;
     }, []).join(",");
+
+export const basePath = (envs: envsMap): string => path.join(envs.get("NODE_ENV") as string, envs.get("SERVICE_NAME") as string);
+
+export const fileName = (first: string, second: string): string => sprintf("%s_%s.json", first, second);
+
+export const fileKey = (envs: envsMap, first: string, second: string) => path.join(basePath(envs), fileName(first, second));

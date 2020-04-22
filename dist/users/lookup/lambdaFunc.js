@@ -14,12 +14,9 @@ const clients_1 = require("../../clients");
 const sync_1 = require("./sync");
 const httpStatus = __importStar(require("http-status-codes"));
 const sanctuary_1 = __importDefault(require("sanctuary"));
-const moment = require("moment");
 const LambdaResponse_1 = require("../../structures/LambdaResponse");
 const fp_1 = __importDefault(require("lodash/fp"));
 const operations_1 = require("../../operations");
-// tslint:disable-next-line:no-var-requires
-const sprintf = require("sprintf");
 /**
  * isLambdaResponse checks if an give variable is an instance of LambdaResponse.
  *
@@ -51,7 +48,7 @@ const processRight = (result) => {
  */
 exports.lambdaFunc = (envs, logger, body) => {
     return async () => {
-        const key = sprintf("%s/%s_users.json", envs.get("SERVICE_NAME"), moment().format("YYYY-MM-DD-HH:mm:ss"));
+        const key = operations_1.fileKey(envs, 'users', 'lookup');
         const { s3, tw } = clients_1.getClientsFromEnvs(envs);
         const syncResult = sync_1.sync(logger, tw, { Bucket: envs.get("S3_BUCKET_NAME"), Key: key }, s3)(body);
         const extractedResult = sanctuary_1.default.either(fp_1.default.identity)(fp_1.default.identity)(syncResult);

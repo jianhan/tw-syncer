@@ -5,6 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const LambdaResponse_1 = require("./structures/LambdaResponse");
 const lodash_1 = __importDefault(require("lodash"));
+const path_1 = __importDefault(require("path"));
+// tslint:disable-next-line: no-var-requires
+const sprintf = require("sprintf");
 exports.findLambdaFunc = (cases, defaultCase, key) => {
     if (cases.hasOwnProperty(key)) {
         return cases[key];
@@ -19,3 +22,6 @@ exports.validationErrorsToStr = (validationErrors) => lodash_1.default.reduce(va
     accumulated.push(current.toString());
     return accumulated;
 }, []).join(",");
+exports.basePath = (envs) => path_1.default.join(envs.get("NODE_ENV"), envs.get("SERVICE_NAME"));
+exports.fileName = (first, second) => sprintf("%s_%s.json", first, second);
+exports.fileKey = (envs, first, second) => path_1.default.join(exports.basePath(envs), exports.fileName(first, second));

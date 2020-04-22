@@ -5,8 +5,10 @@ import {getClient} from "./s3";
 import {getTwitterClient} from "../../clients";
 import {envsMap} from "../../structures/envs";
 import {toParameters} from "./Parameters";
+import {default as winston, Logger} from "winston";
 import Twitter = require("twitter");
-import {Logger, default as winston} from "winston";
+
+jest.setTimeout(10000);
 
 let s3Client: AWS.S3;
 let envs: envsMap;

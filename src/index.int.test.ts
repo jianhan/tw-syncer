@@ -3,12 +3,12 @@ import {APIGatewayEvent} from "aws-lambda";
 import {LambdaResponse} from "./structures/LambdaResponse";
 import * as httpStatus from "http-status-codes";
 
-const validJSON = (): string => `{
-        "screen_name": ["chenqiushi404"],
-        "user_id": [],
-        "include_entities": true,
-        "tweet_mode": false
-    }`;
+const validJSON = () => ({
+    screen_name: ["chenqiushi404"],
+    user_id: [],
+    include_entities: true,
+    tweet_mode: false
+});
 
 describe("handler function", () => {
 
