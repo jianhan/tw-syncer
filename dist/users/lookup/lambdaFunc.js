@@ -29,7 +29,7 @@ const isLambdaResponse = (obj) => obj instanceof LambdaResponse_1.LambdaResponse
 /**
  * processLeft contains logic to process Left monad of sync result.
  */
-const processLeft = sanctuary_1.default.ifElse(isLambdaResponse)(fp_1.default.identity)(sanctuary_1.default.curry3(operations_1.newResponseFunc)(httpStatus.INTERNAL_SERVER_ERROR)('Unable to process error from sync function'));
+const processLeft = sanctuary_1.default.ifElse(isLambdaResponse)(fp_1.default.identity)(sanctuary_1.default.curry3(operations_1.lambdaRes)(httpStatus.INTERNAL_SERVER_ERROR)('Unable to process error from sync function'));
 /**
  * processRight contains right to process Left monad of sync result.
  *

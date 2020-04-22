@@ -5,6 +5,12 @@ import _ from "lodash";
 import fp from "lodash/fp"
 import Twitter = require("twitter");
 
+export const sortTweets = fp.orderBy(['id'])(['desc']);
+
+export const filterTweets = fp.filter(fp.has('id'));
+
+export const uniqueTweets = fp.uniqBy('id');
+
 export const getLatestTimeline = (client: Twitter, params: Parameters, timeline: Timeline) => {
     return from(client.get("statuses/user_timeline", Object.assign(params, {since_id: timeline.sinceId})).then(response => {
         if (!_.isArray(response) || _.size(response) === 0) {
@@ -25,11 +31,11 @@ const parseIdString = (response: Twitter.ResponseData): Twitter.ResponseData => 
 }));
 
 export const mergeTimeline = (response: Twitter.ResponseData) => fp.pipe([
-    fp.curry(mergeTweets)(response),
-    fp.filter(fp.has('id')),
-    fp.uniqBy('id'),
+    mergeTweets(response),
+    filterTweets,
+    uniqueTweets,
     parseIdString,
-    fp.orderBy(['id'])(['desc']),
+    sortTweets,
 ]);
 
-export const mergeTweets = (first: Twitter.ResponseData, second: Twitter.ResponseData) => _.concat(first, second);
+export const mergeTweets = (first: Twitter.ResponseData) => (second: Twitter.ResponseData) => _.concat(first, second);

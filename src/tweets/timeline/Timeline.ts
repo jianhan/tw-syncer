@@ -1,5 +1,5 @@
 import fp from "lodash/fp";
-import _ from "lodash";
+import {sortTweets} from "./twitter";
 
 export class Timeline {
     tweets: any[] = [];
@@ -11,14 +11,14 @@ export class Timeline {
     }
 
     static of({tweets = [], sinceId = 1} = {}): Timeline {
-        return new Timeline({tweets: _.orderBy(tweets, ['id'], ['desc']), sinceId})
+        return new Timeline({tweets: sortTweets(tweets) as [], sinceId})
     }
 }
 
 export const fromTweets = (tweets = []): Timeline => Timeline.of({tweets, sinceId: latestTweetId(tweets)});
 
 export const latestTweetId = fp.pipe([
-    fp.curryRight(fp.orderBy)(['id'])(['desc']),
+    sortTweets,
     fp.head,
     fp.curry(fp.prop)('id')
 ]);

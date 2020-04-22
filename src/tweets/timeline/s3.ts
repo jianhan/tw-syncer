@@ -35,7 +35,7 @@ export const generateTimelineWithSinceId = (objectOutput: S3.Types.GetObjectOutp
             try {
                 return of(fromTweets(JSON.parse(o.Body as string)))
             } catch (e) {
-                return of(new Timeline());
+                return of(Timeline.of());
             }
         })
     );

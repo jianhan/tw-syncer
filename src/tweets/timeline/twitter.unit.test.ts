@@ -1,4 +1,4 @@
-import {getLatestTimeline, mergeTimeline} from "./twitter";
+import {getLatestTimeline, mergeTimeline, sortTweets} from "./twitter";
 import jsc from "jsverify";
 import _ from "lodash";
 import Twitter from "twitter";
@@ -45,8 +45,8 @@ describe("getLatestTimeline function", () => {
         const existingTwitterTimeline = fromTweets(generateTweets(20) as []);
         jest.spyOn(twitterClient, "get").mockImplementation(() => Promise.resolve(twitterResponseData));
         const result = await getLatestTimeline(twitterClient, new Parameters(), existingTwitterTimeline).toPromise();
-        expect(result).toEqual(_.sortBy(existingTwitterTimeline.tweets, ['id'], ['desc']))
-    })
+        expect(result).toEqual(sortTweets(existingTwitterTimeline.tweets))
+    });
 
     it("should return sorted tweets when response is empty", async () => {
         const existingTwitterTimeline = fromTweets(generateTweets(20) as []);
