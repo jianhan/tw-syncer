@@ -9,11 +9,11 @@ import {Logger} from "winston";
 
 export const sync = (envs: envsMap, parameters: Parameters, s3: AWS.S3, twitter: Twitter, logger: Logger) => of(parameters).pipe(
     flatMap(validateParameters),
-    map(fetchRequest(envs)),
+    map(fetchRequest(envs.get("NODE_ENV") as string, envs.get("SERVICE_NAME") as string, envs.get("S3_BUCKET_NAME") as string)),
     flatMap(fetch(s3)(logger)),
     flatMap(generateTimelineWithSinceId),
     flatMap(getLatestTimeline(twitter)(parameters)),
-    map(uploadRequest(envs)(parameters)),
+    map(uploadRequest(envs.get("NODE_ENV") as string, envs.get("SERVICE_NAME") as string, envs.get("S3_BUCKET_NAME") as string)(parameters)),
     flatMap(upload(s3)),
     catchError(err => of(err))
 );

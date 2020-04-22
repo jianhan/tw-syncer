@@ -2,7 +2,6 @@ import AWS from "aws-sdk";
 import S3, {GetObjectOutput, PutObjectRequest} from "aws-sdk/clients/s3";
 import {from, of} from "rxjs";
 import {Parameters} from "./Parameters";
-import {envsMap} from "../../structures/envs";
 import {flatMap} from "rxjs/operators";
 import {fromTweets, Timeline} from "./Timeline";
 import {Logger} from "winston";
@@ -11,9 +10,9 @@ import Twitter = require("twitter");
 
 export const getClient = (accessKeyId: string, secretAccessKey: string): AWS.S3 => new AWS.S3({accessKeyId, secretAccessKey});
 
-export const fetchRequest = (envs: envsMap) => (params: Parameters): S3.Types.GetObjectRequest => ({
-    Bucket: envs.get('S3_BUCKET_NAME') as string,
-    Key: fileKey(envs, params.screen_name as string, 'timeline')
+export const fetchRequest = (nodeEnv: string, serviceName: string, bucketName: string) => (params: Parameters): S3.Types.GetObjectRequest => ({
+    Bucket: bucketName,
+    Key: fileKey(nodeEnv, serviceName, params.screen_name as string, 'timeline')
 });
 
 export const fetch = (s3: AWS.S3) => (logger: Logger) => (params: S3.Types.GetObjectRequest) => from(s3.getObject(params).promise().catch(e => {
@@ -31,9 +30,9 @@ export const generateTimelineWithSinceId = (objectOutput: S3.Types.GetObjectOutp
     })
 );
 
-export const uploadRequest = (envs: envsMap) => (params: Parameters) => (body: Twitter.ResponseData): S3.Types.PutObjectRequest => ({
-    Bucket: envs.get('S3_BUCKET_NAME') as string,
-    Key: fileKey(envs, params.screen_name as string, 'timeline'),
+export const uploadRequest = (nodeEnv: string, serviceName: string, bucket: string) => (params: Parameters) => (body: Twitter.ResponseData): S3.Types.PutObjectRequest => ({
+    Bucket: bucket,
+    Key: fileKey(nodeEnv, serviceName, params.screen_name as string, 'timeline'),
     Body: JSON.stringify(body)
 });
 

@@ -48,7 +48,7 @@ const processRight = (result) => {
  */
 exports.lambdaFunc = (envs, logger, body) => {
     return async () => {
-        const key = operations_1.fileKey(envs, 'users', 'lookup');
+        const key = operations_1.fileKey(envs.get("NODE_ENV"), envs.get("SERVICE_NAME"), 'users', 'lookup');
         const { s3, tw } = clients_1.getClientsFromEnvs(envs);
         const syncResult = sync_1.sync(logger, tw, { Bucket: envs.get("S3_BUCKET_NAME"), Key: key }, s3)(body);
         const extractedResult = sanctuary_1.default.either(fp_1.default.identity)(fp_1.default.identity)(syncResult);

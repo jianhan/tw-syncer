@@ -22,6 +22,6 @@ exports.validationErrorsToStr = (validationErrors) => lodash_1.default.reduce(va
     accumulated.push(current.toString());
     return accumulated;
 }, []).join(",");
-exports.basePath = (envs) => path_1.default.join(envs.get("NODE_ENV"), envs.get("SERVICE_NAME"));
+exports.basePath = (nodeEnv, serviceName) => path_1.default.join(nodeEnv, serviceName);
 exports.fileName = (first, second) => sprintf("%s_%s.json", first, second);
-exports.fileKey = (envs, first, second) => path_1.default.join(exports.basePath(envs), exports.fileName(first, second));
+exports.fileKey = (nodeEnv, serviceName, first, second) => path_1.default.join(exports.basePath(nodeEnv, serviceName), exports.fileName(first, second));
