@@ -7,7 +7,7 @@ import {getLatestTimeline} from "./twitter";
 import Twitter = require("twitter");
 import {Logger} from "winston";
 
-export const sync = (envs: envsMap, parameters: Parameters, s3: AWS.S3, twitter: Twitter, logger: Logger) => of(parameters).pipe(
+export const sync = (envs: envsMap, s3: AWS.S3, twitter: Twitter, logger: Logger, parameters: Parameters) => of(parameters).pipe(
     flatMap(validateParameters),
     map(fetchRequest(envs.get("NODE_ENV") as string, envs.get("SERVICE_NAME") as string, envs.get("S3_BUCKET_NAME") as string)),
     flatMap(fetch(s3)(logger)),
