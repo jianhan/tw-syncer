@@ -30,6 +30,7 @@ export const generateTimelineWithSinceId = (objectOutput: S3.Types.GetObjectOutp
     })
 );
 
+// tslint:disable-next-line:max-line-length
 export const uploadRequest = (nodeEnv: string, serviceName: string, bucket: string) => (params: Parameters) => (body: Twitter.ResponseData): S3.Types.PutObjectRequest => ({
     Bucket: bucket,
     Key: fileKey(nodeEnv, serviceName, params.screen_name as string, 'timeline'),

@@ -32,4 +32,5 @@ export const basePath = (nodeEnv: string, serviceName: string): string => path.j
 
 export const fileName = (first: string, second: string): string => sprintf("%s_%s.json", first, second);
 
+// tslint:disable-next-line:max-line-length
 export const fileKey = (nodeEnv: string, serviceName: string, first: string, second: string) => path.join(basePath(nodeEnv, serviceName), fileName(first, second));
