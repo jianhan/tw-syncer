@@ -24,6 +24,18 @@ describe("handler function", () => {
         });
     });
 
+    it("should execute tweets timeline sync lambda function", async () => {
+        // @ts-ignore
+        const event: APIGatewayEvent = {path: 'tweets/timeline', body: {screen_name: "realDonaldTrump"}};
+        const result = await handler(event);
+        expect(result).toBeInstanceOf(LambdaResponse);
+        expect(result.status).toBe(httpStatus.OK);
+        expect(result).toHaveProperty("details");
+        ["ETag", "ServerSideEncryption", "VersionId", "Location", "key", "Key", "Bucket"].forEach((v: string) => {
+            expect(result.details).toHaveProperty(v);
+        });
+    });
+
     it("should execute lambdaNotFound function when lambda function can not be found by path", async () => {
         // @ts-ignore
         const event: APIGatewayEvent = {path: 'users/invalidPath', body: validJSON()};

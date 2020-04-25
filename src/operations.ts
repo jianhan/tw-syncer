@@ -3,6 +3,8 @@ import {LambdaResponse} from "./structures/LambdaResponse";
 import {ValidationError} from "class-validator";
 import _ from "lodash";
 import path from "path";
+import {Logger} from "winston";
+import {LogLevel} from "jianhan-fp-lib";
 // tslint:disable-next-line: no-var-requires
 const sprintf = require("sprintf");
 
@@ -34,3 +36,7 @@ export const fileName = (first: string, second: string): string => sprintf("%s_%
 
 // tslint:disable-next-line:max-line-length
 export const fileKey = (nodeEnv: string, serviceName: string, first: string, second: string) => path.join(basePath(nodeEnv, serviceName), fileName(first, second));
+
+export const pickAttributes = (attributes: string[]) => (arr: any[]) => arr.map(item => _.pick(item, attributes));
+
+export const log = (logger: Logger) => (level: LogLevel) => (message: string) => (meta: any) => logger.log(level, message, meta);

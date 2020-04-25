@@ -18,7 +18,6 @@ export const handler = async (event: APIGatewayEvent): Promise<any> => {
         // lambda function lookup map, key is path to lambda, value is the actual lambda function
         const lambdaFuncMap: { [key: string]: lambdaFunc } = {
             'users/lookup': usersLookupLambdaFunc(envs, logger, event.body as string),
-            // TODO: fix the event.body parameter type
             'tweets/timeline': tweetsTimelineFunc(envs, logger, event.body as any)
         };
 
