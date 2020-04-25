@@ -19,7 +19,7 @@ export const fetch = (s3: AWS.S3) => (logger: Logger) => (params: S3.Types.GetOb
     return {Body: ""}
 }));
 
-export const validateResponseBody = (objectOutput: S3.Types.GetObjectOutput) => of(objectOutput).pipe(
+export const parseResponseBody = (objectOutput: S3.Types.GetObjectOutput) => of(objectOutput).pipe(
     flatMap((o: GetObjectOutput) => {
         try {
             return of(JSON.parse(o.Body as string))

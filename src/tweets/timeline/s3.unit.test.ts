@@ -1,9 +1,9 @@
-import {fetchRequest, getClient, fetch} from "./s3";
+import {fetch, fetchRequest, getClient, parseResponseBody} from "./s3";
 import AWS from "aws-sdk";
 import {toParameters} from "./Parameters";
 import {fileKey} from "../../operations";
-import { Logger } from "winston";
 import * as winston from "winston";
+import {Logger} from "winston";
 
 const s3Client: AWS.S3 = new AWS.S3({accessKeyId: "test", secretAccessKey: "test"});
 const logger: Logger = winston.createLogger({
@@ -53,6 +53,20 @@ describe("fetch function", () => {
         expect(spy).toBeCalledTimes(1);
 
         expect(result).toEqual({Body: ""});
+    });
+
+});
+
+describe("parseResponseBody function", () => {
+
+    it("should return empty array when json is not valid", async () => {
+        const result = await parseResponseBody({Body: "invalid json"}).toPromise();
+        expect(result).toEqual([]);
+    });
+
+    it("should return valid json response when body is valid", async () => {
+        const result = await parseResponseBody({Body: `[{"id": 1, "name": "test"}]`}).toPromise();
+        expect(result).toEqual([{id: 1, name: "test"}]);
     });
 
 });
