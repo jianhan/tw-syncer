@@ -3,7 +3,6 @@ import S3, {GetObjectOutput, PutObjectRequest} from "aws-sdk/clients/s3";
 import {from, of} from "rxjs";
 import {Parameters} from "./Parameters";
 import {flatMap} from "rxjs/operators";
-import {fromTweets, Timeline} from "./Timeline";
 import {Logger} from "winston";
 import {fileKey} from "../../operations";
 import Twitter = require("twitter");
@@ -20,12 +19,12 @@ export const fetch = (s3: AWS.S3) => (logger: Logger) => (params: S3.Types.GetOb
     return {Body: ""}
 }));
 
-export const generateTimelineWithSinceId = (objectOutput: S3.Types.GetObjectOutput) => of(objectOutput).pipe(
+export const validateResponseBody = (objectOutput: S3.Types.GetObjectOutput) => of(objectOutput).pipe(
     flatMap((o: GetObjectOutput) => {
         try {
-            return of(fromTweets(JSON.parse(o.Body as string)))
+            return of(JSON.parse(o.Body as string))
         } catch (e) {
-            return of(Timeline.of());
+            return of([]);
         }
     })
 );

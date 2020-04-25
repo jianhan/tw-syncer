@@ -54,4 +54,5 @@ describe("fetch function", () => {
 
         expect(result).toEqual({Body: ""});
     });
+
 });

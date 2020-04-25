@@ -24,4 +24,5 @@ exports.validationErrorsToStr = (validationErrors) => lodash_1.default.reduce(va
 }, []).join(",");
 exports.basePath = (nodeEnv, serviceName) => path_1.default.join(nodeEnv, serviceName);
 exports.fileName = (first, second) => sprintf("%s_%s.json", first, second);
+// tslint:disable-next-line:max-line-length
 exports.fileKey = (nodeEnv, serviceName, first, second) => path_1.default.join(exports.basePath(nodeEnv, serviceName), exports.fileName(first, second));

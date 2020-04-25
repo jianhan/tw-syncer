@@ -3,9 +3,8 @@ import jsc from "jsverify";
 import _ from "lodash";
 import Twitter from "twitter";
 import {Parameters} from "./Parameters";
-import {fromTweets} from "./Timeline";
 
-const generateTweets = (count: number): Twitter.ResponseData => [...Array(count).keys()].map(n => ({id: n + 1, name: "test" + (n + 1)}));
+const generateTweets = (count: number): any[] => [...Array(count).keys()].map(n => ({id: n + 1, name: "test" + (n + 1)}));
 
 const twitterClient: jest.Mocked<Twitter> = new Twitter({
     access_token_key: 'test',
@@ -42,16 +41,16 @@ describe("getLatestTimeline function", () => {
 
     it("should return merged and sorted tweets", async () => {
         const twitterResponseData: Twitter.ResponseData = generateTweets(10);
-        const existingTwitterTimeline = fromTweets(generateTweets(20) as []);
+        const existingTweets = generateTweets(20);
         jest.spyOn(twitterClient, "get").mockImplementation(() => Promise.resolve(twitterResponseData));
-        const result = await getLatestTimeline(twitterClient)(new Parameters())(existingTwitterTimeline).toPromise();
-        expect(result).toEqual(sortTweets(existingTwitterTimeline.tweets))
+        const result = await getLatestTimeline(twitterClient)(new Parameters())(existingTweets).toPromise();
+        expect(result).toEqual(sortTweets(existingTweets))
     });
 
     it("should return sorted tweets when response is empty", async () => {
-        const existingTwitterTimeline = fromTweets(generateTweets(20) as []);
+        const existingTweets = generateTweets(20);
         jest.spyOn(twitterClient, "get").mockImplementation(() => Promise.resolve([]));
-        const result = await getLatestTimeline(twitterClient)(new Parameters())(existingTwitterTimeline).toPromise();
-        expect(result).toEqual(_.orderBy(existingTwitterTimeline.tweets, ['id'], ['desc']))
+        const result = await getLatestTimeline(twitterClient)(new Parameters())(existingTweets).toPromise();
+        expect(result).toEqual(sortTweets(existingTweets))
     })
 });
