@@ -17,7 +17,7 @@ export const findLambdaFunc = (
     }
 };
 
-export const lambdaRes = (status: number, message: string, details?: any) => new LambdaResponse(status, message, details);
+export const lambdaRes = (status: number, message: string, details?: any): LambdaResponse => new LambdaResponse(status, message, details);
 
 export const isNullOrUndefined = (x: any): boolean => _.isNull(x) || _.isUndefined(x);
 

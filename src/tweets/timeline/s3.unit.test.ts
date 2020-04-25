@@ -1,4 +1,4 @@
-import {fetch, fetchRequest, getClient, parseResponseBody} from "./s3";
+import {fetch, fetchRequest, getClient, parseResponseBody, uploadRequest} from "./s3";
 import AWS from "aws-sdk";
 import {toParameters} from "./Parameters";
 import {fileKey} from "../../operations";
@@ -67,6 +67,17 @@ describe("parseResponseBody function", () => {
     it("should return valid json response when body is valid", async () => {
         const result = await parseResponseBody({Body: `[{"id": 1, "name": "test"}]`}).toPromise();
         expect(result).toEqual([{id: 1, name: "test"}]);
+    });
+
+});
+
+describe("uploadRequest function", () => {
+
+    it("should generate valid request", () => {
+        const param = toParameters({screen_name: "test_screen_name"});
+        const body = [{id: 1, name: "test"}];
+        const result = uploadRequest("development", "test-service", "test-bucket")(param)(body);
+        expect(result.Body).toEqual(JSON.stringify(body));
     });
 
 });
