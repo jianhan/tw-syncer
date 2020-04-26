@@ -13,6 +13,13 @@ import {LambdaResponse} from "../../structures/LambdaResponse";
 import {getClientsFromEnvs} from "../../clients";
 import SendData = ManagedUpload.SendData;
 
+/**
+ * lambdaFunc is the entry point for composition, it will sync user's timeline and upload to s3.
+ *
+ * @param envs
+ * @param logger
+ * @param params
+ */
 export const lambdaFunc = (envs: immutable.Map<string, string | Environment | undefined>, logger: Logger, params: { [key: string]: any }) => {
     return async (): Promise<LambdaResponse> => {
         const {s3, tw} = getClientsFromEnvs(envs);
