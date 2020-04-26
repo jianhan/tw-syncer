@@ -70,18 +70,155 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_operations_.html#sprintf" class="tsd-kind-icon">sprintf</a></li>
+							</ul>
+						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_operations_.html#basepath" class="tsd-kind-icon">base<wbr>Path</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_operations_.html#filekey" class="tsd-kind-icon">file<wbr>Key</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_operations_.html#filename" class="tsd-kind-icon">file<wbr>Name</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_operations_.html#findlambdafunc" class="tsd-kind-icon">find<wbr>Lambda<wbr>Func</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_operations_.html#newresponsefunc" class="tsd-kind-icon">new<wbr>Response<wbr>Func</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_operations_.html#isnullorundefined" class="tsd-kind-icon">is<wbr>Null<wbr>OrUndefined</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_operations_.html#lambdares" class="tsd-kind-icon">lambda<wbr>Res</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_operations_.html#log" class="tsd-kind-icon">log</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_operations_.html#pickattributes" class="tsd-kind-icon">pick<wbr>Attributes</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_operations_.html#validationerrorstostr" class="tsd-kind-icon">validation<wbr>Errors<wbr>ToStr</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+					<a name="sprintf" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> sprintf</h3>
+					<div class="tsd-signature tsd-kind-icon">sprintf<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = require(&quot;sprintf&quot;)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/operations.ts#L9">src/operations.ts:9</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="basepath" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> base<wbr>Path</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">base<wbr>Path<span class="tsd-signature-symbol">(</span>nodeEnv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, serviceName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/operations.ts#L64">src/operations.ts:64</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>basePath generates a base path for uploading by node env and service name.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>nodeEnv: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>serviceName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="filekey" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> file<wbr>Key</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">file<wbr>Key<span class="tsd-signature-symbol">(</span>nodeEnv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, serviceName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, first<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, second<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/operations.ts#L83">src/operations.ts:83</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>fileKey is a generic function which generates a key when uploading file to s3.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>nodeEnv: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>serviceName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>first: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>second: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="filename" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> file<wbr>Name</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">file<wbr>Name<span class="tsd-signature-symbol">(</span>first<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, second<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/operations.ts#L72">src/operations.ts:72</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>fileName is a common pattern for generating filename so that all files are following the same pattern..</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>first: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>second: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="findlambdafunc" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> find<wbr>Lambda<wbr>Func</h3>
@@ -92,9 +229,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/c1963b3/src/operations.ts#L4">src/operations.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/operations.ts#L19">src/operations.ts:19</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>findLambdaFunc finds lambda function, it used to eliminates the need
+									for switch statement.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -110,6 +253,10 @@
 								</li>
 								<li>
 									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_structures_lambdafuncs_.html#lambdafunc" class="tsd-signature-type">lambdaFunc</a></h4>
@@ -117,18 +264,55 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="newresponsefunc" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> new<wbr>Response<wbr>Func</h3>
+					<a name="isnullorundefined" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> is<wbr>Null<wbr>OrUndefined</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">new<wbr>Response<wbr>Func<span class="tsd-signature-symbol">(</span>status<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, details<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_structures_lambdaresponse_.lambdaresponse.html" class="tsd-signature-type">LambdaResponse</a></li>
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Null<wbr>OrUndefined<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/c1963b3/src/operations.ts#L15">src/operations.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/operations.ts#L44">src/operations.ts:44</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>isNullOrUndefined checks an variable is null or undefined.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="lambdares" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> lambda<wbr>Res</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">lambda<wbr>Res<span class="tsd-signature-symbol">(</span>status<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, details<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_structures_lambdaresponse_.lambdaresponse.html" class="tsd-signature-type">LambdaResponse</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/operations.ts#L37">src/operations.ts:37</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>lambdaRes generates lambda response.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -139,9 +323,110 @@
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> details: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../classes/_structures_lambdaresponse_.lambdaresponse.html" class="tsd-signature-type">LambdaResponse</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="log" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> log</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">(</span>logger<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Logger</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/operations.ts#L97">src/operations.ts:97</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>log is curried version of logging function.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>logger: <span class="tsd-signature-type">Logger</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="pickattributes" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> pick<wbr>Attributes</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">pick<wbr>Attributes<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/operations.ts#L90">src/operations.ts:90</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>pickAttributes picks attributes within an array of objects.
+									k</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>attributes: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="validationerrorstostr" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> validation<wbr>Errors<wbr>ToStr</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">validation<wbr>Errors<wbr>ToStr<span class="tsd-signature-symbol">(</span>validationErrors<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ValidationError</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/operations.ts#L51">src/operations.ts:51</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>validationErrorsToStr generates string representation of array of validation errors.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>validationErrors: <span class="tsd-signature-type">ValidationError</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -153,81 +438,42 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-module">
-						<a href="_envs_.html">&quot;<wbr>Envs&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_envs_unit_test_.html">&quot;<wbr>Envs.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_clients_.html">&quot;clients&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_clients_unit_test_.html">&quot;clients.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_docer_entry_.html">&quot;docer-<wbr>entry&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_index_.html">&quot;index&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_index_int_test_.html">&quot;index.int.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_index_unit_test_.html">&quot;index.unit.test&quot;</a>
-					</li>
 					<li class="current tsd-kind-module">
 						<a href="_operations_.html">&quot;operations&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_operations_unit_test_.html">&quot;operations.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_either_.html">&quot;structures/<wbr>Either&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_lambdaresponse_.html">&quot;structures/<wbr>Lambda<wbr>Response&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_validationerrsresponse_.html">&quot;structures/<wbr>Validation<wbr>Errs<wbr>Response&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_validationerrsresponse_unit_test_.html">&quot;structures/<wbr>Validation<wbr>Errs<wbr>Response.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_lambdafuncs_.html">&quot;structures/lambda<wbr>Funcs&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_lambdafuncs_unit_test_.html">&quot;structures/lambda<wbr>Funcs.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_users_lookup_parameters_.html">&quot;users/lookup/<wbr>Parameters&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_users_lookup_lambdafunc_.html">&quot;users/lookup/lambda<wbr>Func&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_users_lookup_lambdafunc_unit_test_.html">&quot;users/lookup/lambda<wbr>Func.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_users_lookup_lookup_int_test_.html">&quot;users/lookup/lookup.int.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_users_lookup_sync_.html">&quot;users/lookup/sync&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_users_lookup_sync_unit_test_.html">&quot;users/lookup/sync.unit.test&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_operations_.html#sprintf" class="tsd-kind-icon">sprintf</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_operations_.html#basepath" class="tsd-kind-icon">base<wbr>Path</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_operations_.html#filekey" class="tsd-kind-icon">file<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_operations_.html#filename" class="tsd-kind-icon">file<wbr>Name</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_operations_.html#findlambdafunc" class="tsd-kind-icon">find<wbr>Lambda<wbr>Func</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_operations_.html#newresponsefunc" class="tsd-kind-icon">new<wbr>Response<wbr>Func</a>
+						<a href="_operations_.html#isnullorundefined" class="tsd-kind-icon">is<wbr>Null<wbr>OrUndefined</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_operations_.html#lambdares" class="tsd-kind-icon">lambda<wbr>Res</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_operations_.html#log" class="tsd-kind-icon">log</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_operations_.html#pickattributes" class="tsd-kind-icon">pick<wbr>Attributes</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_operations_.html#validationerrorstostr" class="tsd-kind-icon">validation<wbr>Errors<wbr>ToStr</a>
 					</li>
 				</ul>
 			</nav>

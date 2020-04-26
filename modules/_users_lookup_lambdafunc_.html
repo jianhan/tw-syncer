@@ -73,9 +73,7 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_users_lookup_lambdafunc_.html#moment" class="tsd-kind-icon">moment</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_users_lookup_lambdafunc_.html#processleft" class="tsd-kind-icon">process<wbr>Left</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_users_lookup_lambdafunc_.html#sprintf" class="tsd-kind-icon">sprintf</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -92,22 +90,12 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-					<a name="moment" class="tsd-anchor"></a>
-					<h3>moment</h3>
-					<div class="tsd-signature tsd-kind-icon">moment<span class="tsd-signature-symbol">:</span> <a href="_users_lookup_lambdafunc_.html#moment" class="tsd-signature-type">moment</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/c1963b3/src/users/lookup/lambdaFunc.ts#L8">src/users/lookup/lambdaFunc.ts:8</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
 					<a name="processleft" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> process<wbr>Left</h3>
-					<div class="tsd-signature tsd-kind-icon">process<wbr>Left<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol"> = S.ifElse(isLambdaResponse)(fp.identity)(S.curry3(newResponseFunc)(httpStatus.INTERNAL_SERVER_ERROR)(&#x27;Unable to process error from sync function&#x27;))</span></div>
+					<div class="tsd-signature tsd-kind-icon">process<wbr>Left<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol"> = S.ifElse(isLambdaResponse)(fp.identity)(S.curry3(lambdaRes)(httpStatus.INTERNAL_SERVER_ERROR)(&#x27;Unable to process error from sync function&#x27;))</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/c1963b3/src/users/lookup/lambdaFunc.ts#L27">src/users/lookup/lambdaFunc.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/users/lookup/lambdaFunc.ts#L24">src/users/lookup/lambdaFunc.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -137,16 +125,6 @@
 						</ul>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-					<a name="sprintf" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> sprintf</h3>
-					<div class="tsd-signature tsd-kind-icon">sprintf<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = require(&quot;sprintf&quot;)</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/c1963b3/src/users/lookup/lambdaFunc.ts#L15">src/users/lookup/lambdaFunc.ts:15</a></li>
-						</ul>
-					</aside>
-				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
@@ -160,7 +138,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/c1963b3/src/users/lookup/lambdaFunc.ts#L22">src/users/lookup/lambdaFunc.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/users/lookup/lambdaFunc.ts#L19">src/users/lookup/lambdaFunc.ts:19</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -192,7 +170,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/c1963b3/src/users/lookup/lambdaFunc.ts#L49">src/users/lookup/lambdaFunc.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/users/lookup/lambdaFunc.ts#L46">src/users/lookup/lambdaFunc.ts:46</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -230,7 +208,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/c1963b3/src/users/lookup/lambdaFunc.ts#L34">src/users/lookup/lambdaFunc.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/44d6d72/src/users/lookup/lambdaFunc.ts#L31">src/users/lookup/lambdaFunc.ts:31</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -260,84 +238,15 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-module">
-						<a href="_envs_.html">&quot;<wbr>Envs&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_envs_unit_test_.html">&quot;<wbr>Envs.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_clients_.html">&quot;clients&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_clients_unit_test_.html">&quot;clients.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_docer_entry_.html">&quot;docer-<wbr>entry&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_index_.html">&quot;index&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_index_int_test_.html">&quot;index.int.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_index_unit_test_.html">&quot;index.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_operations_.html">&quot;operations&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_operations_unit_test_.html">&quot;operations.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_either_.html">&quot;structures/<wbr>Either&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_lambdaresponse_.html">&quot;structures/<wbr>Lambda<wbr>Response&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_validationerrsresponse_.html">&quot;structures/<wbr>Validation<wbr>Errs<wbr>Response&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_validationerrsresponse_unit_test_.html">&quot;structures/<wbr>Validation<wbr>Errs<wbr>Response.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_lambdafuncs_.html">&quot;structures/lambda<wbr>Funcs&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_structures_lambdafuncs_unit_test_.html">&quot;structures/lambda<wbr>Funcs.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_users_lookup_parameters_.html">&quot;users/lookup/<wbr>Parameters&quot;</a>
-					</li>
 					<li class="current tsd-kind-module">
 						<a href="_users_lookup_lambdafunc_.html">&quot;users/lookup/lambda<wbr>Func&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_users_lookup_lambdafunc_unit_test_.html">&quot;users/lookup/lambda<wbr>Func.unit.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_users_lookup_lookup_int_test_.html">&quot;users/lookup/lookup.int.test&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_users_lookup_sync_.html">&quot;users/lookup/sync&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_users_lookup_sync_unit_test_.html">&quot;users/lookup/sync.unit.test&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_users_lookup_lambdafunc_.html#moment" class="tsd-kind-icon">moment</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_users_lookup_lambdafunc_.html#processleft" class="tsd-kind-icon">process<wbr>Left</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_users_lookup_lambdafunc_.html#sprintf" class="tsd-kind-icon">sprintf</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_users_lookup_lambdafunc_.html#islambdaresponse" class="tsd-kind-icon">is<wbr>Lambda<wbr>Response</a>
