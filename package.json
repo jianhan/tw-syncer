@@ -49,6 +49,7 @@
     "jianhan-fp-lib": "^1.2.30",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
+    "rxjs": "^6.5.5",
     "sanctuary": "^3.0.0",
     "sanctuary-def": "^0.21.1",
     "sanctuary-identity": "^2.1.0",

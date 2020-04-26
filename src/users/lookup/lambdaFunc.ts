@@ -5,14 +5,11 @@ import {sync} from "./sync";
 import * as httpStatus from "http-status-codes";
 import * as immutable from "immutable";
 import S from "sanctuary"
-import moment = require("moment");
 import {LambdaResponse} from "../../structures/LambdaResponse";
 import fp from "lodash/fp";
-import {newResponseFunc} from "../../operations";
+import {fileKey, lambdaRes} from "../../operations";
 import {Observable} from "rxjs";
 import {ResponseData} from "twitter";
-// tslint:disable-next-line:no-var-requires
-const sprintf = require("sprintf");
 
 /**
  * isLambdaResponse checks if an give variable is an instance of LambdaResponse.
@@ -24,7 +21,7 @@ const isLambdaResponse = (obj: any) => obj instanceof LambdaResponse;
 /**
  * processLeft contains logic to process Left monad of sync result.
  */
-const processLeft = S.ifElse(isLambdaResponse)(fp.identity)(S.curry3(newResponseFunc)(httpStatus.INTERNAL_SERVER_ERROR)('Unable to process error from sync function'));
+const processLeft = S.ifElse(isLambdaResponse)(fp.identity)(S.curry3(lambdaRes)(httpStatus.INTERNAL_SERVER_ERROR)('Unable to process error from sync function'));
 
 /**
  * processRight contains right to process Left monad of sync result.
@@ -48,7 +45,7 @@ const processRight = (result: Observable<ResponseData>): Promise<LambdaResponse>
  */
 export const lambdaFunc = (envs: immutable.Map<string, string | Environment | undefined>, logger: Logger, body: string) => {
     return async (): Promise<LambdaResponse> => {
-        const key = sprintf("%s/%s_users.json", envs.get("SERVICE_NAME") as string,moment().format("YYYY-MM-DD-HH:mm:ss"));
+        const key = fileKey(envs.get("NODE_ENV") as string, envs.get("SERVICE_NAME") as string, 'users', 'lookup');
         const {s3, tw} = getClientsFromEnvs(envs);
         const syncResult = sync(logger, tw, {Bucket: envs.get("S3_BUCKET_NAME") as string, Key: key}, s3)(body);
         const extractedResult: any = S.either(fp.identity)(fp.identity)(syncResult);

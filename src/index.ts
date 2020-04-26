@@ -1,7 +1,8 @@
 import * as httpStatus from "http-status-codes";
-import {Environment, LogLevel, getEnvs, createLogger} from "jianhan-fp-lib";
+import {createLogger, Environment, getEnvs, LogLevel} from "jianhan-fp-lib";
 import {Envs} from "./Envs";
-import {lambdaFunc as userLookupLambdaFunc} from "./users/lookup/lambdaFunc";
+import {lambdaFunc as usersLookupLambdaFunc} from "./users/lookup/lambdaFunc";
+import {lambdaFunc as tweetsTimelineFunc} from "./tweets/timeline/lambdaFunc";
 import {lambdaFunc, lambdaNotFoundFunc} from "./structures/lambdaFuncs";
 import {findLambdaFunc} from "./operations";
 import {APIGatewayEvent} from "aws-lambda";
@@ -16,7 +17,8 @@ export const handler = async (event: APIGatewayEvent): Promise<any> => {
 
         // lambda function lookup map, key is path to lambda, value is the actual lambda function
         const lambdaFuncMap: { [key: string]: lambdaFunc } = {
-            'users/lookup': userLookupLambdaFunc(envs, logger, event.body as string)
+            'users/lookup': usersLookupLambdaFunc(envs, logger, event.body as string),
+            'tweets/timeline': tweetsTimelineFunc(envs, logger, event.body as any)
         };
 
         const func = findLambdaFunc(lambdaFuncMap, lambdaNotFoundFunc(logger, event), event.path);
