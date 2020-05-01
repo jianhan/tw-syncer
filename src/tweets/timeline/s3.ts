@@ -5,7 +5,10 @@ import {Parameters} from "./Parameters";
 import {flatMap} from "rxjs/operators";
 import {Logger} from "winston";
 import {fileKey} from "../../operations";
+import path from "path";
 import Twitter = require("twitter");
+// tslint:disable-next-line: no-var-requires
+const sprintf = require("sprintf");
 
 /**
  * getClient returns a new instance of AWS.S3 client.
@@ -24,7 +27,7 @@ export const getClient = (accessKeyId: string, secretAccessKey: string): AWS.S3 
  */
 export const fetchRequest = (nodeEnv: string, serviceName: string, bucketName: string) => (params: Parameters): S3.Types.GetObjectRequest => ({
     Bucket: bucketName,
-    Key: fileKey(nodeEnv, serviceName, params.screen_name as string, 'timeline')
+    Key: fileKey(nodeEnv, serviceName, path.join('tweets', 'timeline'), sprintf("%s.json", params.screen_name))
 });
 
 /**
@@ -62,7 +65,7 @@ export const parseResponseBody = (objectOutput: S3.Types.GetObjectOutput) => of(
 // tslint:disable-next-line:max-line-length
 export const uploadRequest = (nodeEnv: string, serviceName: string, bucket: string) => (params: Parameters) => (body: Twitter.ResponseData): S3.Types.PutObjectRequest => ({
     Bucket: bucket,
-    Key: fileKey(nodeEnv, serviceName, params.screen_name as string, 'timeline'),
+    Key: fileKey(nodeEnv, serviceName, path.join('tweets', 'timeline'), sprintf("%s.json", params.screen_name)),
     Body: JSON.stringify(body)
 });
 

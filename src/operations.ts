@@ -5,8 +5,6 @@ import _ from "lodash";
 import path from "path";
 import {Logger} from "winston";
 import {LogLevel} from "jianhan-fp-lib";
-// tslint:disable-next-line: no-var-requires
-const sprintf = require("sprintf");
 
 /**
  * findLambdaFunc finds lambda function, it used to eliminates the need
@@ -60,27 +58,20 @@ export const validationErrorsToStr = (validationErrors: ValidationError[]) => _.
  *
  * @param nodeEnv
  * @param serviceName
+ * @param funcName
  */
-export const basePath = (nodeEnv: string, serviceName: string): string => path.join(nodeEnv, serviceName);
-
-/**
- * fileName is a common pattern for generating filename so that all files are following the same pattern..
- *
- * @param first
- * @param second
- */
-export const fileName = (first: string, second: string): string => sprintf("%s_%s.json", first, second);
+export const basePath = (nodeEnv: string, serviceName: string, funcName: string): string => path.join(nodeEnv, serviceName, funcName);
 
 /**
  * fileKey is a generic function which generates a key when uploading file to s3.
  *
  * @param nodeEnv
  * @param serviceName
- * @param first
- * @param second
+ * @param funcName
+ * @param file
  */
 // tslint:disable-next-line:max-line-length
-export const fileKey = (nodeEnv: string, serviceName: string, first: string, second: string) => path.join(basePath(nodeEnv, serviceName), fileName(first, second));
+export const fileKey = (nodeEnv: string, serviceName: string, funcName: string, file: string) => path.join(basePath(nodeEnv, serviceName, funcName), file);
 
 /**
  * pickAttributes picks attributes within an array of objects.
