@@ -10,6 +10,9 @@ import fp from "lodash/fp";
 import {fileKey, lambdaRes} from "../../operations";
 import {Observable} from "rxjs";
 import {ResponseData} from "twitter";
+import path from "path";
+// tslint:disable-next-line: no-var-requires
+const sprintf = require("sprintf");
 
 /**
  * isLambdaResponse checks if an give variable is an instance of LambdaResponse.
@@ -45,7 +48,7 @@ const processRight = (result: Observable<ResponseData>): Promise<LambdaResponse>
  */
 export const lambdaFunc = (envs: immutable.Map<string, string | Environment | undefined>, logger: Logger, body: string) => {
     return async (): Promise<LambdaResponse> => {
-        const key = fileKey(envs.get("NODE_ENV") as string, envs.get("SERVICE_NAME") as string, 'users', 'lookup');
+        const key = fileKey(envs.get("NODE_ENV") as string, envs.get("SERVICE_NAME") as string, path.join('users', 'lookup'), sprintf("%s.json", 'users'));
         const {s3, tw} = getClientsFromEnvs(envs);
         const syncResult = sync(logger, tw, {Bucket: envs.get("S3_BUCKET_NAME") as string, Key: key}, s3)(body);
         const extractedResult: any = S.either(fp.identity)(fp.identity)(syncResult);
