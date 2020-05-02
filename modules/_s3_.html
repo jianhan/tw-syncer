@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;tweets/timeline/Parameters&quot; | tw-syncer</title>
+	<title>&quot;s3&quot; | tw-syncer</title>
 	<meta name="description" content="Documentation for tw-syncer">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_tweets_timeline_parameters_.html">&quot;tweets/timeline/Parameters&quot;</a>
+					<a href="_s3_.html">&quot;s3&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;tweets/timeline/Parameters&quot;</h1>
+			<h1>Module &quot;s3&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -71,16 +71,10 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Classes</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/_tweets_timeline_parameters_.parameters.html" class="tsd-kind-icon">Parameters</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_tweets_timeline_parameters_.html#toparameters" class="tsd-kind-icon">to<wbr>Parameters</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_tweets_timeline_parameters_.html#validateparameters" class="tsd-kind-icon">validate<wbr>Parameters</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_s3_.html#getclient" class="tsd-kind-icon">get<wbr>Client</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_s3_.html#upload" class="tsd-kind-icon">upload</a></li>
 							</ul>
 						</section>
 					</div>
@@ -89,71 +83,69 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="toparameters" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> to<wbr>Parameters</h3>
+					<a name="getclient" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Client</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Parameters<span class="tsd-signature-symbol">(</span>body<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_tweets_timeline_parameters_.parameters.html" class="tsd-signature-type">Parameters</a></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Client<span class="tsd-signature-symbol">(</span>accessKeyId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, secretAccessKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_clients_.html#s3" class="tsd-signature-type">S3</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/6d3e4aa/src/tweets/timeline/Parameters.ts#L97">src/tweets/timeline/Parameters.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/6d3e4aa/src/s3.ts#L11">src/s3.ts:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>take an key value pair and construct parameter out of it.</p>
+									<p>getClient returns a new instance of AWS.S3 client.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>body: <span class="tsd-signature-symbol">{}</span></h5>
+									<h5>accessKeyId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>secretAccessKey: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 										</div>
 									</div>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-index-signature">
-											<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
-										</li>
-									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../classes/_tweets_timeline_parameters_.parameters.html" class="tsd-signature-type">Parameters</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_clients_.html#s3" class="tsd-signature-type">S3</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="validateparameters" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> validate<wbr>Parameters</h3>
+					<a name="upload" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> upload</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">validate<wbr>Parameters<span class="tsd-signature-symbol">(</span>parameters<span class="tsd-signature-symbol">: </span><a href="../classes/_tweets_timeline_parameters_.parameters.html" class="tsd-signature-type">Parameters</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">upload<span class="tsd-signature-symbol">(</span>s3<span class="tsd-signature-symbol">: </span><a href="_clients_.html#s3" class="tsd-signature-type">S3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/6d3e4aa/src/tweets/timeline/Parameters.ts#L84">src/tweets/timeline/Parameters.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/6d3e4aa/src/s3.ts#L18">src/s3.ts:18</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>validateParameters validates parameters via class-validator.</p>
+									<p>upload creates a new observable for uploading timeline file to s3.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>parameters: <a href="../classes/_tweets_timeline_parameters_.parameters.html" class="tsd-signature-type">Parameters</a></h5>
+									<h5>s3: <a href="_clients_.html#s3" class="tsd-signature-type">S3</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 										</div>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -166,20 +158,17 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="_tweets_timeline_parameters_.html">&quot;tweets/timeline/<wbr>Parameters&quot;</a>
+						<a href="_s3_.html">&quot;s3&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_tweets_timeline_parameters_.parameters.html" class="tsd-kind-icon">Parameters</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_s3_.html#getclient" class="tsd-kind-icon">get<wbr>Client</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_tweets_timeline_parameters_.html#toparameters" class="tsd-kind-icon">to<wbr>Parameters</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_tweets_timeline_parameters_.html#validateparameters" class="tsd-kind-icon">validate<wbr>Parameters</a>
+						<a href="_s3_.html#upload" class="tsd-kind-icon">upload</a>
 					</li>
 				</ul>
 			</nav>
