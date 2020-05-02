@@ -1,5 +1,5 @@
 import AWS from "aws-sdk";
-import S3, {GetObjectOutput, PutObjectRequest} from "aws-sdk/clients/s3";
+import S3, {GetObjectOutput} from "aws-sdk/clients/s3";
 import {from, of} from "rxjs";
 import {Parameters} from "./Parameters";
 import {flatMap} from "rxjs/operators";
@@ -9,14 +9,6 @@ import path from "path";
 import Twitter = require("twitter");
 // tslint:disable-next-line: no-var-requires
 const sprintf = require("sprintf");
-
-/**
- * getClient returns a new instance of AWS.S3 client.
- *
- * @param accessKeyId
- * @param secretAccessKey
- */
-export const getClient = (accessKeyId: string, secretAccessKey: string): AWS.S3 => new AWS.S3({accessKeyId, secretAccessKey});
 
 /**
  * fetchRequest generates request for fetching timeline file from s3 bucket.
@@ -68,10 +60,3 @@ export const uploadRequest = (nodeEnv: string, serviceName: string, bucket: stri
     Key: fileKey(nodeEnv, serviceName, path.join('tweets', 'timeline'), sprintf("%s.json", params.screen_name)),
     Body: JSON.stringify(body)
 });
-
-/**
- * upload creates a new observable for uploading timeline file to s3.
- *
- * @param s3
- */
-export const upload = (s3: S3) => (putObjectRequest: PutObjectRequest) => from(s3.upload(putObjectRequest).promise());
