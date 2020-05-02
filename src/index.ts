@@ -1,4 +1,3 @@
-import * as httpStatus from "http-status-codes";
 import {createLogger, Environment, getEnvs, LogLevel} from "jianhan-fp-lib";
 import {Envs} from "./Envs";
 import {lambdaFunc as usersLookupLambdaFunc} from "./users/lookup/lambdaFunc";
@@ -6,7 +5,6 @@ import {lambdaFunc as tweetsTimelineFunc} from "./tweets/timeline/lambdaFunc";
 import {lambdaFunc, lambdaNotFoundFunc} from "./structures/lambdaFuncs";
 import {findLambdaFunc} from "./operations";
 import {APIGatewayEvent} from "aws-lambda";
-import {LambdaResponse} from "./structures/LambdaResponse";
 
 export const handler = async (event: APIGatewayEvent): Promise<any> => {
     // run lambda function
@@ -24,6 +22,9 @@ export const handler = async (event: APIGatewayEvent): Promise<any> => {
         const func = findLambdaFunc(lambdaFuncMap, lambdaNotFoundFunc(logger, event), event.path);
         return await func();
     } catch (err) {
-        return new LambdaResponse(httpStatus.INTERNAL_SERVER_ERROR, "error occur while invoking lambda", err)
+        // when error occur, just log it and let it throw back.
+        console.error("error occur while invoking lambda", err);
+        throw err;
+        // return new LambdaResponse(httpStatus.INTERNAL_SERVER_ERROR, "error occur while invoking lambda", err)
     }
 };
