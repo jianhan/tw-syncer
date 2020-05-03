@@ -16,8 +16,8 @@ beforeEach(async () => {
 });
 describe("lambdaFunc", () => {
 
-    it("should fetch available trends and sync", async () => {
-        const fn = lambdaFunc(envs, logger);
+    it("should fetch place with trends and sync", async () => {
+        const fn = lambdaFunc(envs, logger, {id: 1099805});
         const result = await fn();
         expect(result.getDetails()).toHaveProperty('ETag');
         expect(result.getDetails()).toHaveProperty('Location');
