@@ -3,6 +3,7 @@ import {Envs} from "./Envs";
 import {lambdaFunc as usersLookupLambdaFunc} from "./users/lookup/lambdaFunc";
 import {lambdaFunc as tweetsTimelineFunc} from "./tweets/timeline/lambdaFunc";
 import {lambdaFunc as trendsAvailableTimelineFunc} from "./trends/available/lambdaFunc";
+import {lambdaFunc as trendsPlaceFunc} from "./trends/place/lambdaFunc";
 import {lambdaFunc, lambdaNotFoundFunc} from "./structures/lambdaFuncs";
 import {findLambdaFunc} from "./operations";
 import {APIGatewayEvent} from "aws-lambda";
@@ -21,6 +22,7 @@ export const handler = async (event: APIGatewayEvent): Promise<any> => {
             'users/lookup': usersLookupLambdaFunc(envs, logger, event.body as string),
             'tweets/timeline': tweetsTimelineFunc(envs, logger, event.body as any),
             'trends/available': trendsAvailableTimelineFunc(envs, logger),
+            'trends/place': trendsPlaceFunc(envs, logger, event.body as any),
         };
 
         const func = findLambdaFunc(lambdaFuncMap, lambdaNotFoundFunc(logger, event), event.path);
