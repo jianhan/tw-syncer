@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;tweets/timeline/lambdaFunc.int.test&quot; | tw-syncer</title>
+	<title>Parameters | tw-syncer</title>
 	<meta name="description" content="Documentation for tw-syncer">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,51 +56,86 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_tweets_timeline_lambdafunc_int_test_.html">&quot;tweets/timeline/lambdaFunc.int.test&quot;</a>
+					<a href="../modules/_trends_place_parameters_.html">&quot;trends/place/Parameters&quot;</a>
+				</li>
+				<li>
+					<a href="_trends_place_parameters_.parameters.html">Parameters</a>
 				</li>
 			</ul>
-			<h1>Module &quot;tweets/timeline/lambdaFunc.int.test&quot;</h1>
+			<h1>Class Parameters</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Parameters represents twitter api parameters when fetching trends place, it will be used
+						for validations to ensure input parameters all valid before API call.</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>export</dt>
+						<dd></dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">Parameters</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Variables</h3>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_tweets_timeline_lambdafunc_int_test_.html#envs" class="tsd-kind-icon">envs</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_tweets_timeline_lambdafunc_int_test_.html#logger" class="tsd-kind-icon">logger</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_trends_place_parameters_.parameters.html#exclude" class="tsd-kind-icon">exclude</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_trends_place_parameters_.parameters.html#id" class="tsd-kind-icon">id</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-					<a name="envs" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagLet">Let</span> envs</h3>
-					<div class="tsd-signature tsd-kind-icon">envs<span class="tsd-signature-symbol">:</span> <a href="_structures_envs_.html#envsmap" class="tsd-signature-type">envsMap</a></div>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="exclude" class="tsd-anchor"></a>
+					<h3>exclude</h3>
+					<div class="tsd-signature tsd-kind-icon">exclude<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/ce35612/src/tweets/timeline/lambdaFunc.int.test.ts#L9">src/tweets/timeline/lambdaFunc.int.test.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/ce35612/src/trends/place/Parameters.ts#L25">src/trends/place/Parameters.ts:25</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>exclude is an optional parameter,
+							Setting this equal to hashtags will remove all hashtags from the trends list.</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-					<a name="logger" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> logger</h3>
-					<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span><span class="tsd-signature-symbol"> = winston.createLogger({transports: [new winston.transports.Console()]})</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="id" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/ce35612/src/tweets/timeline/lambdaFunc.int.test.ts#L10">src/tweets/timeline/lambdaFunc.int.test.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/ce35612/src/trends/place/Parameters.ts#L18">src/trends/place/Parameters.ts:18</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>id is the Yahoo! Where On Earth ID of the location to return trending information for.
+							Global information is available by using 1 as the WOEID .</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -111,17 +146,29 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="_tweets_timeline_lambdafunc_int_test_.html">&quot;tweets/timeline/lambda<wbr>Func.int.test&quot;</a>
+						<a href="../modules/_trends_place_parameters_.html">&quot;trends/place/<wbr>Parameters&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_tweets_timeline_lambdafunc_int_test_.html#envs" class="tsd-kind-icon">envs</a>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="_trends_place_parameters_.parameters.html" class="tsd-kind-icon">Parameters</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_trends_place_parameters_.parameters.html#exclude" class="tsd-kind-icon">exclude</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_trends_place_parameters_.parameters.html#id" class="tsd-kind-icon">id</a>
+							</li>
+						</ul>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_tweets_timeline_lambdafunc_int_test_.html#logger" class="tsd-kind-icon">logger</a>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_trends_place_parameters_.html#toparameters" class="tsd-kind-icon">to<wbr>Parameters</a>
 					</li>
 				</ul>
 			</nav>
@@ -139,10 +186,11 @@
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 			</ul>
 		</div>
 	</div>

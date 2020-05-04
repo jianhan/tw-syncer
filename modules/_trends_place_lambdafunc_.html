@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;s3&quot; | tw-syncer</title>
+	<title>&quot;trends/place/lambdaFunc&quot; | tw-syncer</title>
 	<meta name="description" content="Documentation for tw-syncer">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_s3_.html">&quot;s3&quot;</a>
+					<a href="_trends_place_lambdafunc_.html">&quot;trends/place/lambdaFunc&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;s3&quot;</h1>
+			<h1>Module &quot;trends/place/lambdaFunc&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -70,79 +70,74 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_trends_place_lambdafunc_.html#senddata" class="tsd-kind-icon">Send<wbr>Data</a></li>
+							</ul>
+						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_s3_.html#getclient" class="tsd-kind-icon">get<wbr>Client</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_s3_.html#upload" class="tsd-kind-icon">upload</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_trends_place_lambdafunc_.html#lambdafunc" class="tsd-kind-icon">lambda<wbr>Func</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+					<a name="senddata" class="tsd-anchor"></a>
+					<h3>Send<wbr>Data</h3>
+					<div class="tsd-signature tsd-kind-icon">Send<wbr>Data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/ce35612/src/trends/place/lambdaFunc.ts#L16">src/trends/place/lambdaFunc.ts:16</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="getclient" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Client</h3>
+					<a name="lambdafunc" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> lambda<wbr>Func</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Client<span class="tsd-signature-symbol">(</span>accessKeyId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, secretAccessKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_clients_.html#s3" class="tsd-signature-type">S3</a></li>
+						<li class="tsd-signature tsd-kind-icon">lambda<wbr>Func<span class="tsd-signature-symbol">(</span>envs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Environment</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span>, logger<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Logger</span>, params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/ce35612/src/s3.ts#L11">src/s3.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/ce35612/src/trends/place/lambdaFunc.ts#L26">src/trends/place/lambdaFunc.ts:26</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>getClient returns a new instance of AWS.S3 client.</p>
+									<p>lambdaFunc is entry point for syncing place of trends. It will compose
+									all the functions together.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>accessKeyId: <span class="tsd-signature-type">string</span></h5>
+									<h5>envs: <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Environment</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>secretAccessKey: <span class="tsd-signature-type">string</span></h5>
+									<h5>logger: <span class="tsd-signature-type">Logger</span></h5>
+								</li>
+								<li>
+									<h5>params: <span class="tsd-signature-symbol">{}</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 										</div>
 									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_clients_.html#s3" class="tsd-signature-type">S3</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="upload" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> upload</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">upload<span class="tsd-signature-symbol">(</span>s3<span class="tsd-signature-symbol">: </span><a href="_clients_.html#s3" class="tsd-signature-type">S3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/ce35612/src/s3.ts#L18">src/s3.ts:18</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>upload creates a new observable for uploading timeline file to s3.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>s3: <a href="_clients_.html#s3" class="tsd-signature-type">S3</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-										</div>
-									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-index-signature">
+											<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
+										</li>
+									</ul>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
@@ -158,17 +153,17 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="_s3_.html">&quot;s3&quot;</a>
+						<a href="_trends_place_lambdafunc_.html">&quot;trends/place/lambda<wbr>Func&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_s3_.html#getclient" class="tsd-kind-icon">get<wbr>Client</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_trends_place_lambdafunc_.html#senddata" class="tsd-kind-icon">Send<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_s3_.html#upload" class="tsd-kind-icon">upload</a>
+						<a href="_trends_place_lambdafunc_.html#lambdafunc" class="tsd-kind-icon">lambda<wbr>Func</a>
 					</li>
 				</ul>
 			</nav>
