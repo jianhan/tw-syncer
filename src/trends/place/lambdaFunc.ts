@@ -15,6 +15,14 @@ import {ManagedUpload} from "aws-sdk/lib/s3/managed_upload";
 import SendData = ManagedUpload.SendData;
 import {uploadRequest} from "./upload";
 
+/**
+ * lambdaFunc is entry point for syncing place of trends. It will compose
+ * all the functions together.
+ *
+ * @param envs
+ * @param logger
+ * @param params
+ */
 export const lambdaFunc = (envs: immutable.Map<string, string | Environment | undefined>, logger: Logger, params: { [key: string]: any }) => {
     return async (): Promise<LambdaResponse> => {
         const {s3, tw} = getClientsFromEnvs(envs);
