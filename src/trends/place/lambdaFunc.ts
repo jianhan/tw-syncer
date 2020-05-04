@@ -12,8 +12,8 @@ import moment from "moment";
 import {upload} from "../../s3";
 import * as httpStatus from "http-status-codes";
 import {ManagedUpload} from "aws-sdk/lib/s3/managed_upload";
-import SendData = ManagedUpload.SendData;
 import {uploadRequest} from "./upload";
+import SendData = ManagedUpload.SendData;
 
 /**
  * lambdaFunc is entry point for syncing place of trends. It will compose
@@ -43,7 +43,6 @@ export const lambdaFunc = (envs: immutable.Map<string, string | Environment | un
             // fetching trending topics for a place
             flatMap(getTrendsForPlace(tw)),
             // upload to s3
-            // tslint:disable-next-line:max-line-length
             map(generateUploadRequest),
             tap(logInfo("place/lambdaFunc: after uploadRequest")),
             flatMap(upload(s3)),
