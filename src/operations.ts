@@ -1,10 +1,12 @@
 import {lambdaFunc} from "./structures/lambdaFuncs";
 import {LambdaResponse} from "./structures/LambdaResponse";
-import {ValidationError} from "class-validator";
+import {validate, ValidationError} from "class-validator";
 import _ from "lodash";
 import path from "path";
 import {Logger} from "winston";
 import {LogLevel} from "jianhan-fp-lib";
+import {from, Observable} from "rxjs";
+import moment from "moment";
 
 /**
  * findLambdaFunc finds lambda function, it used to eliminates the need
@@ -86,3 +88,20 @@ export const pickAttributes = (attributes: string[]) => (arr: any[]) => arr.map(
  * @param logger
  */
 export const log = (logger: Logger) => (level: LogLevel) => (message: string) => (meta: any) => logger.log(level, message, meta);
+
+
+/**
+ * validateAndThrow validates parameters via class-validator.
+ * If validation failed, then throw errors.
+ *
+ * @param c
+ */
+export const validateAndThrow = (c: any): Observable<any> => from(validate(c).then((errors: ValidationError[]) => {
+    if (errors.length > 0) {
+        throw new Error(validationErrorsToStr(errors))
+    }
+
+    return c;
+}));
+
+export const dateToPath = (date: moment.Moment) => path.join(date.format('Y'), date.format('M'), date.format('D'));
