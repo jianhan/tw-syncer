@@ -1,6 +1,7 @@
 import {IsISO31661Alpha2, IsNotEmpty, IsPositive} from "class-validator";
 import {Parameters} from "./Parameters";
 import _ from "lodash";
+import {validateAndThrow} from "../../operations";
 
 export class WhereOnEarthLocation {
 
@@ -42,6 +43,7 @@ export const toWhereOnEarthLocations = (fileContent: Buffer): WhereOnEarthLocati
 export const extractCountryCodes = (locations: WhereOnEarthLocation[]) => locations.map(l => l.countryCode);
 
 export const filterLocationsByParameters = (parameters: Parameters) => (locations: WhereOnEarthLocation[]): WhereOnEarthLocation[] => {
+    validateAndThrow(parameters);
     const condition = parameters.countryCodes.length === 0
         ? (location: WhereOnEarthLocation) => location.weoid === 1
         : (location: WhereOnEarthLocation) => _.includes(extractCountryCodes(locations), location.countryCode);
