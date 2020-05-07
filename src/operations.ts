@@ -1,6 +1,6 @@
 import {lambdaFunc} from "./structures/lambdaFuncs";
 import {LambdaResponse} from "./structures/LambdaResponse";
-import {validate, ValidationError} from "class-validator";
+import {validate, validateSync, ValidationError} from "class-validator";
 import _ from "lodash";
 import path from "path";
 import {Logger} from "winston";
@@ -103,5 +103,14 @@ export const validateAndThrow = (c: any): Observable<any> => from(validate(c).th
 
     return c;
 }));
+
+export const validateAndThrowSync = <T>(c: T): T => {
+    const errs = validateSync(c);
+    if (errs.length > 0) {
+        throw new Error(validationErrorsToStr(errs))
+    }
+
+    return c;
+}
 
 export const dateToPath = (date: moment.Moment) => path.join(date.format('Y'), date.format('M'), date.format('D'));
