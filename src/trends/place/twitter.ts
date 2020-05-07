@@ -1,6 +1,6 @@
-import {Parameters} from "../../tweets/timeline/Parameters";
 import {from} from "rxjs";
 import Twitter = require("twitter");
+import {Parameters} from "./Parameters";
 
 /**
  * getTrendsForPlace retrieves trends place via twitter client.
