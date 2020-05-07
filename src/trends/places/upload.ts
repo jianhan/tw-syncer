@@ -7,6 +7,14 @@ import Twitter = require("twitter");
 // tslint:disable-next-line: no-var-requires
 const sprintf = require("sprintf");
 
+/**
+ * uploadPlaceRequest generates upload request for s3 uploading.
+ *
+ * @param nodeEnv
+ * @param serviceName
+ * @param bucket
+ * @param date
+ */
 // tslint:disable-next-line:max-line-length
 export const uploadPlaceRequest = (nodeEnv: string, serviceName: string, bucket: string, date: moment.Moment) => (places: Twitter.ResponseData): S3.Types.PutObjectRequest => {
 

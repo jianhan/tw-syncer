@@ -3,6 +3,9 @@ import {Parameters} from "./Parameters";
 import _ from "lodash";
 import {validateAndThrowSync} from "../../operations";
 
+/**
+ * WhereOnEarthLocation is where on earth location object.
+ */
 export class WhereOnEarthLocation {
 
     /**
@@ -38,10 +41,18 @@ export class WhereOnEarthLocation {
     }
 }
 
+/**
+ * toWhereOnEarthLocations parse buffer into array of WhereOnEarthLocation.
+ *
+ * @param fileContent
+ */
 export const toWhereOnEarthLocations = (fileContent: Buffer): WhereOnEarthLocation[] => JSON.parse(fileContent.toString());
 
-export const extractCountryCodes = (locations: WhereOnEarthLocation[]) => locations.map(l => l.countryCode);
-
+/**
+ * filterLocationsByParameters filter array of locations by input parameters object.
+ *
+ * @param parameters
+ */
 export const filterLocationsByParameters = (parameters: Parameters) => (locations: WhereOnEarthLocation[]): WhereOnEarthLocation[] => {
     validateAndThrowSync(parameters);
     const condition = parameters.countryCodes.length === 0

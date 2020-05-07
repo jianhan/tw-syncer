@@ -1,5 +1,9 @@
 import {IsISO31661Alpha2} from "class-validator";
 
+/**
+ * Parameters represents parameters which will be passed for
+ * lambda invocation.
+ */
 export class Parameters {
 
     /**
