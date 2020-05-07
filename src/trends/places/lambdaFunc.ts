@@ -19,6 +19,13 @@ import {LambdaResponse} from "../../structures/LambdaResponse";
 
 const trendsAvailableFilePath = './trends_available.json';
 
+/**
+ * lambdaFunc is entry point to process fetching and syncing trends by composition.
+ *
+ * @param envs
+ * @param logger
+ * @param params
+ */
 export const lambdaFunc = (envs: immutable.Map<string, string | Environment | undefined>, logger: Logger, params: { [key: string]: any }) => {
     return async (): Promise<LambdaResponse> => {
         const parameters = toParameters(params);
