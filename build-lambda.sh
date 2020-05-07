@@ -19,6 +19,7 @@ cp ../package.json .
 npm i --production
 rm package.json
 rm package-lock.json
+cp ../trends_available.json trends_available.json
 zip -r "lambda-$1.zip" .
 rm -rf node_modules
 
