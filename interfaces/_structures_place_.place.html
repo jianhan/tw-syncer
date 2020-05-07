@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;trends/available/upload&quot; | tw-syncer</title>
+	<title>Place | tw-syncer</title>
 	<meta name="description" content="Documentation for tw-syncer">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,87 +56,84 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_trends_available_upload_.html">&quot;trends/available/upload&quot;</a>
+					<a href="../modules/_structures_place_.html">&quot;structures/Place&quot;</a>
+				</li>
+				<li>
+					<a href="_structures_place_.place.html">Place</a>
 				</li>
 			</ul>
-			<h1>Module &quot;trends/available/upload&quot;</h1>
+			<h1>Interface Place</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">Place</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Variables</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_trends_available_upload_.html#twitter" class="tsd-kind-icon">Twitter</a></li>
-							</ul>
-						</section>
 						<section class="tsd-index-section ">
-							<h3>Functions</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_trends_available_upload_.html#uploadrequest" class="tsd-kind-icon">upload<wbr>Request</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_structures_place_.place.html#as_of" class="tsd-kind-icon">as_<wbr>of</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_structures_place_.place.html#created_at" class="tsd-kind-icon">created_<wbr>at</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_structures_place_.place.html#locations" class="tsd-kind-icon">locations</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_structures_place_.place.html#trends" class="tsd-kind-icon">trends</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-					<a name="twitter" class="tsd-anchor"></a>
-					<h3>Twitter</h3>
-					<div class="tsd-signature tsd-kind-icon">Twitter<span class="tsd-signature-symbol">:</span> <a href="_clients_.html#twitter" class="tsd-signature-type">Twitter</a></div>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="as_of" class="tsd-anchor"></a>
+					<h3>as_<wbr>of</h3>
+					<div class="tsd-signature tsd-kind-icon">as_<wbr>of<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/trends/available/upload.ts#L4">src/trends/available/upload.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/structures/Place.ts#L6">src/structures/Place.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="uploadrequest" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> upload<wbr>Request</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">upload<wbr>Request<span class="tsd-signature-symbol">(</span>nodeEnv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, serviceName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, bucket<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/trends/available/upload.ts#L13">src/trends/available/upload.ts:13</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>uploadRequest generates upload request for uploading available trends to s3.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>nodeEnv: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>serviceName: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>bucket: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-										</div>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
-						</li>
-					</ul>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="created_at" class="tsd-anchor"></a>
+					<h3>created_<wbr>at</h3>
+					<div class="tsd-signature tsd-kind-icon">created_<wbr>at<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/structures/Place.ts#L7">src/structures/Place.ts:7</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="locations" class="tsd-anchor"></a>
+					<h3>locations</h3>
+					<div class="tsd-signature tsd-kind-icon">locations<span class="tsd-signature-symbol">:</span> <a href="_structures_location_.location.html" class="tsd-signature-type">Location</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/structures/Place.ts#L8">src/structures/Place.ts:8</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="trends" class="tsd-anchor"></a>
+					<h3>trends</h3>
+					<div class="tsd-signature tsd-kind-icon">trends<span class="tsd-signature-symbol">:</span> <a href="_structures_trend_.trend.html" class="tsd-signature-type">Trend</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/structures/Place.ts#L5">src/structures/Place.ts:5</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -147,18 +144,33 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="_trends_available_upload_.html">&quot;trends/available/upload&quot;</a>
+						<a href="../modules/_structures_place_.html">&quot;structures/<wbr>Place&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_trends_available_upload_.html#twitter" class="tsd-kind-icon">Twitter</a>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
+						<a href="_structures_place_.place.html" class="tsd-kind-icon">Place</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_structures_place_.place.html#as_of" class="tsd-kind-icon">as_<wbr>of</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_structures_place_.place.html#created_at" class="tsd-kind-icon">created_<wbr>at</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_structures_place_.place.html#locations" class="tsd-kind-icon">locations</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_structures_place_.place.html#trends" class="tsd-kind-icon">trends</a>
+							</li>
+						</ul>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_trends_available_upload_.html#uploadrequest" class="tsd-kind-icon">upload<wbr>Request</a>
-					</li>
+				</ul>
+				<ul class="after-current">
 				</ul>
 			</nav>
 		</div>
@@ -178,6 +190,7 @@
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>

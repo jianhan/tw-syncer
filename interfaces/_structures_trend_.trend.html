@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Parameters | tw-syncer</title>
+	<title>Trend | tw-syncer</title>
 	<meta name="description" content="Documentation for tw-syncer">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,36 +56,24 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_trends_place_parameters_.html">&quot;trends/place/Parameters&quot;</a>
+					<a href="../modules/_structures_trend_.html">&quot;structures/Trend&quot;</a>
 				</li>
 				<li>
-					<a href="_trends_place_parameters_.parameters.html">Parameters</a>
+					<a href="_structures_trend_.trend.html">Trend</a>
 				</li>
 			</ul>
-			<h1>Class Parameters</h1>
+			<h1>Interface Trend</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Parameters represents twitter api parameters when fetching trends place, it will be used
-						for validations to ensure input parameters all valid before API call.</p>
-					</div>
-					<dl class="tsd-comment-tags">
-						<dt>export</dt>
-						<dd></dd>
-					</dl>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Parameters</span>
+						<span class="target">Trend</span>
 					</li>
 				</ul>
 			</section>
@@ -96,8 +84,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_trends_place_parameters_.parameters.html#exclude" class="tsd-kind-icon">exclude</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_trends_place_parameters_.parameters.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_structures_trend_.trend.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_structures_trend_.trend.html#promoted_content" class="tsd-kind-icon">promoted_<wbr>content</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_structures_trend_.trend.html#query" class="tsd-kind-icon">query</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_structures_trend_.trend.html#tweet_volume" class="tsd-kind-icon">tweet_<wbr>volume</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_structures_trend_.trend.html#url" class="tsd-kind-icon">url</a></li>
 							</ul>
 						</section>
 					</div>
@@ -105,37 +96,55 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="exclude" class="tsd-anchor"></a>
-					<h3>exclude</h3>
-					<div class="tsd-signature tsd-kind-icon">exclude<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/trends/place/Parameters.ts#L25">src/trends/place/Parameters.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/structures/Trend.ts#L2">src/structures/Trend.ts:2</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>exclude is an optional parameter,
-							Setting this equal to hashtags will remove all hashtags from the trends list.</p>
-						</div>
-					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="id" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="promoted_content" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> promoted_<wbr>content</h3>
+					<div class="tsd-signature tsd-kind-icon">promoted_<wbr>content<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/trends/place/Parameters.ts#L18">src/trends/place/Parameters.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/structures/Trend.ts#L4">src/structures/Trend.ts:4</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>id is the Yahoo! Where On Earth ID of the location to return trending information for.
-							Global information is available by using 1 as the WOEID .</p>
-						</div>
-					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="query" class="tsd-anchor"></a>
+					<h3>query</h3>
+					<div class="tsd-signature tsd-kind-icon">query<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/structures/Trend.ts#L5">src/structures/Trend.ts:5</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="tweet_volume" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> tweet_<wbr>volume</h3>
+					<div class="tsd-signature tsd-kind-icon">tweet_<wbr>volume<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/structures/Trend.ts#L6">src/structures/Trend.ts:6</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="url" class="tsd-anchor"></a>
+					<h3>url</h3>
+					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/structures/Trend.ts#L3">src/structures/Trend.ts:3</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -146,7 +155,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="../modules/_trends_place_parameters_.html">&quot;trends/place/<wbr>Parameters&quot;</a>
+						<a href="../modules/_structures_trend_.html">&quot;structures/<wbr>Trend&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -154,22 +163,28 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-module">
-						<a href="_trends_place_parameters_.parameters.html" class="tsd-kind-icon">Parameters</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
+						<a href="_structures_trend_.trend.html" class="tsd-kind-icon">Trend</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_trends_place_parameters_.parameters.html#exclude" class="tsd-kind-icon">exclude</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_structures_trend_.trend.html#name" class="tsd-kind-icon">name</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_trends_place_parameters_.parameters.html#id" class="tsd-kind-icon">id</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_structures_trend_.trend.html#promoted_content" class="tsd-kind-icon">promoted_<wbr>content</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_structures_trend_.trend.html#query" class="tsd-kind-icon">query</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_structures_trend_.trend.html#tweet_volume" class="tsd-kind-icon">tweet_<wbr>volume</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_structures_trend_.trend.html#url" class="tsd-kind-icon">url</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_trends_place_parameters_.html#toparameters" class="tsd-kind-icon">to<wbr>Parameters</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
@@ -189,10 +204,10 @@
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 		</div>
 	</div>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;trends/available/upload&quot; | tw-syncer</title>
+	<title>&quot;trends/places/fetch&quot; | tw-syncer</title>
 	<meta name="description" content="Documentation for tw-syncer">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_trends_available_upload_.html">&quot;trends/available/upload&quot;</a>
+					<a href="_trends_places_fetch_.html">&quot;trends/places/fetch&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;trends/available/upload&quot;</h1>
+			<h1>Module &quot;trends/places/fetch&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -73,13 +73,14 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_trends_available_upload_.html#twitter" class="tsd-kind-icon">Twitter</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_trends_places_fetch_.html#twitter" class="tsd-kind-icon">Twitter</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_trends_available_upload_.html#uploadrequest" class="tsd-kind-icon">upload<wbr>Request</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_trends_places_fetch_.html#fetchtrendbylocation" class="tsd-kind-icon">fetch<wbr>Trend<wbr>ByLocation</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_trends_places_fetch_.html#fetchtrends" class="tsd-kind-icon">fetch<wbr>Trends</a></li>
 							</ul>
 						</section>
 					</div>
@@ -93,7 +94,7 @@
 					<div class="tsd-signature tsd-kind-icon">Twitter<span class="tsd-signature-symbol">:</span> <a href="_clients_.html#twitter" class="tsd-signature-type">Twitter</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/trends/available/upload.ts#L4">src/trends/available/upload.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/trends/places/fetch.ts#L5">src/trends/places/fetch.ts:5</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -101,33 +102,65 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="uploadrequest" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> upload<wbr>Request</h3>
+					<a name="fetchtrendbylocation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> fetch<wbr>Trend<wbr>ByLocation</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">upload<wbr>Request<span class="tsd-signature-symbol">(</span>nodeEnv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, serviceName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, bucket<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+						<li class="tsd-signature tsd-kind-icon">fetch<wbr>Trend<wbr>ByLocation<span class="tsd-signature-symbol">(</span>logger<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Logger</span>, tw<span class="tsd-signature-symbol">: </span><a href="_clients_.html#twitter" class="tsd-signature-type">Twitter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/trends/available/upload.ts#L13">src/trends/available/upload.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/trends/places/fetch.ts#L13">src/trends/places/fetch.ts:13</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>uploadRequest generates upload request for uploading available trends to s3.</p>
+									<p>fetchTrendByLocation retrieves trend place by an given array of location.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nodeEnv: <span class="tsd-signature-type">string</span></h5>
+									<h5>logger: <span class="tsd-signature-type">Logger</span></h5>
 								</li>
 								<li>
-									<h5>serviceName: <span class="tsd-signature-type">string</span></h5>
+									<h5>tw: <a href="_clients_.html#twitter" class="tsd-signature-type">Twitter</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="fetchtrends" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> fetch<wbr>Trends</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">fetch<wbr>Trends<span class="tsd-signature-symbol">(</span>logger<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Logger</span>, tw<span class="tsd-signature-symbol">: </span><a href="_clients_.html#twitter" class="tsd-signature-type">Twitter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jianhan/tw-syncer/blob/d35c021/src/trends/places/fetch.ts#L28">src/trends/places/fetch.ts:28</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>fetchTrends fetch location trends by locations via twitter api.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>logger: <span class="tsd-signature-type">Logger</span></h5>
 								</li>
 								<li>
-									<h5>bucket: <span class="tsd-signature-type">string</span></h5>
+									<h5>tw: <a href="_clients_.html#twitter" class="tsd-signature-type">Twitter</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 										</div>
@@ -147,17 +180,20 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="_trends_available_upload_.html">&quot;trends/available/upload&quot;</a>
+						<a href="_trends_places_fetch_.html">&quot;trends/places/fetch&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_trends_available_upload_.html#twitter" class="tsd-kind-icon">Twitter</a>
+						<a href="_trends_places_fetch_.html#twitter" class="tsd-kind-icon">Twitter</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_trends_available_upload_.html#uploadrequest" class="tsd-kind-icon">upload<wbr>Request</a>
+						<a href="_trends_places_fetch_.html#fetchtrendbylocation" class="tsd-kind-icon">fetch<wbr>Trend<wbr>ByLocation</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_trends_places_fetch_.html#fetchtrends" class="tsd-kind-icon">fetch<wbr>Trends</a>
 					</li>
 				</ul>
 			</nav>
