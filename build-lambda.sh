@@ -17,8 +17,8 @@ cp -r dist/* lambda
 cd lambda || exit 1
 cp ../package.json .
 npm i --production
-rm package.json
-rm package-lock.json
+rm *.json
+cp ../trends_available.json trends_available.json
 zip -r "lambda-$1.zip" .
 rm -rf node_modules
 
