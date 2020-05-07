@@ -5,7 +5,7 @@ import {Logger} from "winston";
 import Twitter = require("twitter");
 
 export const fetchTrendByLocation = (logger: Logger, tw: Twitter) => (location: WhereOnEarthLocation) => {
-    return from(tw.get("trends/place", {id: location.weoid})).pipe(
+    return from(tw.get("trends/place", {id: location.woeid})).pipe(
         catchError(err => {
             logger.error("error occur while fetchTrendByLocation", err);
             return EMPTY;

@@ -31,9 +31,9 @@ describe("fetchTrends function", () => {
 
     it("should return empty observable when error occur", async () => {
         const locations = [
-            {weoid: 123, countryCode: 'AU', name: 'Brisbane'},
-            {weoid: 456, countryCode: 'AU', name: 'Sydney'},
-            {weoid: 789, countryCode: 'AU', name: "Melbourne"}
+            {woeid: 123, countryCode: 'AU', name: 'Brisbane'},
+            {woeid: 456, countryCode: 'AU', name: 'Sydney'},
+            {woeid: 789, countryCode: 'AU', name: "Melbourne"}
         ];
 
         // @ts-ignore
