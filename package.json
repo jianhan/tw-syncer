@@ -38,7 +38,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@types/node": "^13.13.4",
+    "@types/node": "^13.13.5",
     "auto-changelog": "^2.0.0",
     "aws-lambda": "^1.0.5",
     "class-validator": "^0.12.2",
