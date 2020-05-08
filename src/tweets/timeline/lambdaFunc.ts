@@ -1,7 +1,7 @@
 import {of} from "rxjs";
 import {toParameters, validateParameters} from "./Parameters"
 import {flatMap, map, tap} from "rxjs/operators";
-import {fetch, fetchRequest, parseResponseBody, upload, uploadRequest} from "./s3";
+import {fetch, fetchRequest, parseResponseBody, uploadRequest} from "./s3";
 import {cleanTweets, getLatestTimeline} from "./twitter";
 import {Logger} from "winston";
 import {lambdaRes, log, pickAttributes} from "../../operations";
@@ -12,6 +12,7 @@ import {Environment, LogLevel} from "jianhan-fp-lib";
 import {LambdaResponse} from "../../structures/LambdaResponse";
 import {getClientsFromEnvs} from "../../clients";
 import SendData = ManagedUpload.SendData;
+import {upload} from "../../s3";
 
 /**
  * lambdaFunc is the entry point for composition, it will sync user's timeline and upload to s3.

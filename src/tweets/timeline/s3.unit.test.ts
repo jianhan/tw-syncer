@@ -1,9 +1,11 @@
-import {fetch, fetchRequest, getClient, parseResponseBody, uploadRequest} from "./s3";
+import {fetch, fetchRequest, parseResponseBody, uploadRequest} from "./s3";
 import AWS from "aws-sdk";
 import {toParameters} from "./Parameters";
 import {fileKey} from "../../operations";
 import * as winston from "winston";
 import {Logger} from "winston";
+import path from "path";
+import {getClient} from "../../s3";
 
 const s3Client: AWS.S3 = new AWS.S3({accessKeyId: "test", secretAccessKey: "test"});
 const logger: Logger = winston.createLogger({
@@ -36,7 +38,7 @@ describe("fetchRequest function", () => {
         const serviceName = "test-service";
         const r = fetchRequest(nodeEnv, serviceName, bucket)(toParameters({screen_name: "test"}));
         expect(r.Bucket).toEqual(bucket);
-        expect(r.Key).toEqual(fileKey(nodeEnv, serviceName, "test", 'timeline'));
+        expect(r.Key).toEqual(fileKey(nodeEnv, serviceName, path.join("tweets", "timeline"), 'test.json'));
     })
 
 });

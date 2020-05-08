@@ -1,19 +1,14 @@
 import AWS from "aws-sdk";
-import S3, {GetObjectOutput, PutObjectRequest} from "aws-sdk/clients/s3";
+import S3, {GetObjectOutput} from "aws-sdk/clients/s3";
 import {from, of} from "rxjs";
 import {Parameters} from "./Parameters";
 import {flatMap} from "rxjs/operators";
 import {Logger} from "winston";
 import {fileKey} from "../../operations";
+import path from "path";
 import Twitter = require("twitter");
-
-/**
- * getClient returns a new instance of AWS.S3 client.
- *
- * @param accessKeyId
- * @param secretAccessKey
- */
-export const getClient = (accessKeyId: string, secretAccessKey: string): AWS.S3 => new AWS.S3({accessKeyId, secretAccessKey});
+// tslint:disable-next-line: no-var-requires
+const sprintf = require("sprintf");
 
 /**
  * fetchRequest generates request for fetching timeline file from s3 bucket.
@@ -24,7 +19,7 @@ export const getClient = (accessKeyId: string, secretAccessKey: string): AWS.S3 
  */
 export const fetchRequest = (nodeEnv: string, serviceName: string, bucketName: string) => (params: Parameters): S3.Types.GetObjectRequest => ({
     Bucket: bucketName,
-    Key: fileKey(nodeEnv, serviceName, params.screen_name as string, 'timeline')
+    Key: fileKey(nodeEnv, serviceName, path.join('tweets', 'timeline'), sprintf("%s.json", params.screen_name))
 });
 
 /**
@@ -62,13 +57,6 @@ export const parseResponseBody = (objectOutput: S3.Types.GetObjectOutput) => of(
 // tslint:disable-next-line:max-line-length
 export const uploadRequest = (nodeEnv: string, serviceName: string, bucket: string) => (params: Parameters) => (body: Twitter.ResponseData): S3.Types.PutObjectRequest => ({
     Bucket: bucket,
-    Key: fileKey(nodeEnv, serviceName, params.screen_name as string, 'timeline'),
+    Key: fileKey(nodeEnv, serviceName, path.join('tweets', 'timeline'), sprintf("%s.json", params.screen_name)),
     Body: JSON.stringify(body)
 });
-
-/**
- * upload creates a new observable for uploading timeline file to s3.
- *
- * @param s3
- */
-export const upload = (s3: S3) => (putObjectRequest: PutObjectRequest) => from(s3.upload(putObjectRequest).promise());
