@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@types/node": "^14.0.27",
-    "auto-changelog": "^2.0.0",
+    "auto-changelog": "^2.2.1",
     "aws-lambda": "^1.0.6",
     "class-validator": "^0.12.2",
     "aws-sdk": "^2.687.0",
