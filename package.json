@@ -57,7 +57,7 @@
     "slug": "^3.3.0",
     "sprintf": "^0.1.5",
     "twitter": "^1.7.1",
-    "winston": "^3.2.1"
+    "winston": "^3.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
