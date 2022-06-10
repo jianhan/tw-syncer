@@ -83,7 +83,7 @@
     "jest": "^25.5.3",
     "husky": "^4.2.5",
     "jsverify": "^0.8.4",
-    "semantic-release": "^17.0.8",
+    "semantic-release": "^19.0.3",
     "ts-jest": "^25.5.1",
     "tslint": "^6.1.2",
     "tslint-clean-code": "^0.2.10",
